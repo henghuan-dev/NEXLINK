@@ -118,12 +118,16 @@
         })();
 
         // =========================================================
-        // script.js - API通信組み込みバージョン
+        // script.js - reCAPTCHA v3 組み込みバージョン
         // =========================================================
 
         // 🌟🌟🌟 API GatewayのエンドポイントURLを設定 🌟🌟🌟
-        // 【重要】本番環境のAPI GatewayのURLに必ず置き換えてください。
         const API_ENDPOINT = 'https://0rn89v3rzk.execute-api.ap-northeast-1.amazonaws.com/prod/contact'; 
+
+        // 🌟🌟🌟 reCAPTCHA v3 サイトキーを設定 🌟🌟🌟
+        // 【重要】ご自身のサイトキーに置き換えてください。
+        const recaptchaSiteKey = '6LdepRksAAAAAI9SjMUO4xMJhElrMVBCrpwshxC7'; 
+
 
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -133,8 +137,6 @@
             const formMessage = document.getElementById('form-message');
             
             // 必須フィールドのIDリスト
-            // (name, email, privacy-agreeのチェックボックス状態はJSのバリデーションで確認)
-            const requiredFields = ['name', 'email'];
             const allInputFields = ['name', 'email', 'subject', 'message']; // グレーアウト対象
 
             // ----------------------------------------------------
@@ -204,37 +206,54 @@
                     setFormState(false);
                     return; 
                 }
+                
+                // ----------------------------------------------------
+                // 2. reCAPTCHA v3 トークンの取得（API通信の直前）
+                // ----------------------------------------------------
+                let recaptchaToken = '';
+                setFormState(true); 
+                submitButton.textContent = '認証中...';
+
+                try {
+                    // grecaptcha.execute はグローバルスコープで利用可能です
+                    recaptchaToken = await grecaptcha.execute(recaptchaSiteKey, { action: 'contact_submit' });
+                } catch (err) {
+                    console.error("reCAPTCHA トークン取得エラー:", err);
+                    formMessage.style.color = '#d9534f';
+                    formMessage.textContent = 'セキュリティチェックに失敗しました。時間をおいて再度お試しください。';
+                    setFormState(false);
+                    submitButton.textContent = '送信';
+                    return;
+                }
 
                 // ----------------------------------------------------
-                // 2. APIへのデータ送信準備
+                // 3. APIへのデータ送信準備
                 // ----------------------------------------------------
                 
-                setFormState(true); 
-                submitButton.textContent = '送信中...';
+                submitButton.textContent = '送信中...'; // トークン取得後に送信中に変更
                 
                 const formData = {
                     name: nameValue,
                     email: emailValue,
-                    // バックエンドのLambdaコードで subject を利用する場合は、ここに含める
                     subject: subjectValue, 
                     message: messageValue,
-                    privacy_agree: privacyAgreeChecked
+                    privacy_agree: privacyAgreeChecked,
+                    // 🌟 reCAPTCHA トークンを追加 🌟
+                    recaptchaToken: recaptchaToken 
                 };
 
                 // ----------------------------------------------------
-                // 3. API通信 (Fetch API)
+                // 4. API通信 (Fetch API)
                 // ----------------------------------------------------
                 try {
                     const response = await fetch(API_ENDPOINT, {
                         method: 'POST',
                         headers: { 
                             'Content-Type': 'application/json',
-                            // 必要に応じて API Key や認証ヘッダーを追加
                         },
                         body: JSON.stringify(formData),
                     });
                     
-                    // JSONレスポンスを待機 (Lambdaからのエラー情報を含む)
                     const result = await response.json(); 
 
                     if (response.ok) {
@@ -242,7 +261,7 @@
                         formMessage.style.color = '#1C479B'; // ダークブルー
                         formMessage.innerHTML = 'お問い合わせを受け付けました。<br>担当より３営業日以内にご連絡させていただきます。しばらくおまちください。';
                         submitButton.textContent = '送信完了';
-                        // フォームはグレーアウト状態を維持 (setFormState(true)で処理済み)
+                        // フォームはグレーアウト状態を維持 
 
                     } else {
                         // ❌ バックエンドからのエラー (4xx, 5xx)
@@ -254,10 +273,6 @@
                         if (result.error) {
                             // Lambdaで定義したエラーメッセージを表示
                             formMessage.textContent = result.error;
-
-                            // Lambdaからのエラー情報に基づき、エラーマークを再表示するロジックをここに追加
-                            // 例: if (result.error.includes('メールアドレス')) document.getElementById('email').classList.add('input-error');
-
                         } else {
                             // Lambdaの予期せぬエラー (500など)
                             formMessage.textContent = 'システムエラーが発生しました。時間を置いて再度お試しください。';
