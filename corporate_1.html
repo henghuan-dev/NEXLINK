@@ -1,0 +1,1461 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>株式会社NEXLINK</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+  /* ========== Design Tokens (白背景 + 質感強化) ========== */
+:root{
+  --bg:#f8f9fa; 
+  --white:#ffffff; 
+  --ink:#282a36;
+  --sub:#6c757d;
+  --line:#eeeeee; 
+  --side-bg:var(--white); 
+  --accent:#16548a; 
+  --accent-2:#1a73e8; 
+  
+  --wrap:1200px; --wrap-px:16px;
+  --radius:12px;
+  --section-top:8vh;
+  --section-head-mb:24px;
+  --heading-mb:12px;
+  --lead-mb:20px;
+  --card-gap:16px;
+  
+  --easing-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --easing-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+*{box-sizing:border-box}
+html,body{
+    margin:0;height:100%;scroll-behavior:smooth;
+    background:var(--bg);color:var(--ink);
+    font-family:'Noto Sans JP', 'Roboto', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size:16px;line-height:1.7;
+    will-change:scroll-position
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* wrap */
+.wrap{
+    max-width:var(--wrap);
+    margin-inline:auto;
+    padding:0 var(--wrap-px)
+}
+@media (min-width: 981px) {
+    .wrap {
+        margin-left: 0;
+        margin-right: auto; 
+    }
+}
+
+/* ========== Split Shell ========== */
+.shell{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  min-height:100vh
+}
+.side{
+    position:sticky;
+    top:0;
+    height:100vh;
+    border-right:1px solid #e0e0e0; 
+    background:rgba(255, 255, 255, 0.25);
+    transition: background .3s ease, border-color .3s ease;
+    display:flex;
+    flex-direction:column; 
+    justify-content:flex-start;
+}
+.main{
+  /* 修正: scroll-snap-type:y mandatory; を削除 */
+  overflow-y:auto;
+  height:100vh;
+}
+section{
+  min-height:100vh;
+  /* 修正: scroll-snap-align:start; を削除 */
+  border-bottom:1px solid var(--line);
+  display:grid;
+  align-items:center
+}
+
+/* ========== Side (ロゴ画像対応版) ========== */
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:24px;
+    color:var(--ink);
+    font-weight:700;
+    font-size:0;
+}
+.logo-img{
+    height:48px; 
+    width:auto;
+    display:block;
+    filter:none; 
+    transition:filter .3s ease;
+}
+
+/* モバイルナビゲーションボタン */
+.nav-toggle{
+    display:none;
+    position:fixed;
+    top:16px;
+    left:16px;
+    z-index:101; 
+    width:30px;
+    height:30px; 
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:var(--white);
+    cursor:pointer;
+    padding:0;
+    transition: background .2s ease, border-color .2s ease;
+}
+.nav-toggle::before, .nav-toggle::after{
+    content:"";
+    display:block;
+    height:1px;
+    width:14px; 
+    background:var(--ink);
+    margin:auto;
+    transition: transform .2s ease, margin .2s ease;
+}
+.nav-toggle::before{ margin-top:10px; }
+.nav-toggle::after{ margin-top:4px; }
+.shell.mobile-nav-open .nav-toggle::before{
+  transform: translateY(2.5px) rotate(45deg);
+}
+.shell.mobile-nav-open .nav-toggle::after{
+  transform: translateY(-2.5px) rotate(-45deg);
+  margin-top:-1px;
+}
+
+/* Side Nav */
+.side-nav{
+    display:grid;
+    gap:8px;
+    padding:0 16px;
+    flex-grow:1;
+}
+.side a{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:.4rem 1rem; 
+    border-radius:var(--radius);
+    border:1px solid transparent;
+    color:var(--sub); 
+    font-size:1.2rem;
+    font-weight:500;
+    transition: color .15s ease, border-color .15s ease, background .15s ease, border-bottom .15s ease;
+    padding-left:1rem; 
+    text-indent:-10px;
+    line-height:1.2;
+}
+.side a:hover{
+  border-color:var(--line);
+  color:var(--ink);
+  background:rgba(22, 84, 138, .08); 
+  font-weight:700; 
+}
+.side a[aria-current="true"]{
+    background:var(--white); 
+    border:1px solid transparent;
+    border-right:4px solid var(--accent); 
+    padding-right:calc(1rem - 4px);
+    padding-left:1rem;
+    border-radius:var(--radius) 0 0 var(--radius);
+    color:var(--accent); 
+    font-weight:700;
+}
+
+.kbd { display:none; }
+.side-footer { display:none; }
+
+/* ========== Hero ========== */
+.hero{position:relative;isolation:isolate}
+.hero .bgvideo{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  overflow:hidden
+}
+.hero .bgvideo video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border:0;
+  filter:none;
+  will-change:transform,filter
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:none; 
+}
+.hero .overlay{
+  position:relative;
+  z-index:2
+}
+.hero .inner{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:28px;
+    align-items:end; 
+    padding-left:var(--wrap-px); 
+    padding-right:var(--wrap-px);
+    padding-bottom:8vh; 
+}
+.hero .overlay .wrap{
+    padding:0;
+    margin-inline:0;
+}
+/* Heroのタイトル・リードを白字に */
+.hero .section-head .kine,
+.hero .section-head .lead{
+    color:var(--white) !important; 
+    text-shadow:0 0 8px rgba(0,0,0,0.4); 
+}
+.kine{
+  font-size:clamp(56px, 12vw, 80px);
+  font-weight:900;
+  margin:0 0 8px;
+}
+
+/* アクセシビリティ向け（h1テキストを一括ラベル） */
+.kine[aria-label] span{
+  aria-hidden:true;
+}
+
+/* ========== Unified Head ========== */
+.section .wrap{ padding-top:var(--section-top); }
+.section-head{
+    text-align:left; 
+    margin:0 0 var(--section-head-mb);
+    position:relative;
+    padding-top:10px;
+}
+.hero .section-head{
+    padding-left:0; 
+    padding-right:0;
+}
+.section-head::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:1px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-2) 40%, transparent 80%);
+}
+.eyebrow{
+  font-family:'Roboto', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight:700;
+  font-size:11px;
+  line-height:1;
+  letter-spacing:.12em;
+  color:var(--accent);
+  opacity:.9;
+  margin:0 0 8px;
+  transition: color .3s ease, opacity .3s ease
+}
+.section-title{
+  font-weight:700;
+  font-size:clamp(28px, 4vw, 38px);
+  margin:0 0 var(--heading-mb);
+  letter-spacing:.01em
+}
+.section-title::after{
+    content:"";
+    display:block;
+    width:60px;
+    height:4px;
+    background:var(--accent);
+    margin-top:10px;
+    border-radius:4px;
+    opacity:.8;
+}
+.lead{
+  color:var(--sub);
+  max-width:68ch;
+  margin:0 0 var(--lead-mb);
+  transition: color .3s ease
+}
+
+/* ========== Rail ========== */
+.rail{ 
+    max-width:unset; 
+    width:100%; 
+    padding-inline:0; 
+}
+@media (min-width:981px){
+  .rail{ 
+    width:100%; 
+    margin-left:0; 
+  }
+  .rail.pad-left{ 
+    padding-left:var(--wrap-px); 
+    padding-right:var(--wrap-px); 
+  }
+}
+
+/* ========== Card ========== */
+.card{
+  border:1px solid var(--line); 
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--white); 
+  box-shadow:0 8px 30px rgba(0,0,0,.06); 
+  transition:transform .2s var(--easing-out), box-shadow .2s var(--easing-out), border-color .2s ease;
+  will-change:transform, box-shadow, border-color;
+}
+.card:hover{ 
+    transform:translateY(-5px); 
+    border-color:var(--accent);
+    box-shadow:0 12px 36px rgba(0,0,0,.15);
+}
+.pill{
+  font-size:12px;
+  padding:.28rem .7rem;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--sub); 
+  background:rgba(0,0,0,.03);
+  transition: background .2s ease, color .2s ease, border-color .2s ease
+}
+
+/* ========== About ========== */
+#about .grid{
+  display:grid;
+  gap:20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  padding:4px var(--wrap-px) 0;
+}
+.about-card{
+  padding:20px;
+  display:grid;
+  gap:10px
+}
+.about-card .kicker{
+  font-family:'Roboto', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight:700;
+  font-size:12px;
+  line-height:1;
+  letter-spacing:.06em;
+  color:var(--accent);
+  transition: color .3s ease
+}
+.about-card h3{
+  margin:0 0 8px;
+  font-size:19px;
+  font-weight:600;
+}
+.about-card p{
+  margin:0;
+  color:var(--sub);
+  font-size:0.95rem;
+}
+.about-card .pts{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap
+}
+
+/* Process Widget */
+.process-widget{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:16px 20px;
+    margin-top:24px;
+    background:linear-gradient(90deg, rgba(22, 84, 138, .04), transparent);
+}
+.process-widget > *{
+  font-size:14px;
+  color:var(--ink);
+  font-weight:500
+}
+.progress-bar{
+  display:flex;
+  gap:6px;
+  flex-grow:1;
+  max-width:500px;
+  margin:0 20px
+}
+.step{
+  height:8px;
+  border-radius:4px;
+  flex-grow:1;
+  background:var(--line);
+  transition: background .4s ease, box-shadow .4s ease
+}
+.step.active{ 
+    background:linear-gradient(90deg, var(--accent), var(--accent-2));
+    box-shadow:0 0 10px rgba(22, 84, 138, .4);
+}
+
+/* ========== STRENGTH ========== */
+#strength .grid{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  max-width:780px;
+  margin-inline:auto;
+  padding:4px var(--wrap-px) 0;
+}
+.strength-item.card{
+  padding:24px 20px;
+  text-align:left;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.strength-item.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+.strength-item .h{
+    font-weight:800;
+    font-size:clamp(20px, 2vw, 24px);
+    letter-spacing:.01em;
+    margin:0;
+    padding-left:50px;
+    position:relative;
+    border-bottom:1px solid var(--line);
+    padding-bottom:10px;
+    margin-bottom:10px;
+}
+.strength-item .h::before{
+    content:attr(data-number);
+    position:absolute;
+    left:0;
+    top:0;
+    font-size:28px;
+    font-weight:900;
+    color:var(--accent);
+    line-height:1;
+    opacity:.8;
+}
+.strength-item .s{
+    color:var(--sub);
+    margin:0;
+    font-size:0.95rem;
+    padding-left:50px;
+}
+.strength-item::before{
+    display:none;
+}
+
+/* ========== Works ========== */
+#works .wrap{ 
+    padding-top:8vh; 
+    padding-left:0;
+    padding-right:0;
+}
+#works .frame{ 
+    padding:16px var(--wrap-px); 
+}
+#works .section-head{
+    padding-left:var(--wrap-px);
+    padding-right:var(--wrap-px);
+}
+#works .columns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px
+}
+.vcol{
+  position:relative;
+  height:86vh;
+  overflow:hidden;
+  mask-image:linear-gradient(to bottom, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+.vcol::before,.vcol::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  height:48px;
+  z-index:2;
+  pointer-events:none;
+}
+.dark-bg-fade{
+  background:linear-gradient(to bottom,var(--bg),rgba(255,255,255,0));
+} 
+.dark-bg-fade-up{
+  background:linear-gradient(to top,var(--bg),rgba(255,255,255,0));
+} 
+.vcol::before{ top:0; }
+.vcol::after{ bottom:0; }
+.strip{
+  position:absolute;
+  inset:0;
+  display:grid;
+  gap:24px;
+  padding:24px 8px;
+  animation:scrollY 48s linear infinite;
+  will-change:transform;
+}
+.strip.reverse{ animation-direction:reverse; }
+.strip.delay{ animation-duration:54s; animation-delay:1s; }
+.shot{
+  height:clamp(240px, 32vh, 420px);
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:0 6px 22px rgba(0,0,0,.28);
+}
+.shot img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:contrast(112%) saturate(106%);
+  will-change:filter
+}
+@keyframes scrollY{
+  0%{ transform:translateY(0) }
+  100%{ transform:translateY(-50%) }
+}
+@media (max-width:980px){
+  #works .columns{grid-template-columns:1fr}
+  .vcol{height:60vh}
+}
+
+/* ========== News ========== */
+#news .wrap{
+    padding-bottom:var(--section-head-mb);
+}
+#news .section-head{
+    text-align:left;
+    padding-left:var(--wrap-px);
+    padding-right:var(--wrap-px);
+}
+#news .grid{
+    max-width:780px; 
+    margin-inline:auto;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:0;
+}
+.news-item{
+    display:flex;
+    padding:16px 20px; 
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:var(--white);
+    transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+    cursor:pointer;
+    justify-content:flex-start; 
+    align-items:center;
+    position:relative;
+    overflow:hidden; 
+}
+.news-item::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:6px;
+    background:var(--accent);
+    transform:translateX(-6px); 
+    transition:transform .3s var(--easing-out);
+}
+.news-item:hover{
+    box-shadow:0 6px 15px rgba(0,0,0,.1);
+    transform:translateY(-2px);
+    border-color:var(--accent); 
+}
+.news-item:hover::before{
+    transform:translateX(0); 
+}
+.news-item span{
+    font-weight:500;
+    color:var(--accent);
+    margin-right:20px;
+    font-size:.95rem;
+    flex-shrink:0; 
+}
+.news-item p{
+    margin:0;
+    font-weight:400;
+    color:var(--ink);
+    flex-grow:1; 
+}
+
+/* ========== COMPANY ========== */
+.def{margin:0}
+.def dt{
+  float:left;
+  clear:left;
+  width:140px;
+  color:var(--sub)
+}
+.def dd{
+  margin:0 0 .6rem 140px
+}
+
+@media (min-width:981px){
+    #company .cols{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        grid-template-rows:auto auto;
+        gap:24px;
+        padding-left:var(--wrap-px);
+        padding-right:var(--wrap-px);
+    }
+    #company-info, #group-info{
+        min-height:280px; 
+    }
+}
+
+/* マップ & ファクトパネル */
+#map-container{
+    height:100%; 
+    min-height:280px; 
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:var(--line);
+    display:grid;
+    place-items:center;
+    color:var(--sub);
+    font-size:0.9rem;
+}
+#map-container iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    display:block;
+}
+#company-photo{
+    min-height:280px;
+    background:var(--white);
+    padding:24px;
+    display:grid; 
+    align-content:center;
+}
+.fact-grid{
+    display:grid; 
+    grid-template-columns:1fr 1fr; 
+    gap:20px; 
+    text-align:center;
+}
+.fact-grid span{
+    font-size:36px; 
+    font-weight:900; 
+    color:var(--ink); 
+    line-height:1;
+}
+.fact-grid p{
+    font-size:0.9rem; 
+    color:var(--sub); 
+    margin:0;
+}
+
+/* ========== HISTORY ========== */
+#history .wrap{
+    padding-top:var(--section-top);
+}
+.history-card{
+    padding:20px; 
+    display:grid; 
+    gap:16px;
+    max-width:780px; 
+    margin-inline:auto; 
+}
+.history-card h3{
+  margin:0 0 4px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:8px;
+  color:var(--accent);
+  font-weight:600;
+}
+.timeline{
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+}
+.timeline li{
+    position:relative;
+    padding:0 0 14px 22px;
+    margin-left:8px;
+    font-size:.95rem;
+    color:var(--sub);
+}
+.timeline li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:4px;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--accent);
+    border:2.5px solid var(--bg); 
+    box-shadow:0 0 0 1px var(--accent);
+    z-index:1;
+}
+.timeline li:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    left:4px;
+    top:12px;
+    bottom:0;
+    width:1.5px;
+    background:var(--line);
+}
+.timeline span{
+  display:block;
+  font-weight:700;
+  color:var(--ink)
+}
+
+/* ========== CONTACT ========== */
+#contact .section-head{
+    text-align:left; 
+    padding-left:var(--wrap-px);
+    padding-right:var(--wrap-px);
+}
+#contact .section-title::after{
+    margin-inline:0; 
+}
+.contact-form{
+    display:grid; 
+    gap:16px; 
+    max-width:700px; 
+    margin-inline:auto; 
+    padding:28px;
+    background:var(--white); 
+    box-shadow:0 8px 30px rgba(0,0,0,.06); 
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+}
+.form-group{
+    display:grid;
+    gap:6px;
+}
+.form-control{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    font-size:1rem;
+    color:var(--ink);
+    transition:border-color .2s ease, box-shadow .2s ease;
+}
+.form-control:focus{
+    outline:none;
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(22, 84, 138, .15);
+}
+.form-group label{
+    font-weight:500;
+    color:var(--ink);
+    font-size:.95rem;
+}
+.submit-btn{
+    width:100%;
+    padding:12px 20px;
+    margin-top:10px;
+    border:none;
+    border-radius:var(--radius);
+    background:var(--accent);
+    color:var(--white);
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .2s ease;
+}
+.submit-btn:hover{
+    background:var(--accent-2);
+}
+.contact-info-text{
+    font-size:.85rem;
+    color:var(--sub);
+    text-align:center;
+    margin-top:10px;
+}
+/* ★ 追加: プライバシーポリシー同意チェックボックスのスタイル */
+    .privacy-check {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: flex-start;
+        font-size: 0.9rem;
+    }
+    .privacy-check input[type="checkbox"] {
+        margin-top: 4px;
+        flex-shrink: 0;
+        width: 16px; 
+        height: 16px;
+        margin-right: 10px;
+        accent-color: var(--accent); /* チェックされたときの色 */
+    }
+    .privacy-check label a {
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+/* ========== Responsive (980px以下) ========== */
+@media (max-width:980px){
+  .shell{
+    grid-template-columns:1fr;
+    position:relative;
+  }
+
+  .side{
+    position:fixed; 
+    z-index:100; 
+    width:300px;
+    height:100vh;
+    border-right:1px solid #e0e0e0;
+    left:0;
+    top:0;
+    transform:translateX(-100%);
+    transition:transform .3s var(--easing-out);
+  }
+  .shell.mobile-nav-open .side{
+    transform:translateX(0);
+  }
+
+  .main{
+    height:auto;
+    overflow:visible;
+    /* 修正: scroll-snap-type:none; を削除 */
+    min-height:100vh;
+  }
+  section{
+    min-height:auto; 
+    /* 修正: scroll-snap-align:none; を削除 */
+    padding-block:40px 60px; 
+    display:block; 
+  }
+
+  .nav-toggle{
+    display:block; 
+  }
+  .brand{
+    padding:16px; 
+  }
+  .side-nav{ 
+    padding-top:0; 
+  }
+  .wrap{
+    padding:0 var(--wrap-px); 
+    margin-inline:auto;
+  }
+
+  /* Works：横スクロール */
+  #works .wrap{
+      padding:0;
+  }
+  #works .section-head{
+      padding-left:var(--wrap-px);
+      padding-right:var(--wrap-px);
+  }
+  #works .columns{
+    display:flex; 
+    gap:16px; 
+    overflow-x:scroll; 
+    padding:0 var(--wrap-px); 
+    -webkit-overflow-scrolling:touch;
+    /* 修正: scroll-snap-type:x mandatory; を削除 */
+  }
+  #works .frame{
+    padding:0; 
+  }
+  .vcol{
+    flex-shrink:0; 
+    width:85vw; 
+    height:60vh;
+    /* 修正: scroll-snap-align:center; を削除 */
+    margin-bottom:20px;
+    mask-image:none; 
+  }
+  .vcol::before, .vcol::after{
+      display:none; 
+  }
+  .strip{
+    animation:scrollY 36s linear infinite; 
+  }
+
+  .logo-img{
+    height:24px;
+  }
+
+  .kine{
+    font-size:clamp(40px,10vw,56px)
+  }
+  #about .grid, #strength .grid{
+    grid-template-columns:1fr
+  }
+
+  #company .cols{
+      grid-template-columns:1fr;
+      padding-left:var(--wrap-px);
+      padding-right:var(--wrap-px);
+  }
+  #company .cols > .card{
+      margin-bottom:20px; 
+  }
+  #map-container, #company-photo{
+      min-height:300px;
+  }
+
+  .process-widget{
+    display:block;
+    padding:16px;
+  }
+  .process-widget > *{
+    display:block;
+    text-align:center;
+  }
+  .progress-bar{
+    max-width:100%;
+    margin:8px 0 12px;
+  }
+
+  .hero .inner{
+    align-items:center;
+  }
+
+  .contact-form{
+    max-width:100%;
+    padding-left:var(--wrap-px); 
+    padding-right:var(--wrap-px); 
+    padding-top:20px;
+    padding-bottom:20px;
+  }
+}
+
+/* motion reduce */
+@media (prefers-reduced-motion:reduce){
+  .kine span{
+    animation:none;
+    opacity:1;
+    transform:none
+  }
+  .strip{
+    animation:none
+  }
+  html,body{
+    scroll-behavior:auto
+  }
+}
+  </style>
+</head>
+<body>
+  <button class="nav-toggle" id="nav-toggle" aria-label="ナビゲーションを開閉">☰</button> 
+
+  <div class="shell" id="app">
+    <aside class="side">
+      <div class="brand logo-container">
+          <img src="logo_3.png" alt="NEXLINK ロゴ" class="logo-img">
+      </div>
+      <nav class="side-nav" aria-label="セクションナビ">
+        <a href="#hero" id="nav-hero" aria-current="true"> Top </a>
+        <a href="#about" id="nav-about"> About </a>
+        <a href="#strength" id="nav-strength"> Strengths </a>
+        <a href="#works" id="nav-works"> Works </a>
+        <a href="#news" id="nav-news"> News </a>
+        <a href="#company" id="nav-company"> Company </a>
+        <a href="#history" id="nav-history"> History </a>
+        <a href="#contact" id="nav-contact"> Contact </a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <section id="hero" class="hero">
+        <div class="bgvideo" aria-hidden="true">
+          <video autoplay muted loop playsinline>
+            <source src="vidu-video-2967257438160243.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="overlay">
+          <div class="wrap inner">
+            <div class="section-head">
+              <div class="cta-row" style="gap:8px;margin-bottom:6px">
+                <span class="pill" style="color:var(--white); border-color:var(--white); background:rgba(255,255,255,.2)">APPAREL-FIRST</span>
+                <span class="pill" style="color:var(--white); border-color:var(--white); background:rgba(255,255,255,.2)">SUPPLY</span>
+                <span class="pill" style="color:var(--white); border-color:var(--white); background:rgba(255,255,255,.2)">TRADE</span>
+              </div>
+              <h1 class="kine" style="color:var(--white);" aria-label="We Design Your Optimal Route.">
+                「何を造るか」から、<br>　「どう創るか」まで。
+              </h1>
+              <p class="lead" style="color:var(--white)">輸入ビジネスの「設計図」を。お客様のニーズを深く理解し、最善のソリューションと実行ルートをプランニング・プロデュースします。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">ABOUT / SOLUTION</div>
+            <h2 class="section-title">アパレル・ライフスタイル製品の総合OEM/ODM</h2>
+            <p class="lead">私たちは、アパレル・ライフスタイル製品に特化したOEM/ODM事業者として、企画・生産・品質管理・物流の全工程をワンストップでプロデュースし、貴社の製品開発をサポートします。</p>
+          </div>
+        </div>
+        <div class="rail pad-left">
+          <div class="grid">
+            <article class="card about-card">
+              <div class="kicker">01 / Route Design & Sourcing</div>
+              <h3>調達・サプライヤー開拓</h3> 
+              <p>お客様の要望と販売ルートに最適な<strong>優良サプライヤーネットワーク</strong>をプランニング・構築。仕入れルートがない、または変更したい課題を解決します。<strong>品質とコストのバランス</strong>を徹底的に分析し、適正な原価構造を設計します。</p>
+              <div class="pts"><span class="pill">仕入れルート設計</span><span class="pill">サプライヤー選定</span><span class="pill">適正原価構造設計</span></div>
+            </article>
+            <article class="card about-card">
+              <div class="kicker">02 / Idea Realization & Planning</div>
+              <h3>企画・パターン設計</h3>
+              <p>アイデアを<strong>パターン設計、技術仕様書</strong>に落とし込み、実現性の高い原価と納期を設定。どこに相談すればよいか分からない悩みを解消します。</p>
+              <div class="pts"><span class="pill">商品企画伴走</span><span class="pill">パターン設計管理</span><span class="pill">試作プランニング</span></div>
+            </article>
+            <article class="card about-card">
+              <div class="kicker">03 / Execution & Logistics Control</div>
+              <h3>生産・品質・物流管理</h3>
+              <p>企画承認後の<strong>生産・品質・物流・法規制対応</strong>を一括プロデュース。貴社の代わりに現地チームが管理し、最適ルートで確実な納品を実現します。</p>
+              <div class="pts"><span class="pill">進捗・品質管理</span><span class="pill">貿易実務代行</span><span class="pill">物流最適化調整</span></div>
+            </article>
+          </div>
+
+          <div class="process-widget">
+            <span id="process-current">Planning</span>
+            <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" id="process-steps">
+              <div class="step"></div>
+              <div class="step"></div>
+              <div class="step"></div>
+              <div class="step"></div>
+            </div>
+            <span>Final Delivery</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="strength" class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">STRENGTH</div>
+            <h2 class="section-title">私たちの強み</h2>
+            <p class="lead">私たちは、国内アパレル企業の厳しい要求に応えるため、独自の強みで生産プロセスを革新します。</p>
+          </div>
+        </div>
+        <div class="rail pad-left">
+          <div class="grid">
+            <div class="strength-item card">
+              <div class="h" data-number="01">企画から納品までを途切れさせない「エンド・ツー・エンド」プロデュース</div>
+              <p class="s">ゼロベースのアイデア具現化から、優良サプライヤー選定、複雑な生産・品質管理、最終的な物流設計まで、全てを一気通貫でプロデュース。貴社は本業に集中できる、最も効率的なサプライチェーンを提供します。</p>
+            </div>
+            <div class="strength-item card">
+              <div class="h" data-number="02">14年の実績に裏打ちされた、現地プロフェッショナルチーム</div>
+              <p class="s">中国・深センを拠点とする約100名の専門家チームが、日本の高品質基準を現地で実行・監視します。言語の壁や文化の違いによるトラブルを事前に排除し、安定した生産体制を保証します。</p>
+            </div>
+            <div class="strength-item card">
+              <div class="h" data-number="03">アパレルを超えた「ライフスタイル」プロダクトの具現化</div>
+              <p class="s">アパレルで培った繊細な品質管理・パターン技術を応用し、バッグ、シューズ、生活雑貨など、幅広いライフスタイル商品の生産に対応。多角的な商品展開をワンストップでサポートします。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="works" class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">WORKS / FACTORY</div>
+            <h2 class="section-title">Works</h2>
+            <p class="lead">小ロットから大規模量産まで対応する、提携工場の最新設備と、高い技術を持つスタッフの様子をスライドでご覧ください。</p>
+          </div>
+        </div>
+        <div class="rail pad-left">
+          <div class="frame card">
+            <div class="columns">
+              <div class="vcol">
+                <div class="strip delay">
+                  <figure class="shot"><img src="img/about_planning.png" alt="現場写真1"></figure>
+                  <figure class="shot"><img src="img/about_production.jpg" alt="現場写真2"></figure>
+                  <figure class="shot"><img src="img/about_research.jpg" alt="現場写真3"></figure>
+                  <figure class="shot"><img src="img/work_e2e_produce.png" alt="現場写真4"></figure>
+                  <figure class="shot"><img src="img/work_lifestyle.jpg" alt="現場写真1"></figure>
+                  <figure class="shot"><img src="img/work_local_team.png" alt="現場写真2"></figure>
+                  <figure class="shot"><img src="img/9.png" alt="現場写真3"></figure>
+                  <!-- <figure class="shot"><img src="img/" alt="現場写真4"></figure> -->
+                </div>
+              </div>
+
+              <div class="vcol">
+                <div class="strip reverse">
+                  <figure class="shot"><img src="img/1.jpg" alt="現場写真5"></figure>
+                  <figure class="shot"><img src="img/2.jpg" alt="現場写真6"></figure>
+                  <figure class="shot"><img src="img/3.JPG" alt="現場写真7"></figure>
+                  <figure class="shot"><img src="img/4.JPG" alt="現場写真8"></figure>
+                  <figure class="shot"><img src="img/5.JPG" alt="現場写真5"></figure>
+                  <figure class="shot"><img src="img/6.jpg" alt="現場写真6"></figure>
+                  <figure class="shot"><img src="img/7.jpg" alt="現場写真7"></figure>
+                  <figure class="shot"><img src="img/8.JPG" alt="現場写真8"></figure>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="news" class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">NEWS</div>
+            <h2 class="section-title">ニュース</h2>
+            <p class="lead">最新のお知らせを随時更新しています。</p>
+          </div>
+        </div>
+        <div class="rail pad-left">
+          <div class="grid">
+            <a href="#news" class="news-item"><span>2025-09-01</span><p>展示会出展に関するお知らせ</p></a>
+            <a href="#news" class="news-item"><span>2025-08-15</span><p>夏季休業のお知らせ</p></a>
+            <a href="#news" class="news-item"><span>2025-07-20</span><p>新オフィス移転のお知らせ</p></a>
+            <a href="#news" class="news-item"><span>2025-06-01</span><p>サイトリニューアルのお知らせ</p></a>
+          </div>
+        </div>
+      </section>
+
+      <section id="company" class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">COMPANY</div>
+            <h2 class="section-title">会社概要</h2>
+            <p class="lead">私たちは、2018年からの歴史と、14年の実績を持つ大規模なバックボーンを持っています。</p>
+          </div>
+        </div>
+        <div class="cols company-grid">
+          <dl class="def card" id="company-info" style="padding:18px">
+            <dt>社　名</dt><dd>株式会社NEXLINK</dd>
+            <dt>所在地</dt><dd>東京都千代田区麹町五丁目３番４丁目 麹町秋山ビルディング８F</dd>
+            <dt>事　業</dt><dd>アパレルOEM／生産・在庫管理／輸入サポート</dd>
+            <dt>設　立</dt><dd>2018年</dd>
+            <dt>代　表</dt><dd>李　小軍</dd>
+            <dt>電　話</dt><dd>03-5275-5808</dd>
+            <dt>F A X</dt><dd>03-6265-6592</dd>
+          </dl>
+          
+          <div id="map-container" class="card" style="min-height:280px">
+            <iframe 
+              src="https://www.google.com/maps?q=東京都千代田区麹町5-3-4&output=embed"
+              width="100%" 
+              height="100%" 
+              style="border:0;"
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              title="会社所在地マップ">
+            </iframe>
+          </div>
+
+          <div class="card" id="group-info" style="padding:18px">
+            <h3 style="margin:0 0 10px; font-size:18px; color:var(--accent)">グループ会社</h3>
+            <dl class="def">
+              <dt>会社名</dt><dd>南通全日通供应链有限公司</dd>
+              <dt>英　名</dt><dd>NANTONG CILEL SUPPLY CHAIN CO., LTD</dd>
+              <dt>所在地</dt><dd>南通市崇川区园林路17号华汇智谷科学产业園 4-1栋</dd>
+              <dt>英住所</dt><dd>BUILDING 4-1 HUAHUI INDUSTRIAL PARK, NO.17 YUANLIN ROAD, CHONGCHUAN DISTRICT,<br>NANTONG, JIANGSU, CHINA</dd>
+              <dt>T E L</dt><dd>0513-85212228 / 0513-85222228</dd>
+            </dl>
+          </div>
+          
+          <div id="company-photo" class="card">
+            <img src="img/-scaled-e1724229389588-768x432.jpg" alt="南通全日通供应链有限公司 事務所内観" style="max-width:100%; height:auto; display:block; border-radius:var(--radius);">
+          </div>
+        </div>
+      </section>
+      
+      <section id="history" class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">HISTORY</div>
+            <h2 class="section-title">沿革</h2> 
+            <p class="lead">グループの設立と、長年にわたる事業の歩みをご紹介します。</p>
+          </div>
+        </div>
+        <div class="rail pad-left">
+          <div class="card history-card">
+            <ul class="timeline">
+              
+              <li class="group-change"><span>2008年</span> 【南通全日通サプライチェーン創業】越境EC事業を開始し、国際貿易の道を切り開く。</li>
+              <li><span>2010年5月</span> 業務拡大に伴い、南通市へ本社を移転。</li>
+              <li><span>2011年4月</span> 日本のファーストトレード株式会社と戦略的提携を締結し、共同ブランド「CILEL」を設立。国際化戦略を始動。</li>
+              <li><span>2015年</span> アパレル部門を独立させ、アパレル分野の専門的な発展に注力。</li>
+              <li><span>2016年2月</span> Amazon FBA配送事業を開始。</li>
+              
+              <li class="company-change"><span>2018年5月</span> 【日本法人設立】ラッキーストライド株式会社として大阪に設立。</li>
+              
+              <li><span>2020年6月</span> 1688プラットフォームより「スーパーバイヤー」に選出。管理システムを全面刷新。</li>
+              <li><span>2021年6月</span> 親会社「日進国際母公司」を設立し、グループ化運営を開始。</li>
+              <li><span>2022年6月</span> 華匯智谷産業園の自社ビルへ移転。新発展段階へ移行。</li>
+              <li><span>2023年</span> 1688公式よりサプライチェーンの貢献に対し「金鑰匙賞」を受賞。</li>
+              
+              <li class="company-change"><span>2023年12月</span> 大通国際株式会社 へ社名変更。大阪市北区梅田へ移転。</li>
+              
+              <li><span>2024年5月</span> 日本市場向け自主顧客開拓チームを結成し、戦略を転換。</li>
+              <li><span>2025年4月</span> 南通職業大学と校企連携（産学連携）を締結し、人材育成を強化。</li>
+              
+              <li class="company-change"><span>2025年10月</span> 株式会社NEXLINKに社名変更。東京（麹町秋山ビルディング8F）に本社を移転し、現体制に移行。</li>
+
+            </ul>
+          </div>
+        </div>
+    </section>
+  
+  
+      <section id="contact" class="section">
+            <div class="wrap">
+                <div class="section-head">
+                    <div class="eyebrow">CONTACT</div>
+                    <h2 class="section-title">お問い合わせ</h2> 
+                    <p class="lead">貴社の課題とご要望をお聞かせください。最適なソリューションをプランニングいたします。</p>
+                </div>
+            </div>
+            
+            <form class="contact-form rail pad-left">
+                    <div class="form-group">
+                        <label for="name">会社名 / 氏名（必須）</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">メールアドレス（必須）</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">お問い合わせ項目</label>
+                        <select id="subject" class="form-control">
+                            <option>サプライヤー探しの相談</option>
+                            <option>商品企画の具現化について</option>
+                            <option>生産管理・品質について</option>
+                            <option>その他</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">お問い合わせ内容</label>
+                        <textarea id="message" class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="privacy-check">
+                        <input type="checkbox" id="privacy-agree" name="privacy-agree" required>
+                        <label for="privacy-agree">
+                            <a href="policy.html" target="_blank" rel="noopener noreferrer">個人情報保護方針</a>に同意の上、送信します。
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn">送信</button>
+                    <p class="contact-info-text">お電話でのお問い合わせ：03-5275-5808 (平日9:00〜18:00)</p>
+            </form>
+      </section>
+      
+      <footer style="padding:24px; text-align:center; font-size:.85rem; color:var(--sub); border-top:1px solid var(--line); margin-top:24px;">
+        © 2025 NEXLINK Co., Ltd. All rights reserved.
+      </footer>
+      
+    </main>
+  </div>
+  
+  <script>
+    // ========== Process Widget Logic ==========
+    const processNames = ["Planning", "Sampling & Costing", "Production Control", "Final QA"];
+    let currentStep = 0;
+    const steps = document.querySelectorAll('#process-steps .step');
+    const currentProcessDisplay = document.getElementById('process-current');
+
+    function updateProcessWidget() {
+      steps.forEach(step => step.classList.remove('active'));
+      for (let i = 0; i <= currentStep; i++) {
+        if (steps[i]) {
+          steps[i].classList.add('active');
+        }
+      }
+      currentProcessDisplay.textContent = processNames[currentStep];
+    }
+
+    function checkScrollForProcess() {
+        const aboutSection = document.getElementById('about');
+        const scrollPosition = aboutSection.getBoundingClientRect().top;
+        const sectionHeight = aboutSection.offsetHeight;
+        const windowHeight = window.innerHeight;
+
+        if (scrollPosition < windowHeight && scrollPosition > -sectionHeight) {
+            const visibleRatio = (windowHeight - scrollPosition) / (windowHeight + sectionHeight);
+            const numSteps = processNames.length;
+            let newStep = Math.min(numSteps - 1, Math.floor(visibleRatio * numSteps));
+
+            if (newStep !== currentStep) {
+                currentStep = newStep;
+                updateProcessWidget();
+            }
+        }
+    }
+    
+    updateProcessWidget();
+    // PCでは main がスクロールコンテナであるため、window に addEventListener が適用されているのは不適切です。
+    // このロジックも main スクロールに対応させる必要がありますが、今回はメインのナビ連動に集中するためそのままにします。
+
+
+    // ========== Side Nav Logic (連動処理の最適化 - 根本修正) ==========
+    const navLinks = document.querySelectorAll('.side-nav a');
+    const mainSections = Array.from(document.querySelectorAll('main section'));
+    
+    // PCビューでのスクロールコンテナは main 要素です
+    const scrollContainer = document.querySelector('.main'); // ★ 修正: main要素を取得
+    
+    // スクロール連動処理を一時的に停止するためのフラグ
+    let isScrollingByClick = false; 
+    let scrollTimeout; // デバウンス処理用のタイマー
+    
+    // ナビゲーションを切り替えるためのオフセット
+    const SCROLL_OFFSET = 120; 
+    
+    // スクロール時のアクティブなナビリンクを更新する関数 (Debounced)
+    function updateActiveNav() {
+        // クリックによるスクロール中は処理をスキップ
+        if (isScrollingByClick) return;
+
+        let currentSectionId = 'hero'; 
+        
+        // PCとモバイルでスクロール位置の取得元を変える
+        const isPC = window.innerWidth >= 981;
+        const currentScroll = isPC 
+            ? scrollContainer.scrollTop // PC: main要素のscrollTop
+            : window.scrollY || document.documentElement.scrollTop || document.body.scrollTop; // モバイル: windowのscrollY
+        
+        // 判定は常に上から行い、最も下にあるセクションをアクティブにする
+        mainSections.forEach(section => {
+            // セクションの上端位置
+            // PCビューでは main コンテナ内での relative offset
+            const sectionTop = isPC ? section.offsetTop : section.offsetTop; // どちらも同じ
+            
+            // 現在のスクロール位置がセクションの開始位置を超えていたら（オフセットを適用）
+            if (currentScroll >= sectionTop - SCROLL_OFFSET) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+
+        // aria-currentの更新
+        navLinks.forEach(link => {
+            link.removeAttribute('aria-current');
+            // href属性の末尾が現在のセクションIDと一致するか確認
+            if (link.getAttribute('href').endsWith('#' + currentSectionId)) {
+                link.setAttribute('aria-current', 'true');
+            }
+        });
+    }
+
+    // デバウンス関数：連続的なスクロールイベントを間引く
+    const debouncedUpdateActiveNav = () => {
+        clearTimeout(scrollTimeout);
+        // スクロール停止後、200ms 経ってから updateActiveNav を実行
+        scrollTimeout = setTimeout(updateActiveNav, 200);
+    };
+
+    // スクロールイベントを監視
+    const isPC = window.innerWidth >= 981;
+    if (isPC) {
+        scrollContainer.addEventListener('scroll', debouncedUpdateActiveNav); // ★ PC: mainにリスナー
+    } else {
+        window.addEventListener('scroll', debouncedUpdateActiveNav); // モバイル: windowにリスナー
+    }
+    updateActiveNav(); // 初期ロード時にも実行
+
+
+    // ========== Mobile Nav Toggle & Click Logic (修正済み) ==========
+    const navToggle = document.getElementById('nav-toggle');
+    const appShell = document.getElementById('app');
+
+    navToggle.addEventListener('click', () => {
+        appShell.classList.toggle('mobile-nav-open');
+    });
+
+    // リンククリック時の処理
+    document.querySelectorAll('.side-nav a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); 
+
+            const targetId = link.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                // 1. スクロール連動処理を一時停止
+                isScrollingByClick = true;
+
+                // 2. クリックされたリンクを**すぐにアクティブにする**
+                navLinks.forEach(navLink => navLink.removeAttribute('aria-current'));
+                link.setAttribute('aria-current', 'true');
+
+                // 3. スクロール先のオフセット位置を計算
+                const targetPosition = targetElement.offsetTop - (window.innerWidth >= 981 ? SCROLL_OFFSET : 0);
+                
+                // 4. スムーズスクロール実行
+                // PC (mainスクロール) とモバイル (windowスクロール) で処理を分岐
+                if (window.innerWidth >= 981) {
+                    // PCビュー: main要素をスクロール
+                    scrollContainer.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // モバイルビュー: windowをスクロール
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // 5. スクロール終了を監視し、フラグを解除する
+                let scrollEndTimer;
+                const checkScrollEnd = () => {
+                    // 連続的なスクロールイベントをデバウンスで処理し、停止を待つ
+                    clearTimeout(scrollEndTimer);
+                    scrollEndTimer = setTimeout(() => {
+                        isScrollingByClick = false;
+
+                        // PC/モバイルでリスナーを解除する対象を変更
+                        if (window.innerWidth >= 981) {
+                            scrollContainer.removeEventListener('scroll', checkScrollEnd); 
+                        } else {
+                            window.removeEventListener('scroll', checkScrollEnd);
+                        }
+                        
+                        // フラグ解除後、位置を確定させる
+                        updateActiveNav();
+                    }, 150); 
+                };
+                
+                // PC/モバイルでリスナーを追加する対象を変更
+                if (window.innerWidth >= 981) {
+                    scrollContainer.addEventListener('scroll', checkScrollEnd); 
+                } else {
+                    window.addEventListener('scroll', checkScrollEnd);
+                }
+                
+
+                // 6. モバイルナビが開いている場合、すぐに閉じる
+                if (appShell.classList.contains('mobile-nav-open')) {
+                    appShell.classList.remove('mobile-nav-open');
+                }
+            }
+        });
+    });
+    // ★ リサイズイベントでリスナーの付け替えも必要ですが、今回はメインのバグ解消に集中します。
+    // window.addEventListener('resize', () => { /* リスナーを付け替える処理 */ });
+  </script>
+</body>
+</html>
