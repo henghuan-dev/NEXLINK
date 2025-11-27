@@ -118,52 +118,53 @@
         })();
 
         // =========================================================
-        // script.js - 株式会社NEXLINK (HTML構造に適合済み・純粋モックモード)
+        // script.js - API通信組み込みバージョン
         // =========================================================
+
+        // 🌟🌟🌟 API GatewayのエンドポイントURLを設定 🌟🌟🌟
+        // 【重要】本番環境のAPI GatewayのURLに必ず置き換えてください。
+        const API_ENDPOINT = 'https://0rn89v3rzk.execute-api.ap-northeast-1.amazonaws.com/prod/contact'; 
 
         document.addEventListener('DOMContentLoaded', () => {
             
             // フォーム要素の取得
             const form = document.getElementById('contact-form');
-            const submitButton = document.getElementById('submit-button'); // HTMLにIDを追加
-            const formMessage = document.getElementById('form-message');   // HTMLにIDを追加
+            const submitButton = document.getElementById('submit-button');
+            const formMessage = document.getElementById('form-message');
             
-            // 必須フィールドのIDリスト (messageはrequiredがないため、HTML側で必須とするならここに追加)
+            // 必須フィールドのIDリスト
+            // (name, email, privacy-agreeのチェックボックス状態はJSのバリデーションで確認)
             const requiredFields = ['name', 'email'];
-            
+            const allInputFields = ['name', 'email', 'subject', 'message']; // グレーアウト対象
+
             // ----------------------------------------------------
             // フォームの入力状態を制御する関数
             // ----------------------------------------------------
             const setFormState = (disabled) => {
-                // 必須・任意入力フィールド
-                const inputFields = ['name', 'email', 'subject', 'message']; 
-                
-                inputFields.forEach(id => {
+                allInputFields.forEach(id => {
                     const el = document.getElementById(id);
                     if (el) {
                         el.disabled = disabled;
                     }
                 });
                 
-                // プライバシーチェックボックス
                 const privacyCheck = document.getElementById('privacy-agree');
                 if (privacyCheck) {
                     privacyCheck.disabled = disabled;
                 }
 
                 submitButton.disabled = disabled;
-                // disabled状態に応じてフォーム全体にクラスを付ける（CSSで見た目を制御）
                 form.classList.toggle('is-submitted', disabled);
             };
 
             if (!form || !submitButton || !formMessage) {
                 console.warn("お問い合わせフォームに必要な要素が見つかりません。HTMLのIDを確認してください。");
-                return; // 要素がなければ処理を終了
+                return;
             }
 
 
             // ----------------------------------------------------
-            // フォーム送信処理 (API通信なしの純粋モック)
+            // フォーム送信処理 (API通信)
             // ----------------------------------------------------
             form.addEventListener('submit', async (e) => {
                 e.preventDefault(); 
@@ -171,11 +172,12 @@
                 // 値の取得
                 const nameValue = document.getElementById('name').value.trim();
                 const emailValue = document.getElementById('email').value.trim();
-                // messageValueはHTMLでrequiredではないため、ここでは必須としない
+                const subjectValue = document.getElementById('subject').value;
+                const messageValue = document.getElementById('message').value.trim();
                 const privacyAgreeChecked = document.getElementById('privacy-agree').checked;
 
                 // エラー表示をクリア
-                requiredFields.forEach(id => {
+                allInputFields.forEach(id => {
                     document.getElementById(id)?.classList.remove('input-error');
                 });
                 const privacyLabel = document.querySelector('label[for="privacy-agree"]');
@@ -183,12 +185,11 @@
                 formMessage.textContent = ''; 
 
                 // ----------------------------------------------------
-                // 1. フロントエンドでのバリデーション (必須チェック: 会社名/氏名, メールアドレス, 同意)
+                // 1. フロントエンドでのバリデーション
                 // ----------------------------------------------------
                 const hasMissingField = !nameValue || !emailValue || !privacyAgreeChecked;
 
                 if (hasMissingField) {
-                    // 🚨 バリデーションエラー発生
                     formMessage.style.color = '#d9534f';
                     formMessage.textContent = '必須項目が未入力です。ご確認の上、再度送信してください。';
                     submitButton.textContent = '送信';
@@ -200,25 +201,79 @@
                         if(privacyLabel) privacyLabel.classList.add('input-error-label');
                     }
                     
-                    setFormState(false); // フォームは編集可能なまま
+                    setFormState(false);
                     return; 
                 }
 
                 // ----------------------------------------------------
-                // 2. 送信成功シミュレーション
+                // 2. APIへのデータ送信準備
                 // ----------------------------------------------------
                 
                 setFormState(true); 
                 submitButton.textContent = '送信中...';
+                
+                const formData = {
+                    name: nameValue,
+                    email: emailValue,
+                    // バックエンドのLambdaコードで subject を利用する場合は、ここに含める
+                    subject: subjectValue, 
+                    message: messageValue,
+                    privacy_agree: privacyAgreeChecked
+                };
 
-                // 擬似的な通信遅延 (1.5秒)
-                setTimeout(() => {
-                    // ✅ 送信成功UIの表示
-                    formMessage.style.color = '#5cb85c';
-                    formMessage.innerHTML = 'お問い合わせを受け付けました。<br>担当より３営業日以内にご連絡させていただきます。しばらくおまちください。';
-                    submitButton.textContent = '送信完了';
+                // ----------------------------------------------------
+                // 3. API通信 (Fetch API)
+                // ----------------------------------------------------
+                try {
+                    const response = await fetch(API_ENDPOINT, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            // 必要に応じて API Key や認証ヘッダーを追加
+                        },
+                        body: JSON.stringify(formData),
+                    });
                     
-                }, 1500);
+                    // JSONレスポンスを待機 (Lambdaからのエラー情報を含む)
+                    const result = await response.json(); 
+
+                    if (response.ok) {
+                        // ✅ 成功時の処理 (ステータスコード 200-299)
+                        formMessage.style.color = '#1C479B'; // ダークブルー
+                        formMessage.innerHTML = 'お問い合わせを受け付けました。<br>担当より３営業日以内にご連絡させていただきます。しばらくおまちください。';
+                        submitButton.textContent = '送信完了';
+                        // フォームはグレーアウト状態を維持 (setFormState(true)で処理済み)
+
+                    } else {
+                        // ❌ バックエンドからのエラー (4xx, 5xx)
+                        
+                        formMessage.style.color = '#d9534f';
+                        submitButton.textContent = '送信';
+                        setFormState(false); // フォームを有効化に戻す
+
+                        if (result.error) {
+                            // Lambdaで定義したエラーメッセージを表示
+                            formMessage.textContent = result.error;
+
+                            // Lambdaからのエラー情報に基づき、エラーマークを再表示するロジックをここに追加
+                            // 例: if (result.error.includes('メールアドレス')) document.getElementById('email').classList.add('input-error');
+
+                        } else {
+                            // Lambdaの予期せぬエラー (500など)
+                            formMessage.textContent = 'システムエラーが発生しました。時間を置いて再度お試しください。';
+                        }
+                    }
+
+                } catch (error) {
+                    // 🚨 通信エラー (ネットワーク、CORS、タイムアウトなど)
+                    console.error('Submission Error:', error);
+                    
+                    formMessage.style.color = '#d9534f';
+                    formMessage.innerHTML = '通信エラーが発生しました。しばらく経ってから再度お試しください。<br>または、info@nex-link.jp宛に直接メールいただくようにお願いします。';
+                    
+                    submitButton.textContent = '送信';
+                    setFormState(false); // フォームを有効化に戻す
+                }
             });
 
             // =========================================================
