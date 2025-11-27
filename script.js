@@ -116,3 +116,72 @@
                 mapContainer.style.cursor = 'pointer';
             }
         })();
+
+        // =========================================================
+        // JavaScript for Form Submission (script.js) - UXテスト用修正
+        // =========================================================
+
+        // 🌟 API GatewayのエンドポイントURLを設定 🌟
+        const API_ENDPOINT = 'https://0rn89v3rzk.execute-api.ap-northeast-1.amazonaws.com/prod/contact'; 
+        // 🌟 フォーム送信後の遷移先URLを設定 🌟
+        const SUCCESS_REDIRECT_URL = 'thanks.html'; // 完了画面のURLを設定
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // フォーム要素の取得
+            const form = document.getElementById('contact-form');
+            const submitButton = document.getElementById('submit-button');
+            const formMessage = document.getElementById('form-message');
+            
+            if (!form || !submitButton) return;
+            
+            // --- (スクロール処理、ハンバーガーメニューの処理は省略) ---
+
+            // ----------------------------------------------------
+            // お問い合わせフォーム送信処理 (UXテストモード)
+            // ----------------------------------------------------
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); // デフォルトのフォーム送信を阻止
+
+                formMessage.textContent = ''; 
+                submitButton.disabled = true;
+                submitButton.textContent = '送信中...';
+
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('message').value,
+                    privacy_agree: document.getElementById('privacy-agree').checked 
+                };
+
+                try {
+                    const response = await fetch(API_ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
+
+                    // 🌟 修正ポイント: APIの応答に関わらず、成功メッセージを表示
+                    // const result = await response.json(); // API結果の取得はスキップ
+
+                    formMessage.style.color = '#5cb85c'; // 緑色
+                    formMessage.textContent = 'お問い合わせを受け付けました。ページを移動します...';
+
+                    // フォーム送信成功とみなして、指定のページに遷移
+                    setTimeout(() => {
+                        window.location.href = SUCCESS_REDIRECT_URL; 
+                    }, 1500); // 1.5秒後に遷移
+
+                } catch (error) {
+                    // ネットワークエラーなど、Fetch自体が失敗した場合のみ
+                    console.error('Submission Error (Network or CORS issue):', error);
+                    formMessage.style.color = '#d9534f';
+                    formMessage.textContent = '通信エラーが発生しました。ネットワーク設定を確認してください。';
+                    
+                    submitButton.disabled = false;
+                    submitButton.textContent = '上記内容で送信する';
+                }
+            });
+        });
