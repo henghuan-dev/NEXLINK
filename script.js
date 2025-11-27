@@ -118,13 +118,41 @@
         })();
 
         // =========================================================
-        // JavaScript for Form Submission (script.js) - ページ内完結・UX要件対応
+        // JavaScript for Form Submission (script.js) - 純粋モックモード
+        // 目的: フォームの動的なUI動作（バリデーションと成功時の表示）のテスト
         // =========================================================
 
-        // フォーム送信処理 (モック/本番切り替え)
+        // ... (他のスクロール、ハンバーガーメニューの処理はそのまま残してください) ...
+
+        // フォームの入力状態を制御する関数 (変更なし)
+        const setFormState = (disabled) => {
+            // ... (setFormState関数の定義は前回の完全版コードと同じものを残してください) ...
+            const form = document.getElementById('contact-form');
+            const submitButton = document.getElementById('submit-button');
+            const formFields = ['name', 'email', 'message']; // IDリストは適宜調整
+            
+            formFields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.disabled = disabled;
+                }
+            });
+            const privacyCheck = document.getElementById('privacy-agree');
+            if (privacyCheck) {
+                privacyCheck.disabled = disabled;
+            }
+            submitButton.disabled = disabled;
+            form.classList.toggle('is-submitted', disabled);
+        };
+
+
+        // ----------------------------------------------------
+        // フォーム送信処理 (API通信なしの純粋モック)
+        // ----------------------------------------------------
         form.addEventListener('submit', async (e) => {
             e.preventDefault(); 
-            formMessage.textContent = ''; 
+            const formMessage = document.getElementById('form-message');
+            const submitButton = document.getElementById('submit-button');
             
             // 必須フィールドの値を取得
             const nameValue = document.getElementById('name').value.trim();
@@ -133,112 +161,55 @@
             const privacyAgreeChecked = document.getElementById('privacy-agree').checked;
 
             // フィールドエラーをクリア
+            const formFields = ['name', 'email', 'message'];
             formFields.forEach(id => {
                 document.getElementById(id)?.classList.remove('input-error');
             });
             const privacyLabel = document.querySelector('label[for="privacy-agree"]');
             if(privacyLabel) privacyLabel.classList.remove('input-error-label');
+            formMessage.textContent = ''; 
+
+            // ----------------------------------------------------
+            // 1. フロントエンドでのバリデーション (必須チェック)
+            // ----------------------------------------------------
+            const hasMissingField = !nameValue || !emailValue || !messageValue || !privacyAgreeChecked;
+
+            if (hasMissingField) {
+                // 🚨 バリデーションエラー発生
+                formMessage.style.color = '#d9534f';
+                formMessage.textContent = '入力内容に誤りがあります。未記入の項目をご確認ください。';
+                submitButton.textContent = '上記内容で送信する';
+                
+                // エラーマークの表示
+                if (!nameValue) document.getElementById('name').classList.add('input-error');
+                if (!emailValue) document.getElementById('email').classList.add('input-error');
+                if (!messageValue) document.getElementById('message').classList.add('input-error');
+                if (!privacyAgreeChecked) {
+                    if(privacyLabel) privacyLabel.classList.add('input-error-label');
+                }
+                
+                // フォームは編集可能なまま
+                setFormState(false); 
+                
+                return; // 処理を終了
+            }
+
+            // ----------------------------------------------------
+            // 2. 送信成功シミュレーション
+            // ----------------------------------------------------
             
-            setFormState(true); // 送信開始時に全て無効化
+            // UIを「送信中」状態にする
+            setFormState(true); 
             submitButton.textContent = '送信中...';
 
-            const formData = {
-                name: nameValue,
-                email: emailValue,
-                message: messageValue,
-                privacy_agree: privacyAgreeChecked
-            };
-
-            // ----------------------------------------------------
-            // 🌟 モックモードの場合 🌟
-            // ----------------------------------------------------
-            if (IS_MOCK_MODE) {
+            // 擬似的な通信遅延 (1.5秒)
+            setTimeout(() => {
+                // ✅ 送信成功UIの表示
+                formMessage.style.color = '#5cb85c';
+                formMessage.innerHTML = 'お問い合わせを受け付けました。<br>担当より３営業日以内にご連絡させていただきます。しばらくおまちください。';
                 
-                // 💡 モック応答の切り替えロジック
-                const simulateValidationFailure = !nameValue || !emailValue || !messageValue || !privacyAgreeChecked;
-                const simulateCommunicationError = nameValue.includes('通信エラー');
-
-                setTimeout(() => {
-                    
-                    if (simulateCommunicationError) {
-                        // 通信エラーのUI確認
-                        formMessage.style.color = '#d9534f';
-                        formMessage.innerHTML = '通信エラーが発生しました。しばらく経ってから再度お試しください。<br>または、info@nex-link.jp宛に直接メールいただくようにお願いします。';
-                        
-                        submitButton.textContent = '上記内容で送信する';
-                        setFormState(false); 
-                        
-                    } else if (simulateValidationFailure) {
-                        // バリデーションエラーのUI確認
-                        formMessage.style.color = '#d9534f';
-                        submitButton.textContent = '上記内容で送信する';
-                        setFormState(false); 
-
-                        formMessage.textContent = '入力内容に誤りがあります。未記入の項目をご確認ください。';
-                        if (!nameValue) document.getElementById('name').classList.add('input-error');
-                        if (!emailValue) document.getElementById('email').classList.add('input-error');
-                        if (!messageValue) document.getElementById('message').classList.add('input-error');
-                        if (!privacyAgreeChecked) {
-                            if(privacyLabel) privacyLabel.classList.add('input-error-label');
-                        }
-                        
-                    } else {
-                        // 送信成功のUI確認
-                        formMessage.style.color = '#5cb85c';
-                        formMessage.innerHTML = 'お問い合わせを受け付けました。<br>担当より３営業日以内にご連絡させていただきます。しばらくおまちください。';
-                        submitButton.textContent = '送信完了';
-                    }
-                    
-                }, 1500); // 擬似的な通信遅延
-
-            // ----------------------------------------------------
-            // 🚀 本番モードの場合 (IS_MOCK_MODE = false) 🌟
-            // ----------------------------------------------------
-            } else {
-                try {
-                    const response = await fetch(API_ENDPOINT, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formData),
-                    });
-                    
-                    const result = await response.json();
-
-                    if (response.ok) {
-                        // 成功時の処理
-                        formMessage.style.color = '#5cb85c';
-                        formMessage.innerHTML = 'お問い合わせを受け付けました。<br>担当より３営業日以内にご連絡させていただきます。しばらくおまちください。';
-                        submitButton.textContent = '送信完了';
-
-                    } else {
-                        // Lambdaからのエラー（バリデーションなど）
-                        formMessage.style.color = '#d9534f';
-                        submitButton.textContent = '上記内容で送信する';
-                        setFormState(false); 
-
-                        // バリデーションエラー処理（Lambdaコードからのエラーメッセージに依存）
-                        if (result.error && result.error.includes('必須項目が不足しています')) {
-                            formMessage.textContent = '入力内容に誤りがあります。未記入の項目をご確認ください。';
-                            
-                            // エラー項目にマークを付ける処理（Lambdaが返すエラーメッセージに依存）
-                            if (result.error.includes('お名前')) document.getElementById('name').classList.add('input-error');
-                            if (result.error.includes('メールアドレス')) document.getElementById('email').classList.add('input-error');
-                            if (result.error.includes('お問い合わせ内容')) document.getElementById('message').classList.add('input-error');
-                            // ... (プライバシーポリシー同意チェックも同様)
-                        
-                        } else {
-                            formMessage.textContent = result.error || 'エラーが発生しました。入力内容を確認してください。';
-                        }
-                    }
-
-                } catch (error) {
-                    // 通信エラー（403/CORS/ネットワークダウンなど）
-                    console.error('Submission Error:', error);
-                    formMessage.style.color = '#d9534f';
-                    formMessage.innerHTML = '通信エラーが発生しました。しばらく経ってから再度お試しください。<br>または、info@nex-link.jp宛に直接メールいただくようにお願いします。';
-                    
-                    submitButton.textContent = '上記内容で送信する';
-                    setFormState(false); 
-                }
-            }
+                // フォームはグレーアウト（setFormState(true)で既に処理済み）
+                submitButton.textContent = '送信完了';
+                
+            }, 1500);
         });
