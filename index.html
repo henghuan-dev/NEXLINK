@@ -5,791 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>株式会社NEXLINK</title>
   <link rel="icon" href="favicon.ico" sizes="any">
-  <meta name="robots" content="noindex, nofollow"/>
+  <!-- <meta name="robots" content="noindex, nofollow"/> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    /* ========== Design Tokens (The Invisible Grid - Brand Core: Deep Blue Theme) ========== */
-    :root{
-      /* --- Monochrome & Texture --- */
-      --bg:#FFFFFF;             
-      --bg-accent:#EAEAEA;
-      --ink:#1C1C1C;            
-      --sub:#495057;            
-      --line:#D1D1D1;
-      
-      /* --- Brand & Digital Accent (Brand Core: Deep Blue) --- */
-      --brand-logo:#16548a;     /* ロゴカラー / 濃いブルー */
-      --accent:#16548a;         /* 濃いブルー */
-      --accent-dark:#124471;    /* アクセントのダーク版 */
-
-      /* Worksセクションの背景色 */
-      --works-bg:#1A2C40;       /* ダークネイビー */
-      
-      --wrap:1300px; --wrap-px:24px;
-      --radius:4px; 
-      --section-pad:10vh 0; 
-      --heading-mb:16px;
-      --lead-mb:24px;
-      --card-gap:20px;
-      
-      --easing-out: cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    *{box-sizing:border-box}
-    html,body{
-        margin:0;height:100%;scroll-behavior:smooth;
-        background:var(--bg);
-        color:var(--ink);
-        font-family:'Noto Sans JP', 'Segoe UI', system-ui, -apple-system, sans-serif;
-        font-size:17px;line-height:1.7;
-    }
-    a{color:var(--accent);text-decoration:none; transition: color .2s ease}
-    a:hover{color:var(--accent-dark)}
-    img{max-width:100%;display:block}
-    .wrap{max-width:var(--wrap);margin-inline:auto;padding:0 var(--wrap-px)}
-
-    /* ========== Layout Shell (Simple) ========== */
-    .shell{min-height:100vh;}
-    section{padding:var(--section-pad);border-bottom:1px solid var(--line);
-        transition: background .4s ease, border-color .4s ease;
-    }
-    section:nth-child(even){ background:var(--bg-accent); }
-    section:last-child{ border-bottom: none; }
-
-    /* ========== Top Bar & Navigation ========== */
-    .top-bar{
-        position:fixed; top:0; left:0; right:0; 
-        z-index:150; 
-        background:rgba(255,255,255,.95); 
-        backdrop-filter: blur(8px);
-        padding:18px var(--wrap-px);
-        box-shadow:0 1px 12px rgba(0,0,0,.05);
-        display:flex; justify-content:space-between; align-items:center;
-        transform:translateY(0);
-        transition: padding .3s ease, background .3s ease, box-shadow .3s ease, transform .3s ease;
-    }
-    .top-bar.scrolled{
-        background:rgba(255,255,255,.8); 
-        box-shadow:0 1px 6px rgba(0,0,0,.08);
-        padding:12px var(--wrap-px); 
-    }
-
-    .brand.logo-container{
-        color:var(--ink); 
-        font-size: 0; 
-    }
-
-    .logo-img{
-        height: 48px; 
-        width: auto;
-        display: block;
-        transition: height .3s ease; 
-    }
-
-    /* スクロール時のロゴサイズの調整 */
-    .top-bar.scrolled .logo-img{
-        height: 20px; 
-    }
-    
-    .nav-link{
-        font-size:15px; font-weight:500; color:var(--sub); margin-left:30px;
-        position:relative; transition: color .2s ease;
-        display:inline-block; 
-        padding: 5px 0; 
-    }
-    .nav-link:hover{color:var(--ink);}
-    .nav-link::after{
-        content:""; position:absolute; bottom:-6px; left:0; right:100%; height:2px;
-        background:var(--accent);
-        transition: right .3s var(--easing-out);
-    }
-    .nav-link:hover::after{right:0;}
-
-    /* ハンバーガーメニュー */
-    .hamburger{
-        display:none; 
-        width:24px;height:24px; 
-        position:relative; 
-        cursor:pointer; 
-        z-index: 160; 
-        transition: transform .3s ease;
-    }
-    .hamburger span{
-        display:block; width:100%; height:2px; background:var(--ink);
-        position:absolute; left:0; transition: all .3s ease;
-    }
-    .hamburger span:nth-child(1){ top:4px; }
-    .hamburger span:nth-child(2){ top:11px; }
-    .hamburger span:nth-child(3){ top:18px; }
-    .hamburger.open span:nth-child(1){ top:11px; transform:rotate(45deg); }
-    .hamburger.open span:nth-child(2){ opacity:0; }
-    .hamburger.open span:nth-child(3){ top:11px; transform:rotate(-45deg); }
-    
-    .nav-drawer{
-        display:none; 
-        position:fixed; 
-        top:0; 
-        right:0; 
-        width:300px; 
-        height:100vh;
-        background:var(--bg); 
-        padding:100px 30px 30px;
-        box-shadow: -4px 0 10px rgba(0,0,0,.1);
-        transform:translateX(100%);
-        transition: transform .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        flex-direction:column;
-        gap: 15px;
-        z-index: 110; 
-    }
-    .nav-drawer.open{ transform:translateX(0); }
-
-
-    /* ========== Hero ========== */
-    #hero{
-        min-height:95vh; padding-top:100px;
-        background:var(--works-bg); 
-        color:#ffffff; overflow:hidden;
-        display:grid; align-items:center;
-        position:relative; isolation:isolate;
-    }
-    #hero::before{
-        content:""; position:absolute; inset:0; z-index:-1;
-        background-image: linear-gradient(to right, rgba(255, 255, 255, .08) 1px, transparent 1px), 
-                          linear-gradient(to bottom, rgba(255, 255, 255, .08) 1px, transparent 1px);
-        background-size: 30px 30px; 
-        animation: grid-move 60s linear infinite; 
-    }
-    @keyframes grid-move {
-      from { background-position: 0 0; }
-      to { background-position: 60px 60px; } 
-    }
-    .hero-video-bg{
-        position:absolute; inset:0; z-index:-2; 
-        opacity:.4;
-    }
-    .hero-video-bg video{width:100%;height:100%;object-fit:cover;}
-    .hero .wrap{ position:relative; z-index:2; }
-    .kine{
-        font-weight:900;white-space: nowrap;letter-spacing:-.02em;font-size:clamp(50px,9vw,80px);line-height:1.02;margin:0 0 20px;
-        position:relative;
-        display:inline-block;
-    }
-
-    /* ========== Unified Head ========== */
-    .section-head{margin:0 0 40px;}
-    .eyebrow{font-family:'JetBrains Mono', monospace; font-weight:700; font-size:14px; line-height:1; letter-spacing:.15em; color:var(--accent); opacity:.9; margin:0 0 8px;}
-    .section-title{
-      font-weight:700;
-      font-size:clamp(32px, 5vw, 48px);
-      margin:0 0 var(--heading-mb);letter-spacing:.01em}
-    .lead{color:var(--sub);max-width:75ch; margin:0 0 var(--lead-mb);}
-
-    /* ========== About ========== */
-    #about .grid{
-    display:grid; gap:var(--card-gap);
-    grid-template-columns: repeat(3, 1fr);
-    }
-    .about-card{
-    /* ★ 修正点: Flexboxを適用し、子要素を縦方向に配置 */
-    display: flex;
-    flex-direction: column;
-    /* ★ 修正点: 高さの異なるカードが揃うように min-height を設定するのも有効ですが、
-        今回はFlexboxで画像を下に寄せます。*/
+  <link rel="stylesheet" href="styles.css"/>
+  <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+        "@type": "Organization",
+        "name": "株式会社NEXLINK",
+        "alternateName": "カブシキガイシャ ネクスリンク",
+        "url": "https://nex-link.jp",
+        "logo": "https://nex-link.jp/logo.png",
         
-    border:1px solid var(--line); 
-    border-radius:var(--radius);
-    padding:24px;
-    transition:transform .2s var(--easing-out), box-shadow .2s var(--easing-out), border-color .2s ease;
-    position:relative;
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+81-3-5275-5808",
+            "contactType": "customer service"
+        }
+        },
+        {
+        "@type": "LocalBusiness",
+        "name": "株式会社NEXLINK",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "麹町五丁目３番４丁目 麹町秋山ビルディング８F",
+            "addressLocality": "千代田区",
+            "addressRegion": "東京都",
+            "postalCode": "102-0083",
+            "addressCountry": "JP"
+        },
+        "description": "アパレル・ライフスタイル製品に特化したOEM/ODM事業者として、企画・生産・品質管理・物流の全工程をワンストップでプロデュースします。",
+        "url": "https://nex-link.jp"
+        }
+    ]
     }
-    .about-card:hover{ 
-        transform:translateY(-2px);
-        border-color:var(--accent);
-        box-shadow:0 8px 18px rgba(0,0,0,.05);
+    </script>
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+        "@type": "Question",
+        "name": "NEXLINKの主な事業内容は何ですか？",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "アパレル、バッグ、シューズ、生活雑貨などのライフスタイル製品に特化したOEM/ODM（企画・生産）事業をワンストップで展開しています。サプライヤー開拓から、パターン設計、品質管理、最適な物流設計まで一貫してプロデュースします。"
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "最小ロットでの依頼は可能ですか？",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "製品の種類や素材によりますが、お客様の予算と事業計画に合わせた最適なロットをご提案いたします。まずはお気軽にご相談ください。"
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "生産管理はどのように行っていますか？",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "中国・南通に拠点を置く現地プロフェッショナルチームが、日本の厳しい品質基準に基づいて生産工場を直接監視・管理しています。言語や文化の違いによるトラブルを排除し、安定供給を保証します。"
+        }
+        }
+    ]
     }
-    .about-card .kicker{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:12px; color:var(--accent); letter-spacing:.05em;}
-    .about-card h3{ margin:10px 0 10px; font-size:20px; font-weight:600; }
-    .about-card p{ margin:0; color:var(--sub); font-size:0.95rem; }
-    .about-card .pts{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
-    .pill{
-      padding:4px 8px; border-radius:3px; font-size:13px;
-      background:var(--bg-accent); 
-      color:var(--sub); 
-    }
-    .process-widget{
-        display:grid; grid-template-columns:1fr 4fr 1fr; gap:20px;
-        align-items:center;
-        border:1px solid var(--line); 
-        border-radius:var(--radius); padding:20px 24px; margin-top:40px;
-        background:var(--bg); 
-    }
-    .process-widget > * { font-family:'JetBrains Mono', monospace; font-weight:400; font-size:14px; color:var(--ink); }
-    .progress-bar{ 
-        display:flex; gap:4px; flex-grow:1; margin:0; height:8px; /* ★ 高さ8px */
-        border-radius:4px; overflow:hidden; 
-    }
-    .step{ 
-        height:100%; /* ★ バーの高さ */
-        flex-grow:1; background:var(--line); transition: background .4s ease 
-    }
-    .step.active{ 
-        background:var(--accent);
-    }
-    .about-card .img-container {
-        /* これまでの設定は維持しつつ、上部の要素との間に自動マージンを設けて下に寄せます */
-        margin-top: auto; 
-        
-        height: 180px; 
-        width: 100%;
-        margin-bottom: 0px; /* 元のCSSでは20pxありましたが、画像の下に余白が不要であれば0に */
-        border-radius: var(--radius);
-        overflow: hidden;
-        background: var(--bg-accent);
-        border: 1px solid var(--line);
-    }
-    .about-card .img-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* 画像がコンテナ全体を覆うように調整 */
-    }
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VSDG12XM25"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-    /* ========== Works (Strength Section) ========== */
-    #works{
-        background:var(--works-bg); 
-        color:#ffffff;
-        padding:80px 0; /* 上下のパディングを追加 */
-    }
-
-    #works .eyebrow, #works .lead{ 
-        color:var(--accent); 
-    }
-
-    /* グリッドコンテナ */
-    #works .grid{
-        display:grid; 
-        grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); /* レスポンシブグリッド */
-        gap:30px;
-        margin-top:40px;
-    }
-
-    /* カードコンテナのスタイル */
-    .work-card{
-        /* ★ 修正点: Flexboxを適用し、子要素を縦方向に配置 */
-        display: flex;
-        flex-direction: column;
-        height: auto; /* 高さを固定せず、内容物に合わせて自動調整 */
-        
-        border:1px solid var(--sub); 
-        border-radius:var(--radius); 
-        overflow:hidden;
-        background:var(--works-bg);
-        transition:transform .3s var(--easing-out), border-color .3s ease;
-        position:relative;
-        perspective: 1000px; 
-    }
-
-    /* ホバー効果 */
-    .work-card:hover{
-        transform:translateY(-6px);
-        border-color:var(--accent);
-    }
-
-    /* 画像コンテナ (HTMLで追加した .work-img-container ) */
-    .work-img-container {
-        height: 300px; /* 画像の高さ固定 */
-        width: 100%;
-        overflow: hidden;
-        background: var(--bg-accent);
-    }
-
-    .work-img-container img { 
-        width:100%; 
-        height:100%; 
-        object-fit:cover; /* コンテナ全体を覆う */
-        display:block;
-    }
-
-    /* テキスト詳細部分 */
-    .work-detail{
-        /* ★ 修正点: テキスト部分を可能な限り伸ばし、画像を底に揃える */
-        flex-grow: 1; 
-        padding:20px; /* パディング調整 */
-        font-size:15px; 
-        color:var(--sub);
-    }
-
-    .work-detail h4{
-        margin:0 0 8px; 
-        font-weight:700; 
-        color:var(--accent); /* タイトルをアクセントカラーに変更 */
-        font-size: 20px; 
-    }
-
-    .work-detail p{
-        margin:0; 
-        font-size:1rem; 
-        color:#ffffff; 
-        line-height: 1.6; /* 行間調整 */
-    }
-
-    /* ========== NEWS Block Style ========== */
-    #news .news-list{
-        list-style:none; padding:0; margin:0;
-    }
-    .news-item{
-        border-bottom:1px dashed var(--line);
-        padding:15px 0;
-        display:flex; align-items:flex-start;
-        gap: 30px;
-        transition: background .2s ease;
-    }
-    .news-item:hover{
-        background: rgba(22, 84, 138, 0.03); /* アクセントカラーの薄い背景 */
-    }
-    .news-item .date{
-        font-family:'JetBrains Mono', monospace;
-        font-size:14px;
-        font-weight:500;
-        color:var(--sub);
-        flex-shrink:0;
-        width: 100px; /* PCでの日付幅 */
-    }
-    .news-item .category{
-        font-size:13px;
-        font-weight:600;
-        padding:4px 8px;
-        border-radius:2px;
-        background:var(--accent);
-        color:#ffffff;
-        letter-spacing:.05em;
-        flex-shrink:0;
-    }
-    .news-item .title{
-        font-size:1rem;
-        font-weight:400;
-        color:var(--ink);
-    }
-    .news-item a{
-        display:flex; align-items:flex-start; gap: 30px; width:100%;
-    }
-
-    /* ========== HISTORY Block Style ========== */
-    #history{
-        background:var(--works-bg); 
-        color:#ffffff;
-    }
-    #history .eyebrow, #history .lead{ color:var(--accent); }
-    .history-list{
-        list-style:none; padding:0; margin:40px 0 0;
-        position:relative;
-    }
-    /* タイムラインの縦線 */
-    .history-list::before{
-        content:'';
-        position:absolute;
-        left: 200px; /* PCでの日付と線の距離 */
-        top: 0; bottom: 0;
-        width: 2px;
-        background: rgba(255,255,255,.1);
-    }
-    .history-item{
-        display:flex;
-        gap: 40px;
-        padding: 20px 0;
-        position:relative;
-        align-items:flex-start;
-    }
-    /* タイムラインの丸い点 */
-    .history-item::before{
-        content:'';
-        position:absolute;
-        left: 196px; /* 縦線の位置に合わせる */
-        top: 25px; 
-        width: 10px; height: 10px;
-        border-radius:50%;
-        background: var(--accent);
-        z-index:10;
-        border: 2px solid var(--works-bg);
-    }
-    .history-item .year{
-        font-family:'JetBrains Mono', monospace;
-        font-size:1.4rem;
-        font-weight:700;
-        /* ★ 変更点: テキスト色を白に統一 */
-        color:#ffffff; 
-        width: 160px; /* 年の幅 */
-        text-align:right;
-        flex-shrink:0;
-    }
-    .history-item .description{
-        color:#D1D1D1;
-        font-size:1rem;
-        line-height:1.5;
-        max-width: 600px;
-    }
-
-
-    /* ========== Button Styles (with Gradient) ========== */
-    .btn{
-        padding:.9rem 1.6rem;
-        border-radius:var(--radius);
-        font-weight:600;
-        transition: background .2s ease, transform .2s var(--easing-out), box-shadow .2s var(--easing-out);
-        will-change: transform;
-    }
-    .btn.primary{
-      /* 濃いブルーのグラデーションを適用 */
-      background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
-      color:#FFFFFF; /* 文字色は白を維持 */
-      border:1px solid var(--accent-dark);
-      /* 高級感のあるシャドウ（ブルー系） */
-      box-shadow: 0 4px 15px rgba(22, 84, 138, 0.4);
-    }
-    .btn.primary:hover{ 
-      /* ホバー時はさらに深いブルーに */
-      background: linear-gradient(to bottom, var(--accent-dark), #0e375d); 
-      box-shadow: 0 8px 20px rgba(22, 84, 138, 0.5);
-      transform:translateY(-1px); 
-    }
-    .btn.secondary{
-      background:transparent;
-      color:var(--ink);
-      border:1px solid var(--sub);
-    }
-    .btn.secondary:hover{
-        background:var(--bg-accent);
-        border-color:var(--ink);
-    }
-    #hero .btn.secondary{
-        color:#ffffff;
-        border-color:#ffffff;
-    }
-    #hero .btn.secondary:hover{
-        background:rgba(255,255,255,.1);
-    }
-    
-    /* ========== Contact Form & Company Profile ========== */
-    .form-control{
-        padding:14px; 
-        border:1px solid var(--line); 
-        border-radius:var(--radius);
-    }
-    .form-control:focus{
-        outline:none;
-        border-color:var(--accent);
-        /* 新アクセントカラーでシャドウ調整 */
-        box-shadow:0 0 0 3px rgba(22, 84, 138, 0.25); 
-    }
-    
-    /* PC表示用の2カラムグリッドを定義 */
-    .company-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-    
-    /* グループ会社情報用のスタイル */
-    .group-company-list {
-        list-style: none;
-        padding: 0;
-        margin-top: 20px;
-        border-top: 1px dashed var(--line);
-        padding-top: 20px;
-    }
-    .group-company-list li {
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid var(--bg-accent);
-        padding-bottom: 5px;
-    }
-    .group-company-list li strong {
-        color: var(--ink);
-        font-weight: 600;
-        font-size: 1.05rem;
-    }
-    .group-company-list li a {
-        font-size: 0.95rem;
-        font-family:'JetBrains Mono', monospace;
-        text-decoration: underline;
-    }
-
-    /* PC用: dt/ddを左右に配置 */
-    .def{margin:0; padding:0; list-style:none;}
-    .def dt{float:left;clear:left;width:120px;color:var(--sub);font-weight:500;}
-    .def dd{margin-left:120px; margin-bottom:1em; color:var(--ink);}
-
-    /* Map Container Style */
-    .map-container {
-        height: 300px; 
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        overflow: hidden;
-        background: var(--bg-accent);
-    }
-    .map-container iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        display: block;
-    }
-    /* ★ 追加: プライバシーポリシー同意チェックボックスのスタイル */
-    .privacy-check {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: flex-start;
-        font-size: 0.9rem;
-    }
-    .privacy-check input[type="checkbox"] {
-        margin-top: 4px;
-        flex-shrink: 0;
-        width: 16px; 
-        height: 16px;
-        margin-right: 10px;
-        accent-color: var(--accent); /* チェックされたときの色 */
-    }
-    .privacy-check label a {
-        font-weight: 500;
-        text-decoration: underline;
-    }
-
-    /* ========== Footer (Mobile Nav Support) ========== */
-    footer{
-        padding: 50px var(--wrap-px);
-        background: var(--works-bg);
-        color: #ffffff;
-        font-size: 0.9rem;
-    }
-    footer .foot-nav{
-        display: flex;
-        gap: 20px 40px;
-        flex-wrap: wrap;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid rgba(255,255,255,.1);
-    }
-    footer .foot-link{
-        color: #ffffff;
-        font-weight: 500;
-        opacity: 0.8;
-    }
-    footer .foot-link:hover{
-        opacity: 1;
-        color: var(--accent);
-    }
-    footer .brand{
-        color: var(--accent);
-        font-size: 1.1rem;
-    }
-
-    /* ****************************************************** */
-    /* ========== レスポンシブ対応 (Mobile/Tablet) ========== */
-    /* ****************************************************** */
-    @media (max-width: 980px){
-      /* グローバル設定 */
-      :root{
-        --wrap-px: 16px;
-        --section-pad: 8vh 0; 
-      }
-      
-      /* トップバー */
-      .top-bar{padding:12px var(--wrap-px);}
-      .top-bar nav { 
-          display:none;
-      } 
-      .top-bar .hamburger{ 
-          display:block; 
-      }
-      .nav-drawer{
-          display:flex; /* Mobile Nav Drawerを表示 */
-      }
-      .nav-drawer .nav-link{
-          margin-left:0;
-          padding: 10px 0;
-          font-size: 1.1rem;
-          border-bottom: 1px solid var(--line);
-      }
-      .nav-drawer .nav-link:last-child{
-          border-bottom: none;
-      }
-      
-      .brand{font-size:1rem;}
-
-      /* 1. ヒーローセクション (HERO) の修正 (強制力アップ版) */
-      #hero{
-          min-height:70vh; 
-          padding-top:80px;
-          text-align: left !important; 
-      }
-      .kine{
-          /* 画面幅で文字サイズを可変し、はみ出しを防止 */
-          font-size:clamp(32px, 9vw, 60px) !important; 
-          margin:0 0 15px !important;
-          line-height: 1.2 !important; 
-          white-space: normal !important; /* nowrapを確実に上書き */
-          word-break: normal !important; 
-          overflow-wrap: break-word !important;
-      }
-      .lead{
-          font-size:1rem !important; 
-          margin-bottom:30px !important;
-          text-align: left !important;
-      }
-      .hero .wrap > div {
-          margin-left: 0 !important; 
-          max-width: 100% !important; 
-          padding-right: var(--wrap-px) !important;
-      }
-      .hero .wrap > div > div{
-          display:flex !important;
-          flex-direction:column !important; /* ボタンを縦積みに強制 */
-          gap:12px !important;
-          width: 100% !important; 
-      }
-      .hero .wrap a.btn{
-          width:100% !important; 
-          text-align:center !important;
-          padding: 1rem 1.6rem !important; 
-          font-size: 1rem !important;
-      }
-
-
-      /* 2. Aboutセクション */
-      #about .grid{grid-template-columns:1fr}
-      .about-card{padding:20px;}
-      
-      /* 2. process-widget の修正 */
-      .process-widget{
-          grid-template-columns:1fr; /* 縦積みに変更 */
-          text-align:center;
-          padding: 15px 20px; /* パディングを少し調整 */
-      }
-      .process-widget > *{
-          font-size:13px;
-          text-align: center !important; /* 強制的に中央寄せ */
-      }
-      .progress-bar{
-          /* 中央配置を明確にし、マージンを調整 */
-          margin: 10px auto 15px auto; 
-          max-width:300px;
-      }
-
-      /* Worksセクションの最適化 */
-      #works .grid{ gap:0; } 
-      .work-card{
-        height:auto; 
-        perspective:none;
-        transition:none; 
-        border:none; 
-        border-radius:0;
-        margin-bottom:1px; 
-      }
-      .work-card:hover{
-        transform:none;
-        border-color:none;
-      }
-      .work-content, .work-overlay{
-          position:static; transform:none; backface-visibility:visible;
-          height:auto;
-          transition:none;
-      }
-      .work-content img{height:200px;}
-      .work-detail{
-        padding:15px 15px 0; 
-        border-bottom:none; 
-        color:#ffffff; 
-        background:var(--works-bg);
-      }
-      .work-detail h4{font-size:18px;}
-      .work-detail p{font-size:0.85rem; color:rgba(255,255,255,.7);} 
-      .work-overlay{ 
-        background:var(--brand-logo); 
-        padding:15px; 
-      }
-
-      /* NEWSセクションの最適化 */
-      .news-item{
-        flex-direction:column;
-        gap: 8px;
-        padding: 12px 0;
-      }
-      .news-item a{
-        flex-direction:column;
-        gap: 8px;
-      }
-      .news-item .date{
-        width: auto;
-      }
-      .news-item .category{
-        order: -1; 
-        align-self: flex-start;
-      }
-      .news-item .title{
-        font-size: 0.95rem;
-      }
-
-      /* HISTORYセクションの最適化 */
-      .history-list::before{
-        left: 20px; /* 縦線の位置を右に移動 */
-      }
-      .history-item{
-        gap: 30px; /* ★ yearとdescriptionの間の余白を広げる */
-        padding: 15px 0 15px 50px; /* ★ 左パディングを増やし、線からの距離を確保 */
-      }
-      .history-item::before{
-        left: 16px; /* ★ 丸い点も右に移動 */
-        top: 20px;
-      }
-      .history-item .year{
-        width: 80px; /* ★ 年の幅を少し広げる */
-        font-size: 1.2rem;
-        text-align: left;
-        /* モバイルでも年を白色で表示（すでにPCで設定済みだが念のため） */
-        color: #ffffff; 
-      }
-      .history-item .description{
-        font-size: 0.95rem;
-      }
-      
-      /* 3. Companyセクション (縦並び再強化) - 1列配置 */
-      .company-grid{ 
-          grid-template-columns:1fr; /* 縦1列配置 */
-          gap: 30px; 
-      }
-      
-      /* 定義リスト（dl/dt/dd）のfloatとマージンをリセットし、縦積みにする */
-      .def dt{
-        float: none; 
-        clear: none; 
-        width: auto; 
-        margin-bottom: 0; 
-        font-weight: 500; 
-        color: var(--ink); 
-        font-size: 0.95rem;
-      }
-      .def dd{
-        margin-left: 0; 
-        margin-bottom: 1em; 
-        margin-top: -0.3em; 
-        font-size: 0.95rem;
-      }
-      .map-container{height:250px;}
-
-      /* Contactセクション */
-      .contact-form{padding:20px;}
-      .contact-form > div{gap:15px;}
-    }
-  </style>
+    gtag('config', 'G-VSDG12XM25');
+    </script>
 </head>
 <body>
   
     <header class="top-bar">
         <div class="brand logo-container">
-            <img src="logo_3.png" alt="NEXLINK - The Invisible Grid Logo" class="logo-img">
+            <img src="logo.png" alt="NEXLINK - The Invisible Grid Logo" class="logo-img">
         </div>
         <nav>
             <a href="#about" class="nav-link">ABOUT / SOLUTION</a>
@@ -977,7 +278,7 @@
                     </li>
                     <li class="news-item">
                         <a href="#">
-                            <span class="date">2025.11.04</span>
+                            <span class="date">2025.10.24</span>
                             <span class="category" style="background:#5cb85c;">UPDATE</span>
                             <span class="title">東京事務所へ移転しました。</span>
                         </a>
@@ -1006,7 +307,7 @@
                 <div class="company-grid" >
                     
                     <dl class="def card" id="company-info" style="padding:24px;">
-                        <dt>社　名</dt><dd>株式会社NEXLINK</dd>
+                        <dt>社　名</dt><dd>株式会社NEXLINK（ネクスリンク）</dd>
                         <dt>所在地</dt><dd>東京都千代田区麹町五丁目３番４丁目 麹町秋山ビルディング８F</dd>
                         <dt>事　業</dt><dd>アパレルOEM／生産・在庫管理／輸入サポート</dd>
                         <dt>設　立</dt><dd>2018年</dd>
@@ -1190,132 +491,11 @@
                 <a href="#history" class="foot-link">History</a> <a href="#contact" class="foot-link">Contact</a>
             </div>
             <div class="brand logo-container" style="margin-bottom: 5px;">
-                <img src="logo_3.png" alt="NEXLINK Logo" class="logo-img" style="height: 40px;">
+                <img src="logo.png" alt="NEXLINK Logo" class="logo-img" style="height: 40px;">
             </div>
             <p style="opacity:.6; margin-top:8px; font-size:0.85rem;">© 2025 NEXLINK Co., Ltd. All rights reserved.</p>
         </div>
     </footer>
-
-    <script>
-        // Process Bar Animation logic 
-        (function() {
-            const processStepsContainer = document.getElementById('process-steps');
-            const processCurrent = document.getElementById('process-current');
-            const steps = processStepsContainer ? processStepsContainer.querySelectorAll('.step') : [];
-            const labels = ['企画', '試作', '生産', '納品'];
-            let currentStep = 1;
-            let processInterval = null;
-            
-            if (steps.length > 0) {
-                const updateProcess = () => {
-                    steps.forEach((step, index) => {
-                        step.classList.toggle('active', index < currentStep);
-                    });
-                    // 新しいラベルに対応させる
-                    if (processCurrent) {
-                        processCurrent.textContent = `進捗：${labels[currentStep-1]}`;
-                    }
-                    currentStep++;
-                    if (currentStep > steps.length) {
-                        currentStep = 1; 
-                    }
-                };
-                
-                const aboutSection = document.getElementById('about');
-                const io = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            if (!processInterval) {
-                                updateProcess(); 
-                                processInterval = setInterval(updateProcess, 1500); 
-                            }
-                        } else {
-                            if (processInterval) {
-                                clearInterval(processInterval);
-                                processInterval = null;
-                            }
-                        }
-                    });
-                }, { threshold: 0.4 }); 
-                
-                io.observe(aboutSection);
-            }
-
-            // Stealth Navigation Logic 
-            const topBar = document.querySelector('.top-bar');
-            const scrollThreshold = 100;
-
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > scrollThreshold) {
-                    topBar.classList.add('scrolled');
-                } else {
-                    topBar.classList.remove('scrolled');
-                }
-            });
-            
-            if (window.scrollY > scrollThreshold) {
-                topBar.classList.add('scrolled');
-            }
-
-            // Smooth Scroll and Drawer Close Logic 
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const drawer = document.getElementById('mobile-drawer');
-                    const hamburger = document.getElementById('hamburger-icon');
-                    if (drawer && drawer.classList.contains('open')) {
-                        drawer.classList.remove('open');
-                        hamburger.classList.remove('open');
-                        document.body.style.overflow = 'auto'; 
-                    }
-
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        const topBarHeight = topBar.offsetHeight || 0; 
-                        const offsetPosition = targetElement.offsetTop - topBarHeight;
-                        
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Hamburger Menu Logic 
-            const hamburgerIcon = document.getElementById('hamburger-icon');
-            const mobileDrawer = document.getElementById('mobile-drawer');
-
-            if (hamburgerIcon && mobileDrawer) {
-                hamburgerIcon.addEventListener('click', () => {
-                    const isOpen = mobileDrawer.classList.toggle('open');
-                    hamburgerIcon.classList.toggle('open', isOpen);
-                    document.body.style.overflow = isOpen ? 'hidden' : 'auto'; 
-                });
-            }
-
-            // Google Map Placeholder 
-            const mapContainer = document.getElementById('company-map-embed');
-            const address = '東京都千代田区麹町五丁目３番４丁目 麹町秋山ビルディング 8F';
-            
-            if (mapContainer) {
-                const mapIframe = document.createElement('iframe');
-                mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`;
-                mapIframe.allowFullscreen = true;
-                mapIframe.loading = 'lazy';
-                
-                mapContainer.appendChild(mapIframe);
-                
-                mapContainer.addEventListener('click', () => {
-                    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
-                });
-                
-                mapContainer.style.cursor = 'pointer';
-            }
-        })();
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
