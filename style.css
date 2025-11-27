@@ -470,6 +470,24 @@
         /* 新アクセントカラーでシャドウ調整 */
         box-shadow:0 0 0 3px rgba(22, 84, 138, 0.25); 
     }
+    /* フォーム送信後の状態 */
+    .is-submitted .form-control:disabled {
+        background-color: var(--bg-accent) !important; /* 背景をグレーに */
+        color: var(--sub) !important;
+        border-color: var(--line) !important;
+        cursor: not-allowed;
+    }
+
+    /* 必須項目のエラー表示 */
+    .input-error {
+        border: 2px solid #d9534f !important; /* 濃い赤色の枠線 */
+        /* 入力時に目立つようにシャドウも追加 */
+        box-shadow: 0 0 0 2px rgba(217, 83, 79, 0.2); 
+    }
+    /* チェックボックス（ラベル）のエラー表示。必要に応じてカスタマイズ */
+    .privacy-check.input-error label {
+        color: #d9534f;
+    }
     
     /* PC表示用の2カラムグリッドを定義 */
     .company-grid {

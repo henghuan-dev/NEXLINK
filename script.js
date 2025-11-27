@@ -118,35 +118,48 @@
         })();
 
         // =========================================================
-        // JavaScript for Form Submission (script.js) - UXテスト用修正
+        // JavaScript for Form Submission (script.js) - ページ内完結・UX要件対応
         // =========================================================
 
         // 🌟 API GatewayのエンドポイントURLを設定 🌟
         const API_ENDPOINT = 'https://0rn89v3rzk.execute-api.ap-northeast-1.amazonaws.com/prod/contact'; 
-        // 🌟 フォーム送信後の遷移先URLを設定 🌟
-        const SUCCESS_REDIRECT_URL = 'thanks.html'; // 完了画面のURLを設定
 
         document.addEventListener('DOMContentLoaded', () => {
             
-            // フォーム要素の取得
             const form = document.getElementById('contact-form');
             const submitButton = document.getElementById('submit-button');
             const formMessage = document.getElementById('form-message');
-            
+            const formFields = ['name', 'email', 'message', 'privacy-agree'];
+
             if (!form || !submitButton) return;
             
             // --- (スクロール処理、ハンバーガーメニューの処理は省略) ---
 
-            // ----------------------------------------------------
-            // お問い合わせフォーム送信処理 (UXテストモード)
-            // ----------------------------------------------------
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault(); // デフォルトのフォーム送信を阻止
+            // フォームの入力状態を制御する関数
+            const setFormState = (disabled) => {
+                formFields.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.disabled = disabled;
+                        // disabled状態に応じてフォーム全体にクラスを付ける（CSSで見た目を制御）
+                        form.classList.toggle('is-submitted', disabled);
+                    }
+                });
+                submitButton.disabled = disabled;
+            };
 
+            // フォーム送信処理
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); 
                 formMessage.textContent = ''; 
-                submitButton.disabled = true;
+                setFormState(true); // 送信開始時に全て無効化
                 submitButton.textContent = '送信中...';
 
+                // フィールドエラーをクリア
+                formFields.forEach(id => {
+                    document.getElementById(id)?.classList.remove('input-error');
+                });
+                
                 const formData = {
                     name: document.getElementById('name').value,
                     email: document.getElementById('email').value,
@@ -157,31 +170,54 @@
                 try {
                     const response = await fetch(API_ENDPOINT, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(formData),
                     });
+                    
+                    const result = await response.json();
 
-                    // 🌟 修正ポイント: APIの応答に関わらず、成功メッセージを表示
-                    // const result = await response.json(); // API結果の取得はスキップ
+                    if (response.ok) {
+                        // 1. 🌟 送信成功時の処理 🌟
+                        formMessage.style.color = '#5cb85c';
+                        formMessage.innerHTML = 'お問い合わせを受け付けました。<br>担当より３営業日以内にご連絡させていただきます。しばらくおまちください。';
+                        
+                        // フォームはグレーアウト（setFormState(true)で既に処理済み）
+                        submitButton.textContent = '送信完了';
 
-                    formMessage.style.color = '#5cb85c'; // 緑色
-                    formMessage.textContent = 'お問い合わせを受け付けました。ページを移動します...';
+                    } else {
+                        // 2. 🌟 送信失敗時（Lambdaからのエラー）の処理 🌟
+                        
+                        formMessage.style.color = '#d9534f';
+                        submitButton.textContent = '上記内容で送信する';
+                        setFormState(false); // フォームを有効化に戻す
 
-                    // フォーム送信成功とみなして、指定のページに遷移
-                    setTimeout(() => {
-                        window.location.href = SUCCESS_REDIRECT_URL; 
-                    }, 1500); // 1.5秒後に遷移
+                        if (result.error && result.error.includes('必須項目が不足しています')) {
+                            // 2-1. 未記入欄があった場合
+                            formMessage.textContent = '入力内容に誤りがあります。未記入の項目をご確認ください。';
+                            
+                            // エラーメッセージから不足項目を抽出してマークを付ける
+                            if (result.error.includes('お名前')) document.getElementById('name').classList.add('input-error');
+                            if (result.error.includes('メールアドレス')) document.getElementById('email').classList.add('input-error');
+                            if (result.error.includes('お問い合わせ内容')) document.getElementById('message').classList.add('input-error');
+                            if (result.error.includes('プライバシーポリシー同意')) document.getElementById('privacy-agree').classList.add('input-error');
+                        
+                        } else {
+                            // 2-2. その他のエラー（形式不正、文字数超過など）
+                            formMessage.textContent = result.error || 'エラーが発生しました。入力内容を確認してください。';
+                        }
+                    }
 
                 } catch (error) {
-                    // ネットワークエラーなど、Fetch自体が失敗した場合のみ
-                    console.error('Submission Error (Network or CORS issue):', error);
+                    // 3. 🌟 通信エラー（ネットワーク、CORS、403など）の処理 🌟
+                    console.error('Submission Error:', error);
                     formMessage.style.color = '#d9534f';
-                    formMessage.textContent = '通信エラーが発生しました。ネットワーク設定を確認してください。';
+                    formMessage.innerHTML = '通信エラーが発生しました。しばらく経ってから再度お試しください。または、info@nex-link.jp宛に直接メールいただくようにお願いします。';
                     
-                    submitButton.disabled = false;
                     submitButton.textContent = '上記内容で送信する';
+                    setFormState(false); // フォームを有効化に戻す
                 }
             });
+            
+            // ページリロード時にフォームをリセットする（リロードで通常表示に戻る要件）
+            // 実際には、ページをリロードすれば自動的にフォームは有効な状態に戻ります。
         });
