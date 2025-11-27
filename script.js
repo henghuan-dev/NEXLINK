@@ -118,98 +118,149 @@
         })();
 
         // =========================================================
-        // JavaScript for Form Submission (script.js) - 純粋モックモード
-        // 目的: フォームの動的なUI動作（バリデーションと成功時の表示）のテスト
+        // script.js - 株式会社NEXLINK (HTML構造に適合済み・純粋モックモード)
         // =========================================================
 
-        // ... (他のスクロール、ハンバーガーメニューの処理はそのまま残してください) ...
-
-        // フォームの入力状態を制御する関数 (変更なし)
-        const setFormState = (disabled) => {
-            // ... (setFormState関数の定義は前回の完全版コードと同じものを残してください) ...
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // フォーム要素の取得
             const form = document.getElementById('contact-form');
-            const submitButton = document.getElementById('submit-button');
-            const formFields = ['name', 'email', 'message']; // IDリストは適宜調整
+            const submitButton = document.getElementById('submit-button'); // HTMLにIDを追加
+            const formMessage = document.getElementById('form-message');   // HTMLにIDを追加
             
-            formFields.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.disabled = disabled;
-                }
-            });
-            const privacyCheck = document.getElementById('privacy-agree');
-            if (privacyCheck) {
-                privacyCheck.disabled = disabled;
-            }
-            submitButton.disabled = disabled;
-            form.classList.toggle('is-submitted', disabled);
-        };
-
-
-        // ----------------------------------------------------
-        // フォーム送信処理 (API通信なしの純粋モック)
-        // ----------------------------------------------------
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault(); 
-            const formMessage = document.getElementById('form-message');
-            const submitButton = document.getElementById('submit-button');
+            // 必須フィールドのIDリスト (messageはrequiredがないため、HTML側で必須とするならここに追加)
+            const requiredFields = ['name', 'email'];
             
-            // 必須フィールドの値を取得
-            const nameValue = document.getElementById('name').value.trim();
-            const emailValue = document.getElementById('email').value.trim();
-            const messageValue = document.getElementById('message').value.trim();
-            const privacyAgreeChecked = document.getElementById('privacy-agree').checked;
-
-            // フィールドエラーをクリア
-            const formFields = ['name', 'email', 'message'];
-            formFields.forEach(id => {
-                document.getElementById(id)?.classList.remove('input-error');
-            });
-            const privacyLabel = document.querySelector('label[for="privacy-agree"]');
-            if(privacyLabel) privacyLabel.classList.remove('input-error-label');
-            formMessage.textContent = ''; 
-
             // ----------------------------------------------------
-            // 1. フロントエンドでのバリデーション (必須チェック)
+            // フォームの入力状態を制御する関数
             // ----------------------------------------------------
-            const hasMissingField = !nameValue || !emailValue || !messageValue || !privacyAgreeChecked;
-
-            if (hasMissingField) {
-                // 🚨 バリデーションエラー発生
-                formMessage.style.color = '#d9534f';
-                formMessage.textContent = '入力内容に誤りがあります。未記入の項目をご確認ください。';
-                submitButton.textContent = '上記内容で送信する';
+            const setFormState = (disabled) => {
+                // 必須・任意入力フィールド
+                const inputFields = ['name', 'email', 'subject', 'message']; 
                 
-                // エラーマークの表示
-                if (!nameValue) document.getElementById('name').classList.add('input-error');
-                if (!emailValue) document.getElementById('email').classList.add('input-error');
-                if (!messageValue) document.getElementById('message').classList.add('input-error');
-                if (!privacyAgreeChecked) {
-                    if(privacyLabel) privacyLabel.classList.add('input-error-label');
+                inputFields.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.disabled = disabled;
+                    }
+                });
+                
+                // プライバシーチェックボックス
+                const privacyCheck = document.getElementById('privacy-agree');
+                if (privacyCheck) {
+                    privacyCheck.disabled = disabled;
                 }
-                
-                // フォームは編集可能なまま
-                setFormState(false); 
-                
-                return; // 処理を終了
+
+                submitButton.disabled = disabled;
+                // disabled状態に応じてフォーム全体にクラスを付ける（CSSで見た目を制御）
+                form.classList.toggle('is-submitted', disabled);
+            };
+
+            if (!form || !submitButton || !formMessage) {
+                console.warn("お問い合わせフォームに必要な要素が見つかりません。HTMLのIDを確認してください。");
+                return; // 要素がなければ処理を終了
             }
 
-            // ----------------------------------------------------
-            // 2. 送信成功シミュレーション
-            // ----------------------------------------------------
-            
-            // UIを「送信中」状態にする
-            setFormState(true); 
-            submitButton.textContent = '送信中...';
 
-            // 擬似的な通信遅延 (1.5秒)
-            setTimeout(() => {
-                // ✅ 送信成功UIの表示
-                formMessage.style.color = '#5cb85c';
-                formMessage.innerHTML = 'お問い合わせを受け付けました。<br>担当より３営業日以内にご連絡させていただきます。しばらくおまちください。';
+            // ----------------------------------------------------
+            // フォーム送信処理 (API通信なしの純粋モック)
+            // ----------------------------------------------------
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); 
                 
-                // フォームはグレーアウト（setFormState(true)で既に処理済み）
-                submitButton.textContent = '送信完了';
+                // 値の取得
+                const nameValue = document.getElementById('name').value.trim();
+                const emailValue = document.getElementById('email').value.trim();
+                // messageValueはHTMLでrequiredではないため、ここでは必須としない
+                const privacyAgreeChecked = document.getElementById('privacy-agree').checked;
+
+                // エラー表示をクリア
+                requiredFields.forEach(id => {
+                    document.getElementById(id)?.classList.remove('input-error');
+                });
+                const privacyLabel = document.querySelector('label[for="privacy-agree"]');
+                if(privacyLabel) privacyLabel.classList.remove('input-error-label');
+                formMessage.textContent = ''; 
+
+                // ----------------------------------------------------
+                // 1. フロントエンドでのバリデーション (必須チェック: 会社名/氏名, メールアドレス, 同意)
+                // ----------------------------------------------------
+                const hasMissingField = !nameValue || !emailValue || !privacyAgreeChecked;
+
+                if (hasMissingField) {
+                    // 🚨 バリデーションエラー発生
+                    formMessage.style.color = '#d9534f';
+                    formMessage.textContent = '必須項目が未入力です。ご確認の上、再度送信してください。';
+                    submitButton.textContent = '送信';
+                    
+                    // エラーマークの表示
+                    if (!nameValue) document.getElementById('name').classList.add('input-error');
+                    if (!emailValue) document.getElementById('email').classList.add('input-error');
+                    if (!privacyAgreeChecked) {
+                        if(privacyLabel) privacyLabel.classList.add('input-error-label');
+                    }
+                    
+                    setFormState(false); // フォームは編集可能なまま
+                    return; 
+                }
+
+                // ----------------------------------------------------
+                // 2. 送信成功シミュレーション
+                // ----------------------------------------------------
                 
-            }, 1500);
+                setFormState(true); 
+                submitButton.textContent = '送信中...';
+
+                // 擬似的な通信遅延 (1.5秒)
+                setTimeout(() => {
+                    // ✅ 送信成功UIの表示
+                    formMessage.style.color = '#5cb85c';
+                    formMessage.innerHTML = 'お問い合わせを受け付けました。<br>担当より３営業日以内にご連絡させていただきます。しばらくおまちください。';
+                    submitButton.textContent = '送信完了';
+                    
+                }, 1500);
+            });
+
+            // =========================================================
+            // サイト共通機能 (変更なし)
+            // =========================================================
+
+            // ----------------------------------------------------
+            // スクロール処理 (Top Barのスタイル変更)
+            // ----------------------------------------------------
+            const topBar = document.querySelector('.top-bar');
+            const scrollThreshold = 50; 
+
+            window.addEventListener('scroll', () => {
+                if (topBar) {
+                    if (window.scrollY > scrollThreshold) {
+                        topBar.classList.add('scrolled');
+                    } else {
+                        topBar.classList.remove('scrolled');
+                    }
+                }
+            });
+
+            // ----------------------------------------------------
+            // ハンバーガーメニュー (モバイルナビゲーション)
+            // ----------------------------------------------------
+            const hamburger = document.getElementById('hamburger-icon');
+            const drawer = document.getElementById('mobile-drawer');
+            const navLinks = drawer ? drawer.querySelectorAll('.nav-link') : []; 
+
+            if (hamburger && drawer) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('open');
+                    drawer.classList.toggle('open');
+                });
+                
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (drawer.classList.contains('open')) {
+                            hamburger.classList.remove('open');
+                            drawer.classList.remove('open');
+                        }
+                    });
+                });
+            }
         });
