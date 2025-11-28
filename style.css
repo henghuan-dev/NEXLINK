@@ -172,7 +172,7 @@
       font-weight:700;
       font-size:clamp(32px, 5vw, 48px);
       margin:0 0 var(--heading-mb);letter-spacing:.01em}
-    .lead{color:var(--sub);max-width:75ch; margin:0 0 var(--lead-mb);}
+    .lead{color:var(--sub);max-width:90ch; margin:0 0 var(--lead-mb);}
 
     /* ========== About ========== */
     #about .grid{
