@@ -308,7 +308,7 @@
         color:var(--sub);
     }
 
-    .work-detail h4{
+    .work-detail h3{
         margin:0 0 8px; 
         font-weight:700; 
         color:var(--accent); /* タイトルをアクセントカラーに変更 */
@@ -709,7 +709,7 @@
         color:#ffffff; 
         background:var(--works-bg);
       }
-      .work-detail h4{font-size:18px;}
+      .work-detail h3{font-size:18px;}
       .work-detail p{font-size:0.85rem; color:rgba(255,255,255,.7);} 
       .work-overlay{ 
         background:var(--brand-logo); 
