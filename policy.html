@@ -9,18 +9,58 @@
     <link rel="stylesheet" href="style.css"/>
     <script type="application/ld+json">
     {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "株式会社NEXLINK",
-    "url": "https://nex-link.jp/",
-    "sameAs": [
-        "https://nex-link.jp/privacy-policy.html"
-    ],
-    "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "info@nex-link.jp",
-        "contactType": "customer service"
-    }
+        "@context": "https://schema.org",
+        "@graph": [
+            // 1. WebSite (ウェブサイト全体の情報 - 変更なし)
+            {
+                "@type": "WebSite",
+                "name": "株式会社NEXLINK",
+                "alternateName": [
+                    "カブシキガイシャ ネクスリンク", 
+                    "NEXLINK Japan Co., Ltd." 
+                ],
+                "url": "https://nex-link.jp/",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://nex-link.jp/?s={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                }
+            },
+            
+            // 2. WebPage (プライバシーポリシーページの情報)
+            {
+                "@type": ["WebPage", "PrivacyPolicy"], // PrivacyPolicyタイプを追加
+                "url": "https://nex-link.jp/policy.html", // URLをプライバシーポリシーのページに修正
+                "name": "プライバシーポリシー", // ページタイトルに修正
+                "isPartOf": { "@id": "https://nex-link.jp/#website" },
+                "primaryImageOfPage": "https://nex-link.jp/img/ogp-image-nexlink.png",
+                "datePublished": "2025-12-04", // 公開日を修正
+                "dateModified": "2025-12-04" // 最終更新日を修正
+            },
+            
+            // 3. Article (ページの内容としての情報)
+            {
+                "@type": "Article",
+                "mainEntityOfPage": "https://nex-link.jp/policy.html", // URLをプライバシーポリシーのページに修正
+                "headline": "株式会社NEXLINK プライバシーポリシー（個人情報保護方針）", // 記事の見出しを修正
+                "description": "株式会社NEXLINKの個人情報保護方針、個人情報の利用目的、第三者提供の制限、安全管理措置、お問い合わせ窓口についての詳細。", // 記事の概要を修正
+                "author": {
+                    "@type": "Organization",
+                    "name": "株式会社NEXLINK",
+                    "url": "https://nex-link.jp/index.html#company" 
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "株式会社NEXLINK",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://nex-link.jp/logo.png"
+                    }
+                },
+                "datePublished": "2025-12-04", // 公開日を修正
+                "dateModified": "2025-12-04" // 最終更新日を修正
+            }
+        ]
     }
     </script>
     <style>
