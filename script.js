@@ -310,27 +310,4 @@
                     }
                 }
             });
-
-            // ----------------------------------------------------
-            // ハンバーガーメニュー (モバイルナビゲーション)
-            // ----------------------------------------------------
-            const hamburger = document.getElementById('hamburger-icon');
-            const drawer = document.getElementById('mobile-drawer');
-            const navLinks = drawer ? drawer.querySelectorAll('.nav-link') : []; 
-
-            if (hamburger && drawer) {
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('open');
-                    drawer.classList.toggle('open');
-                });
-                
-                navLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (drawer.classList.contains('open')) {
-                            hamburger.classList.remove('open');
-                            drawer.classList.remove('open');
-                        }
-                    });
-                });
-            }
         });

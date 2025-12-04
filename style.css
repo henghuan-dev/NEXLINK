@@ -563,32 +563,91 @@
     }
 
     /* ========== Footer (Mobile Nav Support) ========== */
-    footer{
+    /* ベーススタイル */
+    footer {
         padding: 50px var(--wrap-px);
         background: var(--works-bg);
         color: #ffffff;
         font-size: 0.9rem;
     }
-    footer .foot-nav{
+
+    /* wrap：縦積み */
+    footer .wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* メインナビ */
+    footer .foot-nav {
         display: flex;
         gap: 20px 40px;
         flex-wrap: wrap;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         padding-bottom: 20px;
         border-bottom: 1px solid rgba(255,255,255,.1);
     }
-    footer .foot-link{
+    footer .foot-link {
         color: #ffffff;
         font-weight: 500;
         opacity: 0.8;
     }
-    footer .foot-link:hover{
+    footer .foot-link:hover {
         opacity: 1;
         color: var(--accent);
     }
-    footer .brand{
+    footer .brand {
         color: var(--accent);
         font-size: 1.1rem;
+    }
+
+    /* --- 下段ブロック（ロゴ＋コピーライト＋法務リンク） --- */
+    .foot-bottom-row {
+        display: flex;
+        flex-direction: column; /* モバイルで縦積み */
+        gap: 20px;
+        padding-top: 10px;
+    }
+
+    /* 左側：ロゴ＋コピーライト */
+    .bottom-left {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* 右側：法務リンク（縦並び） */
+    .legal-links {
+        display: flex;
+        flex-direction: column;  /* 常に縦2段 */
+        gap: 6px;
+    }
+
+    /* 法務リンクの見た目 */
+    .legal-link {
+        font-size: 0.8rem;
+        color: #ffffff;  /* 色は自由に変更可能 */
+        opacity: 0.85;
+        text-decoration: none;
+    }
+    .legal-link:hover {
+        opacity: 1;
+        text-decoration: underline;
+        color: #ffffff;
+    }
+
+    /* --- PC版で横並びにする --- */
+    @media (min-width: 768px) {
+        .foot-bottom-row {
+            flex-direction: row; /* ロゴ左、リンク右の横並びに */
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        /* ロゴと法務リンクの距離 */
+        .legal-links {
+            margin-left: 40px;
+        }
     }
 
     /* ****************************************************** */
