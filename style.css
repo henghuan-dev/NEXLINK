@@ -242,6 +242,23 @@
         height: 100%;
         object-fit: cover; /* 画像がコンテナ全体を覆うように調整 */
     }
+    /* YouTubeレスポンシブ対応 */
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 の比率 */
+        height: 0;
+        overflow: hidden;
+        margin: 0 auto;
+        background: #000;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 
     /* ========== Works (Strength Section) ========== */
     #works{
