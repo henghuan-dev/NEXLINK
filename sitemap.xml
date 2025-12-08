@@ -2,9 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://nex-link.jp/index.html</loc>
-    <lastmod>2025-11-27</lastmod>
+    <loc>https://nex-link.jp/</loc>
+    <lastmod>2025-12-08</lastmod>
     <priority>1.0</priority>
+  </url>
+    <image:image>
+      <image:loc>https://nex-link.jp/logo.png</image:loc>
+      <image:title>株式会社NEXLINK ロゴ画像</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://nex-link.jp/img/ogp-image-nexlink.png</image:loc>
+      <image:title>アパレルOEM/ODM NEXLINK メインビジュアル</image:title>
+    </image:image>
+
+    <video:video>
+      <video:thumbnail_loc>https://nex-link.jp/img/nexlink_movie_samune.png</video:thumbnail_loc>
+      <video:title>株式会社NEXLINK サービス紹介動画</video:title>
+      <video:description>アパレルOEM/ODM・生産管理の全工程をワンストップでサポートするNEXLINKの紹介動画です。</video:description>
+      <video:content_loc>https://www.youtube.com/watch?v=F3cNJ5gu-Tw</video:content_loc>
+      <video:player_loc>https://www.youtube.com/embed/F3cNJ5gu-Tw</video:player_loc>
+      <video:duration>14</video:duration> <video:publication_date>2025-12-08T10:00:00+09:00</video:publication_date>
+      <video:live>no</video:live>
+    </video:video>
   </url>
 
   <url>
