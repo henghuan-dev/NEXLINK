@@ -579,101 +579,178 @@
         text-decoration: underline;
     }
 
-    /* ========== Footer (Mobile Nav Support) ========== */
-    /* ベーススタイル */
-    footer {
-        padding: 50px var(--wrap-px);
-        background: var(--works-bg);
-        color: #ffffff;
-        font-size: 0.9rem;
+    /* ================================================= */
+    /* Footer Styles - SNS情報を含む新しいフッターデザイン */
+    /* ================================================= */
+    /* フッター全体 */
+    .footer {
+        background-color: var(--works-bg); /* #1A2C40 (ダークネイビー) */
+        color: #f0f0f0;
+        /* コピーライトが下に入るため、一旦底部のパディングは無し */
+        padding: 60px 0 0; 
+        font-size: 14px;
     }
 
-    /* wrap：縦積み */
-    footer .wrap {
+    /* SNSとLEGALの横並びコンテナ (PC用) */
+    .footer-content-minimal {
         display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    /* メインナビ */
-    footer .foot-nav {
-        display: flex;
-        gap: 20px 40px;
-        flex-wrap: wrap;
-        margin-bottom: 20px;
-        padding-bottom: 20px;
+        justify-content: center; /* 中央に寄せる */
+        gap: 100px; /* 間のスペースを広めに */
+        padding-bottom: 40px;
+        /* 上のブロックと同じ背景色なので、区切り線のみ表示 */
         border-bottom: 1px solid rgba(255,255,255,.1);
-    }
-    footer .foot-link {
-        color: #ffffff;
-        font-weight: 500;
-        opacity: 0.8;
-    }
-    footer .foot-link:hover {
-        opacity: 1;
-        color: var(--accent);
-    }
-    footer .brand {
-        color: var(--accent);
-        font-size: 1.1rem;
+        /* 中央に寄せるために最大幅を設定 */
+        max-width: 800px; 
+        margin-inline: auto;
     }
 
-    /* --- 下段ブロック（ロゴ＋コピーライト＋法務リンク） --- */
-    .foot-bottom-row {
-        display: flex;
-        flex-direction: column; /* モバイルで縦積み */
-        gap: 20px;
-        padding-top: 10px;
+    /* タイトル (FOLLOW US, LEGAL) */
+    .footer h4 {
+        color: var(--accent); /* #16548a (濃いブルー) */
+        font-size: 16px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
     }
 
-    /* 左側：ロゴ＋コピーライト */
-    .bottom-left {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+    /* リンクリスト（LEGAL） */
+    .footer-legal ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
 
-    /* 右側：法務リンク（縦並び） */
-    .legal-links {
-        display: flex;
-        flex-direction: column;  /* 常に縦2段 */
-        gap: 6px;
-    }
-
-    /* 法務リンクの見た目 */
-    .legal-link {
-        font-size: 0.8rem;
-        color: #ffffff;  /* 色は自由に変更可能 */
-        opacity: 0.85;
+    .footer-legal a {
+        color: #f0f0f0;
         text-decoration: none;
-    }
-    .legal-link:hover {
-        opacity: 1;
-        text-decoration: underline;
-        color: #ffffff;
-    }
-    .copy-txt {
-        white-space: nowrap; 
-        font-size: 2.8vw; 
-        min-width: 0;
+        transition: color 0.3s;
+        line-height: 2.2;
+        display: block;
     }
 
-    /* --- PC版で横並びにする --- */
-    @media (min-width: 768px) {
-        .foot-bottom-row {
-            flex-direction: row; /* ロゴ左、リンク右の横並びに */
-            justify-content: flex-start;
-            align-items: flex-start;
+    .footer-legal a:hover {
+        color: var(--accent);
+    }
+
+    /* SNSアイコン (FOLLOW US) */
+    .sns-icons {
+        display: flex;
+        gap: 12px;
+    }
+
+    /* 個別アイコンのデザイン */
+    .sns-icon {
+        color: #f0f0f0; 
+        font-size: 16px; 
+        transition: background 0.3s, color 0.3s;
+        text-decoration: none;
+        width: 34px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255,255,255,.3); 
+        border-radius: 50%; 
+        background: transparent;
+    }
+
+    .sns-icon:hover {
+        color: var(--works-bg); /* ホバー時はテキストをダークネイビーに */
+        background: var(--accent); /* ブランドカラーを背景に */
+        border-color: var(--accent);
+    }
+
+    /* コピーライトテキストのエリア */
+    .footer-copyright-text {
+        padding-top: 20px;
+        padding-bottom: 30px; /* フッター全体の底部パディング */
+        text-align: center;
+    }
+
+    .copyright {
+        color: #777;
+        font-size: 12px;
+        margin: 0;
+    }
+
+
+    /* ****************************************************** */
+    /* ========== レスポンシブ対応 (Mobile/Tablet) ========== */
+    /* ****************************************************** */
+    @media (max-width: 768px) {
+        .footer {
+            padding-top: 40px;
+        }
+        
+        /* モバイルでは縦積みに変更 */
+        .footer-content-minimal {
+            flex-direction: column;
+            align-items: center; /* 要素を中央に寄せる */
+            gap: 30px; 
+            padding-bottom: 30px;
+            max-width: 100%; /* 幅制限を解除 */
+        }
+        
+        /* 各セクションを中央寄せに */
+        .footer-sns, .footer-legal {
+            text-align: center;
+            width: 100%; 
         }
 
-        /* ロゴと法務リンクの距離 */
-        .legal-links {
-            margin-left: 40px;
+        /* リンクの定義リストを中央寄せに */
+        .footer-legal ul {
+            text-align: center;
         }
-    
-        .copy-txt {
-            /* PC画面では固定サイズに戻す */
-            font-size: 0.9rem; 
+        
+        .footer-legal a {
+            width: fit-content;
+            margin: 0 auto; /* 中央寄せ */
+        }
+        
+        /* SNSアイコンを中央に寄せる */
+        .sns-icons {
+            justify-content: center;
+        }
+
+        .footer-copyright-text {
+            padding-bottom: 20px; /* モバイルではパディングを少し減らす */
+        }
+    }
+    /* ****************************************************** */
+    /* ========== レスポンシブ対応 (Mobile/Tablet) ========== */
+    /* ****************************************************** */
+    @media (max-width: 768px) {
+        .footer {
+            padding-top: 40px;
+        }
+        
+        /* モバイルでは縦積みに変更 */
+        .footer-content-minimal {
+            flex-direction: column;
+            align-items: center; /* 要素を中央に寄せる */
+            gap: 30px; 
+            padding-bottom: 30px;
+            max-width: 100%; /* 幅制限を解除 */
+        }
+        
+        /* 各セクションを中央寄せに */
+        .footer-sns, .footer-legal {
+            text-align: center;
+        }
+
+        /* リンクの定義リストを中央寄せに */
+        .footer-legal ul {
+            text-align: center;
+        }
+        
+        .footer-legal a {
+            width: fit-content;
+            margin: 0 auto; /* 中央寄せ */
+        }
+        
+        /* SNSアイコンを中央に寄せる */
+        .sns-icons {
+            justify-content: center;
         }
     }
 
