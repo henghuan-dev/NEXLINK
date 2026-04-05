@@ -4,15 +4,17 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 
+  <!-- TOP -->
   <url>
     <loc>https://nex-link.jp/index.html</loc>
-    <lastmod>2025-12-08</lastmod>
+    <lastmod>2026-04-05</lastmod>
     <priority>1.0</priority>
     
     <image:image>
       <image:loc>https://nex-link.jp/logo.png</image:loc>
       <image:title>株式会社NEXLINK ロゴ画像</image:title>
     </image:image>
+
     <image:image>
       <image:loc>https://nex-link.jp/img/ogp-image-nexlink.png</image:loc>
       <image:title>アパレルOEM/ODM NEXLINK メインビジュアル</image:title>
@@ -24,17 +26,34 @@
       <video:description>アパレルOEM/ODM・生産管理の全工程をワンストップでサポートするNEXLINKの紹介動画です。</video:description>
       <video:content_loc>https://www.youtube.com/watch?v=NAT84opjUV4</video:content_loc>
       <video:player_loc>https://www.youtube.com/embed/NAT84opjUV4</video:player_loc>
-      <video:duration>14</video:duration> <video:publication_date>2025-12-08T10:00:00+09:00</video:publication_date>
+      <video:duration>14</video:duration>
+      <video:publication_date>2025-12-08T10:00:00+09:00</video:publication_date>
       <video:live>no</video:live>
     </video:video>
   </url>
 
+  <!-- MONOID（最重要LP） -->
+  <url>
+    <loc>https://nex-link.jp/monoid.html</loc>
+    <lastmod>2026-04-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- CONCEPT -->
+  <url>
+    <loc>https://nex-link.jp/concept.html</loc>
+    <lastmod>2026-04-05</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- POLICY -->
   <url>
     <loc>https://nex-link.jp/policy.html</loc>
     <lastmod>2025-11-27</lastmod>
     <priority>0.5</priority>
   </url>
 
+  <!-- TERMS -->
   <url>
     <loc>https://nex-link.jp/terms.html</loc>
     <lastmod>2025-12-04</lastmod>
