@@ -394,14 +394,14 @@
     .history-list::before{
         content:'';
         position:absolute;
-        left: 200px; /* PCでの日付と線の距離 */
+        left: 160px; /* PCでの日付と線の距離 */
         top: 0; bottom: 0;
         width: 2px;
-        background: rgba(255,255,255,.1);
+        background: rgba(255,255,255,.2);
     }
     .history-item{
         display:flex;
-        gap: 40px;
+        gap: 24px;
         padding: 20px 0;
         position:relative;
         align-items:flex-start;
@@ -410,7 +410,7 @@
     .history-item::before{
         content:'';
         position:absolute;
-        left: 196px; /* 縦線の位置に合わせる */
+        left: 156px; /* 縦線の位置に合わせる */
         top: 25px; 
         width: 10px; height: 10px;
         border-radius:50%;
@@ -420,11 +420,11 @@
     }
     .history-item .year{
         font-family:'JetBrains Mono', monospace;
-        font-size:1.4rem;
+        font-size:1.2rem;
         font-weight:700;
         /* ★ 変更点: テキスト色を白に統一 */
         color:#ffffff; 
-        width: 160px; /* 年の幅 */
+        width: 130px; /* 年の幅 */
         text-align:right;
         flex-shrink:0;
     }
@@ -432,9 +432,43 @@
         color:#D1D1D1;
         font-size:1rem;
         line-height:1.5;
-        max-width: 600px;
+        max-width: 650px;
+        padding-left: 20px;
+    }
+    .history-item.latest{
+        background: rgba(22, 84, 138, 0.15);
+        padding: 16px 20px;
+        border-radius: 6px;
     }
 
+    .history-item.latest .year{
+        color: var(--accent);
+    }
+
+    .history-item.latest::before{
+        width: 12px;
+        height: 12px;
+        background: var(--accent);
+    }
+    #history .btn.secondary{
+    color:#fff;
+    border-color:rgba(255,255,255,.3);
+    }
+
+    #history .btn.secondary:hover{
+    background: var(--accent);
+    border-color: var(--accent);
+    color:#fff;
+    }
+
+    #history a{
+    color:#4da3ff;
+    font-weight:500;
+    }
+
+    #history a:hover{
+    text-decoration: underline;
+    }
 
     /* ========== Button Styles (with Gradient) ========== */
     .btn{
@@ -902,7 +936,7 @@
 
       /* HISTORYセクションの最適化 */
       .history-list::before{
-        left: 20px; /* 縦線の位置を右に移動 */
+        left: 20px; /* 縦線の位置を右に移動 */   
       }
       .history-item{
         gap: 30px; /* ★ yearとdescriptionの間の余白を広げる */
@@ -921,6 +955,7 @@
       }
       .history-item .description{
         font-size: 0.95rem;
+        padding-left: 0;
       }
       
       /* 3. Companyセクション (縦並び再強化) - 1列配置 */
