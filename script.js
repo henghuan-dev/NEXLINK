@@ -267,12 +267,18 @@
                     const result = await response.json(); 
 
                     if (response.ok) {
-                        // ✅ 成功時の処理 (ステータスコード 200-299)
-                        formMessage.style.color = '#1C479B'; // ダークブルー
-                        formMessage.innerHTML = 'お問い合わせを受け付けました。<br>担当より３営業日以内にご連絡させていただきます。しばらくおまちください。';
-                        submitButton.textContent = '送信完了';
-                        // フォームはグレーアウト状態を維持 
 
+                        formMessage.style.color = '#1C479B';
+                        formMessage.innerHTML =
+                            'お問い合わせを受け付けました。<br>' +
+                            '担当より3営業日以内にご連絡させていただきます。';
+
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'トップページに戻る';
+
+                        submitButton.onclick = () => {
+                            window.location.href = '/';
+                        };
                     } else {
                         // ❌ バックエンドからのエラー (4xx, 5xx)
                         
