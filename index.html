@@ -754,20 +754,45 @@
                     
                     <form method="POST" id="contact-form">
                         <div style="display:grid; gap:20px;">
-                            
+
+                            <!-- 会社名 / 氏名 -->
                             <div>
-                                <label for="name" style="display:block; margin-bottom: 6px; font-weight: 500;">会社名 / 氏名<span style="color:red; margin-left: 5px;">*</span></label>
-                                <input type="text" id="name" name="name" class="form-control" placeholder="例: 株式会社NEXLINK / 山田 太郎" required style="width:100%;" aria-required="true">
+                                <label for="name" style="display:block; margin-bottom:6px; font-weight:500;">
+                                    会社名 / 氏名<span style="color:red; margin-left:5px;">*</span>
+                                </label>
+                                <input type="text" id="name" name="name" class="form-control"
+                                    placeholder="例: 株式会社NEXLINK / 山田 太郎"
+                                    required style="width:100%;">
                             </div>
 
+                            <!-- メール -->
                             <div>
-                                <label for="email" style="display:block; margin-bottom: 6px; font-weight: 500;">メールアドレス<span style="color:red; margin-left: 5px;">*</span></label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="例: info@nex-link.jp" required style="width:100%;" aria-required="true">
+                                <label for="email" style="display:block; margin-bottom:6px; font-weight:500;">
+                                    メールアドレス<span style="color:red; margin-left:5px;">*</span>
+                                </label>
+                                <input type="email" id="email" name="email" class="form-control"
+                                    placeholder="例: info@nex-link.jp"
+                                    required style="width:100%;">
                             </div>
-                            
+
+                            <!-- 電話番号（追加） -->
                             <div>
-                                <label for="subject" style="display:block; margin-bottom: 6px; font-weight: 500;">お問い合わせ項目</label>
-                                <select id="subject" name="subject" class="form-control" style="width:100%; appearance: menulist; -webkit-appearance: menulist;">
+                                <label for="tel" style="display:block; margin-bottom:6px; font-weight:500;">
+                                    電話番号<span style="color:red; margin-left:5px;">*</span>
+                                </label>
+                                <input type="tel" id="tel" name="tel" class="form-control"
+                                    placeholder="例: 09012345678"
+                                    required style="width:100%;">
+                            </div>
+
+                            <!-- お問い合わせ項目 -->
+                            <div>
+                                <label for="subject" style="display:block; margin-bottom:6px; font-weight:500;">
+                                    お問い合わせ項目<span style="color:red; margin-left:5px;">*</span>
+                                </label>
+                                <select id="subject" name="subject" class="form-control"
+                                    required style="width:100%;">
+                                    <option value="">選択してください</option>
                                     <option value="サプライヤー探しの相談">サプライヤー探しの相談</option>
                                     <option value="商品企画の具現化について">商品企画の具現化について</option>
                                     <option value="生産管理・品質について">生産管理・品質について</option>
@@ -775,20 +800,35 @@
                                 </select>
                             </div>
 
+                            <!-- お問い合わせ内容 -->
                             <div>
-                                <label for="message" style="display:block; margin-bottom: 6px; font-weight: 500;">お問い合わせ内容</label>
-                                <textarea id="message" name="message" class="form-control" rows="5" placeholder="具体的な内容をご記入ください" style="width:100%; resize:vertical;"></textarea>
+                                <label for="message" style="display:block; margin-bottom:6px; font-weight:500;">
+                                    お問い合わせ内容<span style="color:red; margin-left:5px;">*</span>
+                                </label>
+                                <textarea id="message" name="message" class="form-control"
+                                    rows="5"
+                                    placeholder="具体的な内容をご記入ください"
+                                    required style="width:100%; resize:vertical;"></textarea>
                             </div>
+
+                            <!-- 同意 -->
                             <div class="privacy-check">
                                 <input type="checkbox" id="privacy-agree" name="privacy-agree" required>
                                 <label for="privacy-agree">
-                                    <a href="policy.html" target="_blank" rel="noopener noreferrer">個人情報保護方針</a>に同意の上、送信します。<span style="color:red; margin-left: 5px;">*</span>
+                                    <a href="policy.html" target="_blank">個人情報保護方針</a>
+                                    に同意の上、送信します。
+                                    <span style="color:red; margin-left:5px;">*</span>
                                 </label>
                             </div>
 
+                            <!-- 送信 -->
                             <div style="text-align:center; margin-top:20px;">
-                                <button type="submit" id="submit-button" class="btn primary" style="min-width: 250px; font-size: 1.05rem;">送信</button>
+                                <button type="submit" id="submit-button" class="btn primary"
+                                    style="min-width:250px; font-size:1.05rem;">
+                                    送信
+                                </button>
                             </div>
+
                         </div>
                     </form>
                     

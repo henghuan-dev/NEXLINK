@@ -137,7 +137,7 @@
             const formMessage = document.getElementById('form-message');
             
             // 必須フィールドのIDリスト
-            const allInputFields = ['name', 'email', 'subject', 'message']; // グレーアウト対象
+            const allInputFields = ['name', 'email', 'tel', 'subject', 'message'];// グレーアウト対象
 
             // ----------------------------------------------------
             // フォームの入力状態を制御する関数
@@ -174,6 +174,7 @@
                 // 値の取得
                 const nameValue = document.getElementById('name').value.trim();
                 const emailValue = document.getElementById('email').value.trim();
+                const telValue = document.getElementById('tel').value.trim();
                 const subjectValue = document.getElementById('subject').value;
                 const messageValue = document.getElementById('message').value.trim();
                 const privacyAgreeChecked = document.getElementById('privacy-agree').checked;
@@ -189,8 +190,13 @@
                 // ----------------------------------------------------
                 // 1. フロントエンドでのバリデーション
                 // ----------------------------------------------------
-                const hasMissingField = !nameValue || !emailValue || !privacyAgreeChecked;
-
+                const hasMissingField =
+                    !nameValue ||
+                    !emailValue ||
+                    !telValue ||
+                    !subjectValue ||
+                    !messageValue ||
+                    !privacyAgreeChecked;
                 if (hasMissingField) {
                     formMessage.style.color = '#d9534f';
                     formMessage.textContent = '必須項目が未入力です。ご確認の上、再度送信してください。';
@@ -199,6 +205,9 @@
                     // エラーマークの表示
                     if (!nameValue) document.getElementById('name').classList.add('input-error');
                     if (!emailValue) document.getElementById('email').classList.add('input-error');
+                    if (!telValue) document.getElementById('tel').classList.add('input-error');
+                    if (!subjectValue) document.getElementById('subject').classList.add('input-error');
+                    if (!messageValue) document.getElementById('message').classList.add('input-error');
                     if (!privacyAgreeChecked) {
                         if(privacyLabel) privacyLabel.classList.add('input-error-label');
                     }
@@ -235,7 +244,8 @@
                 const formData = {
                     name: nameValue,
                     email: emailValue,
-                    subject: subjectValue, 
+                    tel: telValue,
+                    subject: subjectValue,
                     message: messageValue,
                     privacy_agree: privacyAgreeChecked,
                     // 🌟 reCAPTCHA トークンを追加 🌟
