@@ -986,3 +986,47 @@
       .contact-form{padding:20px;}
       .contact-form > div{gap:15px;}
     }
+    .network-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:40px;
+    margin-top:40px;
+}
+
+.network-card{
+    padding:32px !important;
+}
+
+.network-title{
+    margin:0 0 24px;
+    font-size:20px;
+    letter-spacing:.14em;
+    color:var(--accent);
+    font-weight:700;
+}
+
+.network-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+.network-list li{
+    padding:18px 0;
+    border-bottom:1px solid var(--line);
+    font-size:17px;
+    line-height:1.7;
+}
+
+.network-list li:last-child{
+    border-bottom:none;
+}
+
+/* SP */
+@media (max-width:980px){
+
+    .network-grid{
+        grid-template-columns:1fr;
+    }
+
+}
