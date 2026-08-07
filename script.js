@@ -326,4 +326,18 @@
                     }
                 }
             });
+
+            // ----------------------------------------------------
+            // NEWS一覧の開閉トグル
+            // ----------------------------------------------------
+            const newsToggle = document.getElementById('news-toggle');
+            const newsList = document.getElementById('news-list');
+
+            if (newsToggle && newsList) {
+                newsToggle.addEventListener('click', () => {
+                    const isExpanded = newsList.classList.toggle('is-expanded');
+                    newsToggle.classList.toggle('is-open', isExpanded);
+                    newsToggle.setAttribute('aria-expanded', isExpanded);
+                });
+            }
         });

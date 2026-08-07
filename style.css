@@ -379,6 +379,37 @@
     .news-item a{
         display:flex; align-items:flex-start; gap: 30px; width:100%;
     }
+    .news-item-extra{
+        display:none;
+    }
+    #news .news-list.is-expanded .news-item-extra{
+        display:flex;
+    }
+    .news-toggle-wrap{
+        text-align:center;
+        margin-top:24px;
+    }
+    .news-toggle{
+        width:44px; height:44px;
+        border-radius:50%;
+        border:1px solid var(--line);
+        background:var(--bg);
+        color:var(--accent);
+        font-size:16px;
+        cursor:pointer;
+        display:inline-flex; align-items:center; justify-content:center;
+        transition: background .2s ease, border-color .2s ease;
+    }
+    .news-toggle:hover{
+        background:var(--bg-accent);
+        border-color:var(--accent);
+    }
+    .news-toggle i{
+        transition: transform .3s var(--easing-out);
+    }
+    .news-toggle.is-open i{
+        transform: rotate(180deg);
+    }
 
     /* ========== HISTORY Block Style ========== */
     #history{
