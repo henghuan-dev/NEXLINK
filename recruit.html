@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>採用情報 | 株式会社NEXLINK</title>
-    <meta name="description" content="株式会社NEXLINKの採用情報ページです。アパレルOEM事業MONOIDの拡大に伴い、商品開発・OEM営業を支える仲間を募集しています。現在、レディースアパレルのパタンナーとアパレルOEM営業を募集しています。">
-    <meta name="keywords" content="NEXLINK 採用, MONOID 採用, アパレルOEM 求人, パタンナー 求人, アパレル営業 求人, OEM営業, レディースアパレル, 商品開発, 中国生産">
+    <meta name="description" content="株式会社NEXLINKの採用情報ページです。アパレルOEM事業MONOIDの拡大に伴い、OEM営業を支える仲間を募集しています。※レディースアパレルパタンナーの募集は終了しました。">
+    <meta name="keywords" content="NEXLINK 採用, MONOID 採用, アパレルOEM 求人, アパレル営業 求人, OEM営業, 商品開発, 中国生産">
 
     <meta property="og:url" content="https://nex-link.jp/recruit.html" />
     <meta property="og:title" content="採用情報 | 株式会社NEXLINK" />
     <meta property="og:site_name" content="株式会社NEXLINK" />
-    <meta property="og:description" content="株式会社NEXLINKの採用情報ページです。アパレルOEM事業MONOIDの拡大に伴い、商品開発・OEM営業を支える仲間を募集しています。" />
+    <meta property="og:description" content="株式会社NEXLINKの採用情報ページです。アパレルOEM事業MONOIDの拡大に伴い、OEM営業を支える仲間を募集しています。" />
     <meta property="og:type" content="article" />
     <meta property="og:image" content="https://nex-link.jp/img/ogp-image-nexlink.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="採用情報 | 株式会社NEXLINK" />
-    <meta name="twitter:description" content="株式会社NEXLINKの採用情報ページです。MONOIDの商品開発・OEM営業を支える仲間を募集しています。" />
+    <meta name="twitter:description" content="株式会社NEXLINKの採用情報ページです。MONOIDのOEM営業を支える仲間を募集しています。" />
     <meta name="twitter:image" content="https://nex-link.jp/img/ogp-image-nexlink.png" />
 
     <link rel="canonical" href="https://nex-link.jp/recruit.html" />
@@ -37,7 +37,7 @@
           "@id": "https://nex-link.jp/recruit.html",
           "url": "https://nex-link.jp/recruit.html",
           "name": "採用情報 | 株式会社NEXLINK",
-          "description": "株式会社NEXLINKの採用情報ページ。アパレルOEM事業MONOIDの商品開発・OEM営業を支える仲間を募集しています。"
+          "description": "株式会社NEXLINKの採用情報ページ。アパレルOEM事業MONOIDのOEM営業を支える仲間を募集しています。"
         },
         {
           "@type": "Organization",
@@ -50,45 +50,6 @@
             "https://x.com/NEXLINK_JAPAN",
             "https://www.instagram.com/nexlink_japan"
           ]
-        },
-        {
-          "@type": "JobPosting",
-          "title": "レディースアパレル パタンナー",
-          "description": "アパレルOEM事業MONOIDの拡大に伴い、ブランド様との打ち合わせ、仕様整理、サンプル修正、フィッティング対応、中国工場への仕様伝達などを担当するレディースアパレルのパタンナーを募集しています。正社員または業務委託で相談可能です。正社員の場合は、商品開発・OEM事業に関する資料整理、仕様情報の管理、社内連携などの事務作業も含みます。",
-          "employmentType": [
-            "FULL_TIME",
-            "CONTRACTOR"
-          ],
-          "hiringOrganization": {
-            "@type": "Organization",
-            "name": "株式会社NEXLINK",
-            "sameAs": "https://nex-link.jp/",
-            "logo": "https://nex-link.jp/logo.png"
-          },
-          "jobLocation": {
-            "@type": "Place",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "麹町五丁目3番4号 麹町秋山ビルディング8F",
-              "addressLocality": "千代田区",
-              "addressRegion": "東京都",
-              "postalCode": "102-0083",
-              "addressCountry": "JP"
-            }
-          },
-          "baseSalary": {
-            "@type": "MonetaryAmount",
-            "currency": "JPY",
-            "value": {
-              "@type": "QuantitativeValue",
-              "minValue": 250000,
-              "maxValue": 350000,
-              "unitText": "MONTH"
-            }
-          },
-          "workHours": "9:00-18:00",
-          "datePosted": "2026-07-06",
-          "validThrough": "2026-12-31"
         },
         {
           "@type": "JobPosting",
@@ -286,6 +247,14 @@
             padding: 4px 10px;
             border-radius: var(--radius);
             margin-bottom: 18px;
+        }
+
+        .job-status.closed {
+            background: var(--sub);
+        }
+
+        .job-card.is-closed {
+            opacity: .72;
         }
 
         .job-card h3 {
@@ -808,6 +777,11 @@
             white-space: nowrap;
         }
 
+        .job-block-badges span.is-closed {
+            background: rgba(255,255,255,.22);
+            font-weight: 700;
+        }
+
         .job-block-nav {
             display: flex;
             flex-wrap: wrap;
@@ -1013,13 +987,14 @@
                     <p>
                         NEXLINKでは、アパレルOEM事業「MONOID」の拡大に伴い、
                         事業を一緒に育てていく仲間を募集しています。
-                        現在は、商品開発を支えるパタンナーと、企画から納品まで伴走するアパレルOEM営業を募集しています。
+                        現在は、企画から納品まで伴走するアパレルOEM営業を募集しています。
+                        ※レディースアパレル パタンナーの募集は終了しました。
                     </p>
 
                     <div class="recruit-hero-note">
-                        <span>現在募集中：2職種</span>
-                        <span>パタンナーは正社員・業務委託相談可</span>
+                        <span>現在募集中：1職種</span>
                         <span>営業職は正社員募集</span>
+                        <span>パタンナーは募集終了</span>
                     </div>
 
                     <div class="button-row">
@@ -1035,7 +1010,7 @@
             <div class="wrap">
                 <div class="recruit-sticky-nav-inner">
                     <a href="#open-positions">募集中の職種</a>
-                    <a href="#patternner">パタンナー</a>
+                    <a href="#patternner">パタンナー（募集終了）</a>
                     <a href="#sales">OEM営業</a>
                     <a href="#about-recruit">会社について</a>
                     <a href="#flow">選考フロー</a>
@@ -1055,17 +1030,17 @@
                 </p>
 
                 <div class="job-card-grid">
-                    <a href="#patternner" class="job-card">
-                        <span class="job-status">募集中</span>
+                    <a href="#patternner" class="job-card is-closed">
+                        <span class="job-status closed">募集終了</span>
                         <h3>レディースアパレル パタンナー</h3>
-                        <p>正社員または業務委託 / 1名募集</p>
+                        <p>正社員または業務委託 / 1名募集（募集は終了しました）</p>
                         <ul>
                             <li>正社員：月給25万円〜35万円</li>
                             <li>業務委託：時給3,000円〜5,000円、または案件単位で相談</li>
                             <li>東京都内・一部リモート相談可</li>
                             <li>ブランド打ち合わせ・仕様整理・サンプル修正対応</li>
                         </ul>
-                        <span class="job-card-arrow">パタンナー職の詳細を見る →</span>
+                        <span class="job-card-arrow">募集要項を見る（募集終了）→</span>
                     </a>
 
                     <a href="#sales" class="job-card">
@@ -1093,12 +1068,12 @@
                             <div class="recruit-label">JOB 01 / PATTERNER</div>
                             <h2>レディースアパレル パタンナー</h2>
                             <p>
-                                レディースアパレルのパタンナー経験を活かし、MONOIDの商品開発を支えていただける方を1名募集しています。
-                                正社員・業務委託のいずれも相談可能です。
+                                おかげさまで、レディースアパレルのパタンナー職は募集を終了いたしました。
+                                多数のご応募をいただき、誠にありがとうございました。募集要項は今後の参考として掲載を継続しています。
                             </p>
                         </div>
                         <div class="job-block-badges">
-                            <span>1名募集</span>
+                            <span class="is-closed">募集終了</span>
                             <span>正社員</span>
                             <span>業務委託</span>
                             <span>一部リモート相談可</span>
@@ -1107,6 +1082,10 @@
 
                     <div class="job-block-summary">
                         <div class="job-block-summary-grid">
+                            <div class="job-block-summary-item">
+                                <span>ステータス</span>
+                                <strong>募集終了</strong>
+                            </div>
                             <div class="job-block-summary-item">
                                 <span>雇用形態</span>
                                 <strong>正社員・業務委託</strong>
@@ -1119,16 +1098,12 @@
                                 <span>勤務地</span>
                                 <strong>東京都千代田区 / 一部リモート相談可</strong>
                             </div>
-                            <div class="job-block-summary-item">
-                                <span>募集人数</span>
-                                <strong>1名</strong>
-                            </div>
                         </div>
                     </div>
 
-                    <details class="job-accordion" open>
+                    <details class="job-accordion">
                         <summary>
-                            <span class="job-accordion-title">募集要項</span>
+                            <span class="job-accordion-title">募集要項（募集終了）</span>
                             <span class="job-accordion-icon"><i class="fa-solid fa-chevron-down"></i></span>
                         </summary>
                         <div class="job-accordion-body">
@@ -1607,21 +1582,21 @@
         <section class="recruit-cta" id="entry">
             <div class="wrap">
                 <div class="recruit-label">ENTRY</div>
-                <h2>ご希望の職種を明記の上、ご応募ください。</h2>
+                <h2>アパレルOEM営業職、ご応募お待ちしております。</h2>
                 <p>
-                    これまでのご経験、得意な分野、ご希望の職種を確認しながら、
+                    これまでのご経験、得意な分野を確認しながら、
                     NEXLINK / MONOIDの事業を一緒に支えていただける方を募集しています。
+                    ※レディースアパレル パタンナーの募集は終了しております。
                 </p>
 
                 <div class="button-row">
-                    <a href="mailto:recruit@nex-link.jp?subject=採用応募" class="btn primary">メールで応募する</a>
+                    <a href="mailto:recruit@nex-link.jp?subject=アパレルOEM営業応募" class="btn primary">メールで応募する</a>
                     <a href="mailto:recruit@nex-link.jp?subject=採用に関するお問い合わせ" class="btn secondary">お問い合わせする</a>
                 </div>
 
                 <p style="font-size:0.9rem; margin-top:24px;">
                     応募・お問い合わせ先：recruit@nex-link.jp<br>
-                    メール応募の際は、件名に「希望職種名」をご記載ください。<br>
-                    例：「パタンナー応募」「アパレルOEM営業応募」<br>
+                    メール応募の際は、件名に「アパレルOEM営業応募」とご記載ください。<br>
                     履歴書・職務経歴書に加え、過去の実績やポートフォリオがあれば、差し支えない範囲でご共有ください。
                 </p>
             </div>
