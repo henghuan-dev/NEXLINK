@@ -379,6 +379,15 @@
     .news-item a{
         display:flex; align-items:flex-start; gap: 30px; width:100%;
     }
+    .news-item .title a{
+        display:inline;
+        width:auto;
+        color:var(--accent);
+        text-decoration:underline;
+    }
+    .news-item .title a:hover{
+        text-decoration:none;
+    }
     .news-item-extra{
         display:none;
     }
