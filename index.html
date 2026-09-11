@@ -282,7 +282,7 @@
             <a href="#history" class="nav-link">HISTORY</a> 
             <a href="concept.html" class="nav-link">CONCEPT</a>
             <a href="recruit.html" class="nav-link">RECRUIT</a>
-            <a href="#contact" class="nav-link">CONTACT</a>
+            <a href="contact.html" class="nav-link">CONTACT</a>
         </nav>
         <div class="hamburger" id="hamburger-icon">
             <span></span>
@@ -299,7 +299,7 @@
         <a href="#history" class="nav-link">HISTORY</a>
         <a href="concept.html" class="nav-link">CONCEPT</a> 
         <a href="recruit.html" class="nav-link">RECRUIT</a>
-        <a href="#contact" class="nav-link">CONTACT</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
     </div>
 
     <div class="shell">
@@ -322,7 +322,7 @@
                         輸入ビジネスの「設計図」を。お客様のニーズを深く理解し、最善のソリューションをご提供します。
                     </p>
                     <div style="display:flex; gap:16px;">
-                        <a href="#contact" class="btn primary">お問い合わせ</a>
+                        <a href="contact.html" class="btn primary">お問い合わせ</a>
                         <a href="monoid.html" class="btn secondary">サービス詳細へ</a>
                     </div>
                 </div>
@@ -465,6 +465,12 @@
                         <div class="work-img-container">
                             <img src="img/nexlink_work_lifestyle.jpg" alt="株式会社NEXLINKが手掛けるアパレル、バッグ、シューズ、生活雑貨などのライフスタイルプロダクトOEMの集合イメージ" loading="lazy">
                         </div>
+                    </div>
+                </div>
+                <div class="wrap">
+                    <div class="cta-inline">
+                        <p>貴社の課題に合わせた最適な生産体制をご提案します。</p>
+                        <a href="contact.html" class="btn primary">お問い合わせはこちら</a>
                     </div>
                 </div>
             </div>
@@ -652,6 +658,10 @@
 
                     </div>
                 </div>
+                <div class="cta-inline">
+                    <p>会社概要や実績について、詳しくお話しいたします。</p>
+                    <a href="contact.html" class="btn primary">お問い合わせはこちら</a>
+                </div>
             </div>
         </section>
         <section id="history" class="section">
@@ -807,101 +817,17 @@
             </section>
 
 
-        <section id="contact">
+        <section class="cta-band" id="contact-cta">
             <div class="wrap">
-                <div class="section-head" style="margin-bottom: 50px;">
-                    <div class="eyebrow">CONTACT</div>
-                    <h2 class="section-title">お問い合わせフォーム</h2>
-                    <p class="lead">当社のサービスに関するご質問、お見積もりのご依頼など、お気軽にご連絡ください。<br class="pc-only">担当者より折り返しご連絡いたします。</p>
-                </div>
-
-                <div class="contact-form" style="max-width: 700px; margin: 0 auto;">
-                    
-                    <form method="POST" id="contact-form">
-                        <div style="display:grid; gap:20px;">
-
-                            <!-- 会社名 / 氏名 -->
-                            <div>
-                                <label for="name" style="display:block; margin-bottom:6px; font-weight:500;">
-                                    会社名 / 氏名<span style="color:red; margin-left:5px;">*</span>
-                                </label>
-                                <input type="text" id="name" name="name" class="form-control"
-                                    placeholder="例: 株式会社NEXLINK / 山田 太郎"
-                                    required style="width:100%;">
-                            </div>
-
-                            <!-- メール -->
-                            <div>
-                                <label for="email" style="display:block; margin-bottom:6px; font-weight:500;">
-                                    メールアドレス<span style="color:red; margin-left:5px;">*</span>
-                                </label>
-                                <input type="email" id="email" name="email" class="form-control"
-                                    placeholder="例: info@nex-link.jp"
-                                    required style="width:100%;">
-                            </div>
-
-                            <!-- 電話番号（追加） -->
-                            <div>
-                                <label for="tel" style="display:block; margin-bottom:6px; font-weight:500;">
-                                    電話番号<span style="color:red; margin-left:5px;">*</span>
-                                </label>
-                                <input type="tel" id="tel" name="tel" class="form-control"
-                                    placeholder="例: 09012345678"
-                                    required style="width:100%;">
-                            </div>
-
-                            <!-- お問い合わせ項目 -->
-                            <div>
-                                <label for="subject" style="display:block; margin-bottom:6px; font-weight:500;">
-                                    お問い合わせ項目<span style="color:red; margin-left:5px;">*</span>
-                                </label>
-                                <select id="subject" name="subject" class="form-control"
-                                    required style="width:100%;">
-                                    <option value="">選択してください</option>
-                                    <option value="サプライヤー探しの相談">サプライヤー探しの相談</option>
-                                    <option value="商品企画の具現化について">商品企画の具現化について</option>
-                                    <option value="生産管理・品質について">生産管理・品質について</option>
-                                    <option value="その他">その他</option>
-                                </select>
-                            </div>
-
-                            <!-- お問い合わせ内容 -->
-                            <div>
-                                <label for="message" style="display:block; margin-bottom:6px; font-weight:500;">
-                                    お問い合わせ内容<span style="color:red; margin-left:5px;">*</span>
-                                </label>
-                                <textarea id="message" name="message" class="form-control"
-                                    rows="5"
-                                    placeholder="具体的な内容をご記入ください"
-                                    required style="width:100%; resize:vertical;"></textarea>
-                            </div>
-
-                            <!-- 同意 -->
-                            <div class="privacy-check">
-                                <input type="checkbox" id="privacy-agree" name="privacy-agree" required>
-                                <label for="privacy-agree">
-                                    <a href="policy.html" target="_blank">個人情報保護方針</a>
-                                    に同意の上、送信します。
-                                    <span style="color:red; margin-left:5px;">*</span>
-                                </label>
-                            </div>
-
-                            <!-- 送信 -->
-                            <div style="text-align:center; margin-top:20px;">
-                                <button type="submit" id="submit-button" class="btn primary"
-                                    style="min-width:250px; font-size:1.05rem;">
-                                    送信
-                                </button>
-                            </div>
-
-                        </div>
-                    </form>
-                    
-                    <p id="form-message" style="text-align:center; margin-top: 15px; font-weight: 600;"></p>
-
-                    <p class="contact-info-text" style="text-align:center; margin-top: 30px; color: var(--sub);">
-                        お電話でのお問い合わせ：<a href="tel:0352755808" style="font-weight:700; color:var(--accent);">03-5275-5808</a> (平日9:00〜18:00)
-                    </p>
+                <div class="eyebrow">CONTACT</div>
+                <h2>まずはお気軽にご相談ください</h2>
+                <p>
+                    サプライヤー探し、商品企画の具現化、生産管理・品質に関するご相談まで。<br class="pc-only">
+                    担当者より3営業日以内にご連絡いたします。
+                </p>
+                <div class="button-row">
+                    <a href="contact.html" class="btn primary">お問い合わせフォームへ</a>
+                    <a href="tel:0352755808" class="btn secondary">電話で相談する（03-5275-5808）</a>
                 </div>
             </div>
         </section>
@@ -942,7 +868,6 @@
         </div>
     </footer>
     <script src="script.js" defer></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LdepRksAAAAAI9SjMUO4xMJhElrMVBCrpwshxC7"></script>
     <script>
         document.getElementById("show-more-btn").addEventListener("click", function(){
         const more = document.getElementById("more-history");

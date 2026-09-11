@@ -653,6 +653,54 @@
         text-decoration: underline;
     }
 
+    /* ========== CTA Band (共通クロージングCTA) ========== */
+    .cta-band{
+        background: var(--works-bg);
+        color: var(--ink);
+        text-align: center;
+        padding: 90px 0;
+    }
+    .cta-band .eyebrow{
+        color: var(--accent);
+    }
+    .cta-band h2{
+        color: var(--ink);
+        font-size: clamp(28px, 4vw, 42px);
+        margin: 10px 0 20px;
+    }
+    .cta-band p{
+        color: rgba(0,0,0,0.75);
+        max-width: 720px;
+        margin: 0 auto 34px;
+        line-height: 2;
+    }
+    .cta-band .button-row{
+        display:flex;
+        gap:16px;
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+    .cta-band .btn.secondary{
+        color:var(--ink);
+        border-color: rgba(0,0,0,.35);
+    }
+    .cta-band .btn.secondary:hover{
+        background: rgba(0,0,0,.05);
+    }
+    .cta-inline{
+        text-align:center;
+        margin-top:48px;
+    }
+    .cta-inline p{
+        color: var(--sub);
+        margin-bottom:16px;
+    }
+    @media (max-width: 768px){
+        .cta-band{ padding: 60px 0; }
+        .cta-band .button-row{ flex-direction:column; align-items:stretch; }
+        .cta-band .button-row .btn{ width:100%; text-align:center; }
+    }
+
     /* ================================================= */
     /* Footer Styles - SNS情報を含む新しいフッターデザイン */
     /* ================================================= */

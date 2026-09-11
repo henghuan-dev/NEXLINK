@@ -66,4 +66,11 @@
     <priority>0.5</priority>
   </url>
 
+  <!-- CONTACT -->
+  <url>
+    <loc>https://nex-link.jp/contact.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
