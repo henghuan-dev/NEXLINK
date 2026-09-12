@@ -135,6 +135,28 @@
             const form = document.getElementById('contact-form');
             const submitButton = document.getElementById('submit-button');
             const formMessage = document.getElementById('form-message');
+
+            // ----------------------------------------------------
+            // 送信完了ポップアップの開閉
+            // ----------------------------------------------------
+            const successModal = document.getElementById('submit-success-modal');
+            const successModalClose = document.getElementById('submit-success-close');
+
+            const closeSuccessModal = () => {
+                if (successModal) successModal.hidden = true;
+            };
+
+            if (successModalClose) {
+                successModalClose.addEventListener('click', closeSuccessModal);
+            }
+            if (successModal) {
+                successModal.addEventListener('click', (e) => {
+                    if (e.target === successModal) closeSuccessModal();
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') closeSuccessModal();
+                });
+            }
             
             // 必須フィールドのIDリスト
             const allInputFields = ['name', 'email', 'tel', 'subject', 'message'];// グレーアウト対象
@@ -161,9 +183,7 @@
 
             if (!form || !submitButton || !formMessage) {
                 console.warn("お問い合わせフォームに必要な要素が見つかりません。HTMLのIDを確認してください。");
-                return;
-            }
-
+            } else {
 
             // ----------------------------------------------------
             // フォーム送信処理 (API通信)
@@ -268,17 +288,18 @@
 
                     if (response.ok) {
 
-                        formMessage.style.color = '#1C479B';
-                        formMessage.innerHTML =
-                            'お問い合わせを受け付けました。<br>' +
-                            '担当より3営業日以内にご連絡させていただきます。';
+                        formMessage.textContent = '';
 
-                        submitButton.disabled = false;
-                        submitButton.textContent = 'トップページに戻る';
+                        if (successModal) {
+                            successModal.hidden = false;
+                        }
 
-                        submitButton.onclick = () => {
-                            window.location.href = '/';
-                        };
+                        // GA4キーイベント: 問い合わせフォーム送信成功
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'generate_lead', {
+                                form_name: 'contact_form'
+                            });
+                        }
                     } else {
                         // ❌ バックエンドからのエラー (4xx, 5xx)
                         
@@ -306,6 +327,8 @@
                     setFormState(false); // フォームを有効化に戻す
                 }
             });
+
+            } // end of if (form && submitButton && formMessage)
 
             // =========================================================
             // サイト共通機能 (変更なし)
@@ -340,4 +363,17 @@
                     newsToggle.setAttribute('aria-expanded', isExpanded);
                 });
             }
+
+            // ----------------------------------------------------
+            // GA4キーイベント: 電話番号タップ
+            // ----------------------------------------------------
+            document.querySelectorAll('a[href^="tel:"]').forEach((telLink) => {
+                telLink.addEventListener('click', () => {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'phone_click', {
+                            phone_number: telLink.getAttribute('href').replace('tel:', '')
+                        });
+                    }
+                });
+            });
         });
