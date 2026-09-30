@@ -376,4 +376,39 @@
                     }
                 });
             });
+
+            // ----------------------------------------------------
+            // 画像ライトボックス（クリックで拡大表示）
+            // ----------------------------------------------------
+            const lightbox = document.getElementById('img-lightbox');
+            const lightboxImage = document.getElementById('img-lightbox-image');
+            const lightboxClose = document.getElementById('img-lightbox-close');
+
+            if (lightbox && lightboxImage) {
+                const openLightbox = (src, alt) => {
+                    lightboxImage.src = src;
+                    lightboxImage.alt = alt || '';
+                    lightbox.hidden = false;
+                };
+                const closeLightbox = () => {
+                    lightbox.hidden = true;
+                    lightboxImage.src = '';
+                };
+
+                document.querySelectorAll('.zoomable-img').forEach((img) => {
+                    img.addEventListener('click', () => {
+                        openLightbox(img.currentSrc || img.src, img.alt);
+                    });
+                });
+
+                if (lightboxClose) {
+                    lightboxClose.addEventListener('click', closeLightbox);
+                }
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) closeLightbox();
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
+                });
+            }
         });
