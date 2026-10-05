@@ -1356,3 +1356,31 @@
         padding: 40px 24px 28px;
     }
 }
+
+
+/* 会社概要：サービスサイトへの誘導ボタン */
+.service-link-btn{
+    display:inline-block;
+    margin-left:12px;
+    padding:4px 14px;
+    font-size:0.85rem;
+    font-weight:600;
+    line-height:1.6;
+    color:#fff;
+    background:linear-gradient(to bottom, var(--accent), var(--accent-dark));
+    border:1px solid var(--accent-dark);
+    border-radius:999px;
+    text-decoration:none;
+    white-space:nowrap;
+    vertical-align:middle;
+    box-shadow:0 2px 8px rgba(22, 84, 138, 0.3);
+    transition:transform .2s ease, box-shadow .2s ease;
+}
+.service-link-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(22, 84, 138, 0.45);
+    color:#fff;
+}
+@media (max-width:480px){
+    .service-link-btn{ display:inline-block; margin:6px 0 0 0; }
+}
