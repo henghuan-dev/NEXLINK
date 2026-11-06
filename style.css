@@ -1384,3 +1384,13 @@
 @media (max-width:480px){
     .service-link-btn{ display:inline-block; margin:6px 0 0 0; }
 }
+
+/* 事業内容カード：MONOIDコラムへの関連リンク */
+.about-card .more-link{ margin:14px 0 18px; font-size:0.88rem; line-height:1.7; }
+.about-card .more-link a{
+    color:var(--accent);
+    font-weight:600;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+.about-card .more-link a:hover{ color:var(--accent-dark); }
