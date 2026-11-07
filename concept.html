@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-    <script type="text/javascript">
+<script type="text/javascript">
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
             t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
@@ -10,11 +10,13 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1.0">
     <title>私たちの想い（理念・ミッション） | 株式会社NEXLINK</title>
     <meta name="description" content="株式会社NEXLINKの経営理念「想いを、確かなかたちへ」。アパレルOEM/ODMの専門家として、中国・南通の自社拠点と共に、進化する技術と不変の品質を両立。お客様のアイデアを確かな製品へと繋ぐ私たちの使命と価値観をご紹介します。">
     <meta name="keywords" content="アパレルOEM, 経営理念, ミッション, 品質管理, 中国生産, 南通, 株式会社NEXLINK">
-    
     <meta property="og:url" content="https://nex-link.jp/concept.html" />
     <meta property="og:title" content="私たちの想い（理念・ミッション） | 株式会社NEXLINK" />
     <meta property="og:site_name" content="株式会社NEXLINK" />
@@ -22,292 +24,192 @@
     <meta property="og:type" content="article" />
     <meta property="og:image" content="https://nex-link.jp/img/ogp-image-nexlink.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    
     <link rel="canonical" href="https://nex-link.jp/concept.html" />
-    
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebPage",
-          "@id": "https://nex-link.jp/concept.html",
-          "url": "https://nex-link.jp/concept.html",
-          "name": "私たちの想い（理念・ミッション） | 株式会社NEXLINK",
-          "description": "株式会社NEXLINKの経営理念、ミッション、バリューについて。"
-        },
-        {
-          "@type": "Organization",
-          "name": "株式会社NEXLINK",
-          "url": "https://nex-link.jp/",
-          "logo": "https://nex-link.jp/logo.png",
-          "slogan": "想いを、確かなかたちへ",
-          "knowsAbout": ["アパレルOEM", "アパレルODM", "生産管理", "中国貿易"]
-        }
+      "@type": "WebPage",
+      "@id": "https://nex-link.jp/concept.html",
+      "url": "https://nex-link.jp/concept.html",
+      "name": "私たちの想い（理念・ミッション） | 株式会社NEXLINK",
+      "description": "株式会社NEXLINKの経営理念、ミッション、バリューについて。"
+    },
+    {
+      "@type": "Organization",
+      "name": "株式会社NEXLINK",
+      "url": "https://nex-link.jp/",
+      "logo": "https://nex-link.jp/logo.png",
+      "slogan": "想いを、確かなかたちへ",
+      "knowsAbout": [
+        "アパレルOEM",
+        "アパレルODM",
+        "生産管理",
+        "中国貿易"
       ]
     }
-    </script>
-
-    <style>
-        /* Conceptページ専用の追加スタイル */
-        .concept-hero {
-            position: relative; /* グリッド配置用 */
-            min-height: 40vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--works-bg);
-            background-image: linear-gradient(rgba(26,44,64,0.88), rgba(26,44,64,0.88)), url("img/concept-hero-craftsmanship.jpg");
-            background-size: cover;
-            background-position: center;
-            color: #fff;
-            text-align: center;
-            padding-top: 150px; /* ヘッダー分を確保 */
-            overflow: hidden;
-        }
-
-        /* index.htmlのグリッド線を再現 */
-        .concept-hero::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 30px 30px; /* グリッドの間隔 */
-            pointer-events: none;
-        }
-
-        .concept-hero h1 {
-            font-size: clamp(28px, 5vw, 48px);
-            letter-spacing: 0.1em;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* 理念・ミッション・バリューの縦並びスタイル */
-        .philosophy-container {
-            padding: var(--section-pad);
-            background: #fff;
-        }
-        
-        .philosophy-box {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .philosophy-item {
-            margin-bottom: 100px;
-            text-align: center;
-        }
-
-        .philosophy-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .item-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
-            color: var(--accent);
-            display: block;
-            margin-bottom: 15px;
-            letter-spacing: 0.2em;
-        }
-
-        .item-title {
-            font-size: clamp(24px, 3vw, 32px);
-            font-weight: 700;
-            color: var(--ink);
-            margin-bottom: 30px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .item-title::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 2px;
-            background: var(--accent);
-        }
-
-        .item-text {
-            text-align: left;
-            line-height: 2;
-            color: var(--sub);
-        }
-
-        /* バリューの左右分割（内容のみ） */
-        .value-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 40px;
-            text-align: left;
-        }
-
-        .value-detail-box {
-            padding: 30px;
-            background: var(--bg-accent);
-            border-radius: var(--radius);
-        }
-
-        .value-detail-box strong {
-            display: block;
-            font-size: 1.1rem;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .value-details { grid-template-columns: 1fr; }
-            .philosophy-item { margin-bottom: 60px; }
-        }
-    </style>
+  ]
+}
+</script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VSDG12XM25"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-VSDG12XM25');
     </script>
 </head>
 <body>
 
-    <header class="top-bar">
-        <a href="/" class="brand logo-container"> 
-            <img src="logo.png" alt="株式会社NEXLINK - アパレルOEM/ODMのロゴ" class="logo-img">
-        </a>
-        <nav>
-            <a href="/#about" class="nav-link">ABOUT / SOLUTION</a>
-            <a href="monoid.html" class="nav-link">SERVICE</a>
-            <a href="/#news" class="nav-link">NEWS</a>
-            <a href="/#company" class="nav-link">COMPANY</a>
-            <a href="/#history" class="nav-link">HISTORY</a> 
-            <a href="#" class="nav-link">CONCEPT</a>
-            <a href="recruit.html" class="nav-link">RECRUIT</a>
-            <a href="contact.html" class="nav-link">CONTACT</a>
-        </nav>
-        <div class="hamburger" id="hamburger-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </header>
-    <div class="nav-drawer" id="mobile-drawer">
-        <a href="/#about" class="nav-link">ABOUT / SOLUTION</a>
-        <a href="monoid.html" class="nav-link">SERVICE</a>
-        <a href="/#news" class="nav-link">NEWS</a>
-        <a href="/#company" class="nav-link">COMPANY</a>
-        <a href="/#history" class="nav-link">HISTORY</a> 
-        <a href="#" class="nav-link">CONCEPT</a> 
-        <a href="recruit.html" class="nav-link">RECRUIT</a>
-        <a href="contact.html" class="nav-link">CONTACT</a>
-    </div>
 
-    <main>
-        <section class="concept-hero">
-            <div class="wrap">
-                <div class="item-label" style="color:rgba(255,255,255,0.8)">CONCEPT</div>
-                <h1>想いを、確かなかたちへ</h1>
-            </div>
-        </section>
+<div style="width:100%;background:#FAFAFA;color:#14181F;">
 
-        <section class="philosophy-container">
-            <div class="wrap">
-                <div class="philosophy-box">
-                    
-                    <article class="philosophy-item">
-                        <h2 class="item-title">経営理念<span class="item-label">PHILOSOPHY</span></h2>
-                        <div class="item-text">
-                            <p>私たちNEXLINKの原点は、<strong>「良いものを、正しい形で、必要とする人へ届け続ける」</strong>ことにあります。</p>
-                            <p>アパレル業界において、時代とともに技術は進化し、ビジネスの手法やスピードは常に変化していきます。私たちはその変化を恐れず、柔軟に受け入れ、常に最適なアプローチでお客様のサービスを進化させていきます。</p>
-                            <p>一方で、人との繋がりを大切にする姿勢、<strong>品質管理に一切妥協しない姿勢</strong>、そして「相手の立場で考える」という基本は、決して変わりません。</p>
-                            <p>変わるアプローチで価値を創り、変わらない品質で信頼を届け続ける。それが、私たちNEXLINKの経営理念です。</p>
-                        </div>
-                    </article>
 
-                    <article class="philosophy-item">
-                        <h2 class="item-title">ミッション<span class="item-label">MISSION</span></h2>
-                        <div class="item-text">
-                            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 20px;"><strong>変化に応え、品質で信頼を築く。</strong></p>
-                            <p>私たちの役割は、単にアパレルOEMサービスを提供することではありません。先人たちが築き上げてきた「ものづくり」への誠実さと、今この瞬間に生まれる新しいアイデアを、責任をもって未来へ、そして次の世代へと繋いでいくこと。</p>
-                            <p>価値あるものが正しく形になり、確実に届くプロセスを、<strong>中国・南通の生産拠点と連携した“繋ぎ手”</strong>として支え続けます。一人ひとりの想いを、確かな実体（プロダクト）として明日へ残していくこと。それがNEXLINKの果たすべき使命です。</p>
-                        </div>
-                    </article>
+<header class="hd">
+<div class="hd-in">
+<a class="lnk" href="./" style="display:block;flex:0 0 auto;"><img src="logo.png" alt="株式会社NEXLINK - アパレルOEMのロゴ" width="138" height="30" style="height:30px;width:auto;display:block;"></a>
+<div style="display:flex;align-items:center;gap:clamp(16px,2.2vw,32px);">
+<nav class="nav-links" aria-label="メインナビゲーション" style="align-items:center;gap:clamp(16px,2.2vw,32px);">
 
-                    <article class="philosophy-item">
-                        <h2 class="item-title">バリュー <span class="item-label">VALUE</span></h2>
-                        <div class="item-text">
-                            <p style="text-align: center;"><strong>進化と不変を大切にする。</strong></p>
-                            <div class="value-details">
-                                <div class="value-detail-box">
-                                    <strong>進化 (Evolution)</strong>
-                                    <p style="font-size: 0.9rem;">時代の変化を捉え、最適な手法へと自らを更新し続けること。最新の生産管理システムや効率的な物流網を積極的に取り入れ、価値を最大化します。</p>
-                                </div>
-                                <div class="value-detail-box">
-                                    <strong>不変 (Steadfastness)</strong>
-                                    <p style="font-size: 0.9rem;">誠実さ、日本基準の品質管理、相手を想う心。生産の現場がどこであっても、守るべき本質を貫き通し、変わらない信頼を届けます。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
+<a class="nl" href="concept.html" style="font-size:14px;font-weight:600;letter-spacing:0.05em;color:#16548A;">コンセプト</a>
 
-                </div>
-            </div>
-        </section>
-    </main>
+<a class="nl" href="company.html" style="font-size:14px;font-weight:600;letter-spacing:0.05em;color:#14181F;">会社概要</a>
 
-    <footer class="footer">
-        <div class="wrap footer-content-minimal">
-            <div class="footer-sns">
-                <h4>FOLLOW US</h4>
-                <div class="sns-icons">
-                    <a href="https://x.com/NEXLINK_JAPAN" target="_blank" rel="noopener noreferrer" aria-label="X (旧Twitter)" class="sns-icon x-icon">
-                        <i class="fab fa-x-twitter"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/nexlink-japan/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="sns-icon linkedin-icon">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://www.youtube.com/@nex-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="sns-icon youtube-icon">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="https://www.instagram.com/nexlink_japan" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="sns-icon instagram-icon">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="footer-legal">
-                <h4>MONOID</h4>
-                <ul>
-                    <li><a href="https://mono-id.jp/about/" target="_blank" rel="noopener">MONOIDコラム一覧</a></li>
-                </ul>
-            </div>
+<a class="nl" href="monoid.html" style="font-size:14px;font-weight:600;letter-spacing:0.05em;color:#14181F;">事業紹介</a>
 
-            <div class="footer-legal">
-                <h4>LEGAL</h4>
-                <ul>
-                    <li><a href="policy.html" style="font-size:14px;">個人情報保護方針</a></li>
-                    <li><a href="terms.html" style="font-size:14px;">サイトのご利用にあたって</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer-copyright-text wrap">
-            <p class="copyright">© 2025 NEXLINK JAPAN Co., Ltd. All rights reserved.</p>
-        </div>
-    </footer>
+<a class="nl" href="quality.html" style="font-size:14px;font-weight:600;letter-spacing:0.05em;color:#14181F;">品質・グループ</a>
 
-    <script src="script.js" defer></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LdepRksAAAAAI9SjMUO4xMJhElrMVBCrpwshxC7"></script>
+<a class="nl" href="./#news" style="font-size:14px;font-weight:600;letter-spacing:0.05em;color:#14181F;">ニュース</a>
+
+<a class="nl" href="recruit.html" style="font-size:14px;font-weight:600;letter-spacing:0.05em;color:#14181F;">採用情報</a>
+
+</nav>
+<a class="btn btn--line nav-links" href="https://mono-id.jp/" target="_blank" rel="noopener" style="width:140px;padding:0;">MONOID ↗</a>
+<a class="btn btn--fill nav-links" href="contact.html" style="width:140px;padding:0;">お問い合わせ</a>
+<button class="btn btn--line menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="メニューを開く" style="cursor:pointer;background:transparent;">Menu</button>
+</div>
+</div>
+<div class="menu-panel" id="menu-panel" style="background:#FFFFFF;border-top:1px solid #DCE3EA;border-bottom:1px solid #DCE3EA;padding:8px clamp(20px,4vw,40px) 20px;">
+
+<a href="concept.html" style="display:block;padding:14px 0;border-bottom:1px solid #DCE3EA;font-size:15px;font-weight:500;letter-spacing:0.05em;">コンセプト</a>
+
+<a href="company.html" style="display:block;padding:14px 0;border-bottom:1px solid #DCE3EA;font-size:15px;font-weight:500;letter-spacing:0.05em;">会社概要</a>
+
+<a href="monoid.html" style="display:block;padding:14px 0;border-bottom:1px solid #DCE3EA;font-size:15px;font-weight:500;letter-spacing:0.05em;">事業紹介</a>
+
+<a href="quality.html" style="display:block;padding:14px 0;border-bottom:1px solid #DCE3EA;font-size:15px;font-weight:500;letter-spacing:0.05em;">品質・グループ</a>
+
+<a href="./#news" style="display:block;padding:14px 0;border-bottom:1px solid #DCE3EA;font-size:15px;font-weight:500;letter-spacing:0.05em;">ニュース</a>
+
+<a href="recruit.html" style="display:block;padding:14px 0;border-bottom:1px solid #DCE3EA;font-size:15px;font-weight:500;letter-spacing:0.05em;">採用情報</a>
+
+<div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
+<a class="btn btn--line" href="https://mono-id.jp/" target="_blank" rel="noopener">MONOID ↗</a>
+<a class="btn btn--fill" href="contact.html">お問い合わせ</a>
+</div>
+</div>
+</header>
+<main>
+
+<section style="position:relative;overflow:hidden;background:#0E2856;color:#FFFFFF;">
+<div class="ph ph-sw"></div>
+<div style="position:absolute;left:0;top:0;right:0;bottom:0;background:linear-gradient(100deg,rgba(14,40,86,.93) 25%,rgba(22,84,138,.62) 70%,rgba(22,84,138,.3));"></div>
+<div style="max-width:1280px;margin:0 auto;padding-left:clamp(20px,4vw,40px);padding-right:clamp(20px,4vw,40px);box-sizing:border-box;padding-top:clamp(48px,7vw,110px);padding-bottom:clamp(72px,9vw,130px);position:relative;z-index:1;">
+<div style="font-size:12px;letter-spacing:0.05em;color:#D6E3F0;"><a class="lnk" href="./">ホーム</a>　/　コンセプト</div>
+<div style="margin-top:clamp(24px,3vw,40px);font-family:Jost,sans-serif;font-size:13px;letter-spacing:0.2em;color:#BFE8F6;">CONCEPT</div>
+<h1 style="margin:clamp(14px,1.6vw,22px) 0 0;color:#FFFFFF;font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:clamp(36px,5.6vw,80px);line-height:1.3;letter-spacing:0.02em;">想いを、確かなかたちへ</h1>
+</div>
+</section><section id="philosophy" style="background:#FFFFFF;border-top:1px solid #DCE3EA;">
+<div style="max-width:1080px;margin:0 auto;padding-left:clamp(20px,4vw,40px);padding-right:clamp(20px,4vw,40px);box-sizing:border-box;padding-top:clamp(64px,7.3vw,105px);padding-bottom:clamp(64px,7.3vw,105px);">
+<div class="rv"><h2 style="margin:0;font-weight:400;"><span style="display:block;font-family:Jost,sans-serif;font-size:clamp(32px,2.8vw,40px);line-height:1.1;font-weight:400;letter-spacing:0.01em;">Philosophy</span><span style="display:block;margin-top:14px;font-size:13px;letter-spacing:0.1em;font-weight:400;">経営理念</span></h2></div>
+<p class="rv" style="margin:clamp(40px,5vw,72px) 0 0;font-size:clamp(26px,3.6vw,52px);line-height:1.6;font-weight:500;letter-spacing:0.04em;color:#16548A;">「良いものを、正しい形で、<br>必要とする人へ届け続ける」</p>
+<div class="rv" style="margin-top:clamp(28px,3vw,44px);max-width:780px;"><p style="margin:0 0 1.4em;font-size:16px;line-height:2;letter-spacing:0.05em;color:#3A4452;">これが、私たちNEXLINKの原点です。アパレル業界において、時代とともに技術は進化し、ビジネスの手法やスピードは常に変化していきます。私たちはその変化を恐れず、柔軟に受け入れ、常に最適なアプローチでお客様のサービスを進化させていきます。</p><p style="margin:0 0 1.4em;font-size:16px;line-height:2;letter-spacing:0.05em;color:#3A4452;">一方で、人との繋がりを大切にする姿勢、品質管理に一切妥協しない姿勢、そして「相手の立場で考える」という基本は、決して変わりません。</p><p style="margin:0;font-size:18px;font-weight:700;line-height:2;letter-spacing:0.05em;color:#14181F;padding-top:20px;border-top:1px solid #16548A;">変わるアプローチで価値を創り、変わらない品質で信頼を届け続ける。それが、私たちNEXLINKの経営理念です。</p></div>
+</div>
+</section><section id="mission" style="background:#FAFAFA;border-top:1px solid #DCE3EA;">
+<div style="max-width:1080px;margin:0 auto;padding-left:clamp(20px,4vw,40px);padding-right:clamp(20px,4vw,40px);box-sizing:border-box;padding-top:clamp(64px,7.3vw,105px);padding-bottom:clamp(64px,7.3vw,105px);">
+<div class="rv"><h2 style="margin:0;font-weight:400;"><span style="display:block;font-family:Jost,sans-serif;font-size:clamp(32px,2.8vw,40px);line-height:1.1;font-weight:400;letter-spacing:0.01em;">Mission</span><span style="display:block;margin-top:14px;font-size:13px;letter-spacing:0.1em;font-weight:400;">ミッション</span></h2></div>
+<p class="rv" style="margin:clamp(40px,5vw,72px) 0 0;font-size:clamp(26px,3.6vw,52px);line-height:1.6;font-weight:500;letter-spacing:0.04em;color:#16548A;">変化に応え、<br>品質で信頼を築く。</p>
+<div class="rv" style="margin-top:clamp(28px,3vw,44px);max-width:780px;"><p style="margin:0 0 1.4em;font-size:16px;line-height:2;letter-spacing:0.05em;color:#3A4452;">私たちの役割は、お客様が思い描いた商品を、狙いどおりの品質で形にし、確実にお届けすることです。</p><p style="margin:0;font-size:16px;line-height:2;letter-spacing:0.05em;color:#3A4452;">デザイン・仕様・素材・価格・納期といったご要望を一つひとつ整理し、中国・南通の生産拠点と連携しながら、生産から検品、物流までを責任をもって管理します。日本のお客様と中国の生産現場の“繋ぎ手”として、良いものづくりを支え続けること。それがNEXLINKの果たすべき使命です。</p></div>
+</div>
+</section><section id="value" style="background:#FFFFFF;border-top:1px solid #DCE3EA;">
+<div style="max-width:1080px;margin:0 auto;padding-left:clamp(20px,4vw,40px);padding-right:clamp(20px,4vw,40px);box-sizing:border-box;padding-top:clamp(64px,7.3vw,105px);padding-bottom:clamp(64px,7.3vw,105px);">
+<div class="rv"><h2 style="margin:0;font-weight:400;"><span style="display:block;font-family:Jost,sans-serif;font-size:clamp(32px,2.8vw,40px);line-height:1.1;font-weight:400;letter-spacing:0.01em;">Value</span><span style="display:block;margin-top:14px;font-size:13px;letter-spacing:0.1em;font-weight:400;">バリュー</span></h2></div>
+<p class="rv" style="margin:clamp(40px,5vw,72px) 0 0;font-size:clamp(26px,3.6vw,52px);line-height:1.6;font-weight:500;letter-spacing:0.04em;color:#16548A;">進化と不変を<br>大切にする。</p>
+<div class="rv" style="margin-top:clamp(28px,3vw,44px);max-width:780px;"><div style="display:flex;flex-wrap:wrap;gap:36px 4%;max-width:none;">
+
+<div style="flex:1 1 300px;min-width:0;border-top:1px solid #16548A;padding-top:22px;">
+<div style="font-family:Jost,sans-serif;font-weight:300;font-size:clamp(36px,4.4vw,60px);line-height:1.1;color:#16548A;letter-spacing:-0.005em;">Evolution</div>
+<div style="margin-top:12px;font-size:20px;font-weight:500;letter-spacing:0.05em;">進化</div>
+<p style="margin:14px 0 0;font-size:15px;line-height:2.1;letter-spacing:0.05em;color:#3A4452;">時代の変化を捉え、最適な手法へと自らを更新し続けること。最新の生産管理システムや効率的な物流網を積極的に取り入れ、価値を最大化します。</p>
+</div>
+
+<div style="flex:1 1 300px;min-width:0;border-top:1px solid #16548A;padding-top:22px;">
+<div style="font-family:Jost,sans-serif;font-weight:300;font-size:clamp(36px,4.4vw,60px);line-height:1.1;color:#16548A;letter-spacing:-0.005em;">Steadfastness</div>
+<div style="margin-top:12px;font-size:20px;font-weight:500;letter-spacing:0.05em;">不変</div>
+<p style="margin:14px 0 0;font-size:15px;line-height:2.1;letter-spacing:0.05em;color:#3A4452;">誠実さ、日本基準の品質管理、相手を想う心。生産の現場がどこであっても、守るべき本質を貫き通し、変わらない信頼を届けます。</p>
+</div>
+
+</div></div>
+</div>
+</section><section style="background:#16548A;color:#FFFFFF;">
+<div style="max-width:1080px;margin:0 auto;padding-left:clamp(20px,4vw,40px);padding-right:clamp(20px,4vw,40px);box-sizing:border-box;padding-top:clamp(64px,7.3vw,105px);padding-bottom:clamp(64px,7.3vw,105px);">
+<div class="rv" style="font-family:Jost,sans-serif;font-size:13px;letter-spacing:0.2em;color:#BFE8F6;">CONTACT</div>
+<p class="rv" style="margin:clamp(16px,2vw,28px) 0 0;font-size:clamp(28px,4.4vw,60px);line-height:1.5;font-weight:500;letter-spacing:0.04em;">想いを、一緒に<br>形にしませんか。</p>
+<p class="rv" style="margin:clamp(20px,2.4vw,32px) 0 0;max-width:640px;font-size:16px;line-height:2;letter-spacing:0.05em;color:#E3EEF7;">アパレルOEMの企画・生産から、雑貨の商品調達まで。まずはお気軽にご相談ください。</p>
+<div class="rv" style="margin-top:clamp(28px,3.4vw,48px);display:flex;flex-wrap:wrap;gap:12px;"><a class="btn btn--inv btn--lg" href="contact.html">お問い合わせ　→</a><a class="btn btn--lg" href="recruit.html" style="border-color:#fff;color:#fff;">採用情報　→</a></div>
+</div>
+</section>
+
+
+</main>
+<footer id="sitemap" style="background:#0E2856;color:#FFFFFF;">
+<div style="max-width:1280px;margin:0 auto;padding-left:clamp(20px,4vw,40px);padding-right:clamp(20px,4vw,40px);box-sizing:border-box;padding-top:clamp(64px,7vw,100px);padding-bottom:36px;">
+<div style="display:flex;flex-wrap:wrap;gap:48px 6%;justify-content:space-between;">
+<div style="flex:1 1 280px;min-width:0;">
+<div style="font-family:Jost,sans-serif;font-weight:700;font-size:28px;letter-spacing:0.14em;">NEXLINK</div>
+<p style="margin:20px 0 0;font-size:13px;line-height:2.1;letter-spacing:0.05em;color:#C3D0E2;">株式会社NEXLINK<br>〒102-0083<br>東京都千代田区麹町五丁目3番4号 麹町秋山ビルディング8F<br>TEL <a class="lnk" href="tel:0352755808">03-5275-5808</a></p>
+<div style="margin-top:22px;">
+<div style="font-family:Jost,sans-serif;font-size:12px;letter-spacing:0.18em;color:#BFE8F6;">FOLLOW US</div>
+<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 20px;font-family:Jost,sans-serif;font-size:14px;letter-spacing:0.06em;">
+<a class="lnk" href="https://x.com/NEXLINK_JAPAN" target="_blank" rel="noopener noreferrer" aria-label="X（旧Twitter）">X</a>
+<a class="lnk" href="https://www.linkedin.com/in/nexlink-japan/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+<a class="lnk" href="https://www.youtube.com/@nex-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YouTube</a>
+<a class="lnk" href="https://www.instagram.com/nexlink_japan" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+</div>
+</div>
+</div>
+<div style="flex:1 1 360px;min-width:0;display:flex;flex-wrap:wrap;gap:6px 6%;">
+
+<a class="lnk" href="concept.html" target="_self" style="flex:1 1 40%;min-width:150px;display:flex;align-items:baseline;gap:12px;padding:10px 0;font-family:Jost,sans-serif;font-size:22px;font-weight:400;color:#FFFFFF;">Concept<span style="font-family:'Noto Sans JP',sans-serif;font-size:12px;letter-spacing:0.08em;color:#C3D0E2;">コンセプト</span></a>
+
+<a class="lnk" href="company.html" target="_self" style="flex:1 1 40%;min-width:150px;display:flex;align-items:baseline;gap:12px;padding:10px 0;font-family:Jost,sans-serif;font-size:22px;font-weight:400;color:#FFFFFF;">Company<span style="font-family:'Noto Sans JP',sans-serif;font-size:12px;letter-spacing:0.08em;color:#C3D0E2;">会社概要</span></a>
+
+<a class="lnk" href="monoid.html" target="_self" style="flex:1 1 40%;min-width:150px;display:flex;align-items:baseline;gap:12px;padding:10px 0;font-family:Jost,sans-serif;font-size:22px;font-weight:400;color:#FFFFFF;">Business<span style="font-family:'Noto Sans JP',sans-serif;font-size:12px;letter-spacing:0.08em;color:#C3D0E2;">事業紹介</span></a>
+
+<a class="lnk" href="quality.html" target="_self" style="flex:1 1 40%;min-width:150px;display:flex;align-items:baseline;gap:12px;padding:10px 0;font-family:Jost,sans-serif;font-size:22px;font-weight:400;color:#FFFFFF;">Quality<span style="font-family:'Noto Sans JP',sans-serif;font-size:12px;letter-spacing:0.08em;color:#C3D0E2;">品質・グループ体制</span></a>
+
+<a class="lnk" href="./#news" target="_self" style="flex:1 1 40%;min-width:150px;display:flex;align-items:baseline;gap:12px;padding:10px 0;font-family:Jost,sans-serif;font-size:22px;font-weight:400;color:#FFFFFF;">News<span style="font-family:'Noto Sans JP',sans-serif;font-size:12px;letter-spacing:0.08em;color:#C3D0E2;">ニュース</span></a>
+
+<a class="lnk" href="recruit.html" target="_self" style="flex:1 1 40%;min-width:150px;display:flex;align-items:baseline;gap:12px;padding:10px 0;font-family:Jost,sans-serif;font-size:22px;font-weight:400;color:#FFFFFF;">Recruit<span style="font-family:'Noto Sans JP',sans-serif;font-size:12px;letter-spacing:0.08em;color:#C3D0E2;">採用情報</span></a>
+
+<a class="lnk" href="contact.html" target="_self" style="flex:1 1 40%;min-width:150px;display:flex;align-items:baseline;gap:12px;padding:10px 0;font-family:Jost,sans-serif;font-size:22px;font-weight:400;color:#FFFFFF;">Contact<span style="font-family:'Noto Sans JP',sans-serif;font-size:12px;letter-spacing:0.08em;color:#C3D0E2;">お問い合わせ</span></a>
+
+<a class="lnk" href="https://mono-id.jp/" target="_blank" style="flex:1 1 40%;min-width:150px;display:flex;align-items:baseline;gap:12px;padding:10px 0;font-family:Jost,sans-serif;font-size:22px;font-weight:400;color:#FFFFFF;">MONOID ↗<span style="font-family:'Noto Sans JP',sans-serif;font-size:12px;letter-spacing:0.08em;color:#C3D0E2;">アパレルOEM</span></a>
+
+<a class="lnk" href="https://zakka.nex-link.jp" target="_blank" style="flex:1 1 40%;min-width:150px;display:flex;align-items:baseline;gap:12px;padding:10px 0;font-family:Jost,sans-serif;font-size:22px;font-weight:400;color:#FFFFFF;">Goods ↗<span style="font-family:'Noto Sans JP',sans-serif;font-size:12px;letter-spacing:0.08em;color:#C3D0E2;">雑貨OEM・商品調達</span></a>
+
+</div>
+</div>
+<div style="margin-top:clamp(48px,6vw,80px);padding-top:20px;border-top:1px solid rgba(255,255,255,.22);display:flex;flex-wrap:wrap;gap:10px 32px;justify-content:space-between;font-size:12px;color:#C3D0E2;letter-spacing:0.05em;">
+<span>© 2025 NEXLINK JAPAN Co., Ltd. All rights reserved.</span>
+<span style="display:flex;flex-wrap:wrap;gap:8px 24px;"><a class="lnk" href="https://mono-id.jp/about/" target="_blank" rel="noopener">MONOIDコラム一覧</a><a class="lnk" href="policy.html">個人情報保護方針</a><a class="lnk" href="terms.html">サイトのご利用にあたって</a></span>
+</div>
+</div>
+</footer>
+
+</div>
+
+<script src="script.js?v=1.0" defer></script>
 </body>
 </html>

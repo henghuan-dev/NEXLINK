@@ -39,6 +39,20 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- COMPANY -->
+  <url>
+    <loc>https://nex-link.jp/company.html</loc>
+    <lastmod>2026-11-07</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- QUALITY -->
+  <url>
+    <loc>https://nex-link.jp/quality.html</loc>
+    <lastmod>2026-11-07</lastmod>
+    <priority>0.8</priority>
+  </url>
+
   <!-- CONCEPT -->
   <url>
     <loc>https://nex-link.jp/concept.html</loc>

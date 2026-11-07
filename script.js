@@ -1,135 +1,16 @@
-(function() {
-            const processStepsContainer = document.getElementById('process-steps');
-            const processCurrent = document.getElementById('process-current');
-            const steps = processStepsContainer ? processStepsContainer.querySelectorAll('.step') : [];
-            const labels = ['企画', '試作', '生産', '納品'];
-            let currentStep = 1;
-            let processInterval = null;
-            
-            if (steps.length > 0) {
-                const updateProcess = () => {
-                    steps.forEach((step, index) => {
-                        step.classList.toggle('active', index < currentStep);
-                    });
-                    // 新しいラベルに対応させる
-                    if (processCurrent) {
-                        processCurrent.textContent = `進捗：${labels[currentStep-1]}`;
-                    }
-                    currentStep++;
-                    if (currentStep > steps.length) {
-                        currentStep = 1; 
-                    }
-                };
-                
-                const aboutSection = document.getElementById('about');
-                const io = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            if (!processInterval) {
-                                updateProcess(); 
-                                processInterval = setInterval(updateProcess, 1500); 
-                            }
-                        } else {
-                            if (processInterval) {
-                                clearInterval(processInterval);
-                                processInterval = null;
-                            }
-                        }
-                    });
-                }, { threshold: 0.4 }); 
-                
-                io.observe(aboutSection);
-            }
+// =========================================================
+// script.js — NEXLINK corporate site (renewal v7-C)
+// お問い合わせフォーム（reCAPTCHA v3 → API Gateway）／共通UI
+// =========================================================
 
-            // Stealth Navigation Logic 
-            const topBar = document.querySelector('.top-bar');
-            const scrollThreshold = 100;
-
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > scrollThreshold) {
-                    topBar.classList.add('scrolled');
-                } else {
-                    topBar.classList.remove('scrolled');
-                }
-            });
-            
-            if (window.scrollY > scrollThreshold) {
-                topBar.classList.add('scrolled');
-            }
-
-            // Smooth Scroll and Drawer Close Logic 
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const drawer = document.getElementById('mobile-drawer');
-                    const hamburger = document.getElementById('hamburger-icon');
-                    if (drawer && drawer.classList.contains('open')) {
-                        drawer.classList.remove('open');
-                        hamburger.classList.remove('open');
-                        document.body.style.overflow = 'auto'; 
-                    }
-
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        const topBarHeight = topBar.offsetHeight || 0; 
-                        const offsetPosition = targetElement.offsetTop - topBarHeight;
-                        
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Hamburger Menu Logic 
-            const hamburgerIcon = document.getElementById('hamburger-icon');
-            const mobileDrawer = document.getElementById('mobile-drawer');
-
-            if (hamburgerIcon && mobileDrawer) {
-                hamburgerIcon.addEventListener('click', () => {
-                    const isOpen = mobileDrawer.classList.toggle('open');
-                    hamburgerIcon.classList.toggle('open', isOpen);
-                    document.body.style.overflow = isOpen ? 'hidden' : 'auto'; 
-                });
-            }
-
-            // Google Map Placeholder 
-            const mapContainer = document.getElementById('company-map-embed');
-            const address = '東京都千代田区麹町五丁目３番４丁目 麹町秋山ビルディング 8F';
-            
-            if (mapContainer) {
-                const mapIframe = document.createElement('iframe');
-                mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=16&ie=UTF8&iwloc=B&output=embed`;
-                mapIframe.allowFullscreen = true;
-                mapIframe.loading = 'lazy';
-                
-                mapContainer.appendChild(mapIframe);
-                
-                mapContainer.addEventListener('click', () => {
-                    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
-                });
-                
-                mapContainer.style.cursor = 'pointer';
-            }
-        })();
-
-        // =========================================================
-        // script.js - reCAPTCHA v3 組み込みバージョン
-        // =========================================================
-
-        // 🌟🌟🌟 API GatewayのエンドポイントURLを設定 🌟🌟🌟
+// 🌟🌟🌟 API GatewayのエンドポイントURLを設定 🌟🌟🌟
         const API_ENDPOINT = 'https://0rn89v3rzk.execute-api.ap-northeast-1.amazonaws.com/prod/contact'; 
 
         // 🌟🌟🌟 reCAPTCHA v3 サイトキーを設定 🌟🌟🌟
         // 【重要】ご自身のサイトキーに置き換えてください。
-        const recaptchaSiteKey = '6LdepRksAAAAAI9SjMUO4xMJhElrMVBCrpwshxC7'; 
+        const recaptchaSiteKey = '6LdepRksAAAAAI9SjMUO4xMJhElrMVBCrpwshxC7';
 
-
-        document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
             
             // フォーム要素の取得
             const form = document.getElementById('contact-form');
@@ -182,7 +63,7 @@
             };
 
             if (!form || !submitButton || !formMessage) {
-                console.warn("お問い合わせフォームに必要な要素が見つかりません。HTMLのIDを確認してください。");
+                if (document.getElementById('contact-form')) console.warn("お問い合わせフォームに必要な要素が見つかりません。HTMLのIDを確認してください。");
             } else {
 
             // ----------------------------------------------------
@@ -331,84 +212,94 @@
             } // end of if (form && submitButton && formMessage)
 
             // =========================================================
-            // サイト共通機能 (変更なし)
+            // 共通UI（リニューアル版）
             // =========================================================
 
-            // ----------------------------------------------------
-            // スクロール処理 (Top Barのスタイル変更)
-            // ----------------------------------------------------
-            const topBar = document.querySelector('.top-bar');
-            const scrollThreshold = 50; 
+            // ヘッダー：スクロールで下線を表示
+            const hd = document.querySelector('.hd');
+            const onScrollHd = () => { if (hd) hd.classList.toggle('scrolled', window.scrollY > 8); };
+            window.addEventListener('scroll', onScrollHd, { passive: true });
+            onScrollHd();
 
-            window.addEventListener('scroll', () => {
-                if (topBar) {
-                    if (window.scrollY > scrollThreshold) {
-                        topBar.classList.add('scrolled');
-                    } else {
-                        topBar.classList.remove('scrolled');
-                    }
-                }
-            });
-
-            // ----------------------------------------------------
-            // NEWS一覧の開閉トグル
-            // ----------------------------------------------------
-            const newsToggle = document.getElementById('news-toggle');
-            const newsList = document.getElementById('news-list');
-
-            if (newsToggle && newsList) {
-                newsToggle.addEventListener('click', () => {
-                    const isExpanded = newsList.classList.toggle('is-expanded');
-                    newsToggle.classList.toggle('is-open', isExpanded);
-                    newsToggle.setAttribute('aria-expanded', isExpanded);
+            // ヘッダー：スマホ用メニュー
+            const menuBtn = document.getElementById('menu-btn');
+            const menuPanel = document.getElementById('menu-panel');
+            if (menuBtn && menuPanel) {
+                menuBtn.addEventListener('click', () => {
+                    const open = menuPanel.classList.toggle('open');
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                });
+                menuPanel.querySelectorAll('a[href^="#"], a[href*="#"]').forEach((a) => {
+                    a.addEventListener('click', () => { menuPanel.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); });
                 });
             }
 
-            // ----------------------------------------------------
-            // GA4キーイベント: 電話番号タップ
-            // ----------------------------------------------------
+            // トップページ：背景色が切り替わるセクション
+            const tones = document.querySelectorAll('.tone');
+            if (tones.length) {
+                const updateTones = () => {
+                    const vh = window.innerHeight || 800;
+                    tones.forEach((el) => {
+                        const r = el.getBoundingClientRect();
+                        const on = r.top < vh * 0.62 && r.bottom > vh * 0.38;
+                        el.classList.toggle('is-off', !on);
+                    });
+                };
+                window.addEventListener('scroll', updateTones, { passive: true });
+                window.addEventListener('resize', updateTones);
+                updateTones();
+            }
+
+            // ニュース／沿革の開閉
+            const bindToggle = (btnId, listId, openText, closeText) => {
+                const btn = document.getElementById(btnId);
+                const list = document.getElementById(listId);
+                if (!btn || !list) return;
+                btn.addEventListener('click', () => {
+                    const expanded = list.classList.toggle('is-expanded');
+                    btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+                    btn.textContent = expanded ? closeText : openText;
+                });
+            };
+            bindToggle('news-toggle', 'news-list', '過去のニュースを見る', '閉じる');
+            bindToggle('show-more-btn', 'hist-list', '過去の沿革を見る', '閉じる');
+
+            // 会社概要：Googleマップ
+            const mapContainer = document.getElementById('company-map-embed');
+            if (mapContainer) {
+                const address = '東京都千代田区麹町五丁目3番4号 麹町秋山ビルディング 8F';
+                const iframe = document.createElement('iframe');
+                iframe.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(address) + '&t=&z=16&ie=UTF8&iwloc=B&output=embed';
+                iframe.title = '株式会社NEXLINK 所在地の地図';
+                iframe.loading = 'lazy';
+                iframe.allowFullscreen = true;
+                mapContainer.appendChild(iframe);
+            }
+
+            // GA4キーイベント：電話番号タップ
             document.querySelectorAll('a[href^="tel:"]').forEach((telLink) => {
                 telLink.addEventListener('click', () => {
                     if (typeof gtag === 'function') {
-                        gtag('event', 'phone_click', {
-                            phone_number: telLink.getAttribute('href').replace('tel:', '')
-                        });
+                        gtag('event', 'phone_click', { phone_number: telLink.getAttribute('href').replace('tel:', '') });
                     }
                 });
             });
 
-            // ----------------------------------------------------
-            // 画像ライトボックス（クリックで拡大表示）
-            // ----------------------------------------------------
+            // 画像ライトボックス（ISO9001証書）
             const lightbox = document.getElementById('img-lightbox');
             const lightboxImage = document.getElementById('img-lightbox-image');
             const lightboxClose = document.getElementById('img-lightbox-close');
-
             if (lightbox && lightboxImage) {
-                const openLightbox = (src, alt) => {
-                    lightboxImage.src = src;
-                    lightboxImage.alt = alt || '';
-                    lightbox.hidden = false;
-                };
-                const closeLightbox = () => {
-                    lightbox.hidden = true;
-                    lightboxImage.src = '';
-                };
-
+                const closeLightbox = () => { lightbox.hidden = true; lightboxImage.src = ''; };
                 document.querySelectorAll('.zoomable-img').forEach((img) => {
                     img.addEventListener('click', () => {
-                        openLightbox(img.currentSrc || img.src, img.alt);
+                        lightboxImage.src = img.currentSrc || img.src;
+                        lightboxImage.alt = img.alt || '';
+                        lightbox.hidden = false;
                     });
                 });
-
-                if (lightboxClose) {
-                    lightboxClose.addEventListener('click', closeLightbox);
-                }
-                lightbox.addEventListener('click', (e) => {
-                    if (e.target === lightbox) closeLightbox();
-                });
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
-                });
+                if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+                lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+                document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lightbox.hidden) closeLightbox(); });
             }
         });
