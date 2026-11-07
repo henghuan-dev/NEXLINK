@@ -6,7 +6,7 @@ img{max-width:100%}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #1B8FB8;outline-offset:3px}
 body{margin:0;font-family:'Jost','Noto Sans JP',sans-serif;color:#14181F;background:#FAFAFA;-webkit-font-smoothing:antialiased;}
 a{color:inherit;text-decoration:none}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 24px;border-radius:999px;border:1px solid #16548A;font-family:'Jost','Noto Sans JP',sans-serif;font-size:13px;font-weight:700;line-height:1;letter-spacing:0.05em;white-space:nowrap;transition:color .3s,background-color .3s,border-color .3s;}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 24px;border-radius:0;border:1px solid #16548A;font-family:'Jost','Noto Sans JP',sans-serif;font-size:13px;font-weight:700;line-height:1;letter-spacing:0.05em;white-space:nowrap;transition:color .3s,background-color .3s,border-color .3s;}
 .btn--fill{background:#16548A;color:#fff}.btn--fill:hover{background:#fff;color:#16548A}
 .btn--line{background:transparent;color:#16548A}.btn--line:hover{background:#16548A;color:#fff}
 .btn--inv{background:#fff;color:#16548A;border-color:#fff}.btn--inv:hover{background:transparent;color:#fff}
