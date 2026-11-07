@@ -6,8 +6,8 @@
 
   <!-- TOP -->
   <url>
-    <loc>https://nex-link.jp/index.html</loc>
-    <lastmod>2026-04-05</lastmod>
+    <loc>https://nex-link.jp/</loc>
+    <lastmod>2026-11-07</lastmod>
     <priority>1.0</priority>
     
     <image:image>
@@ -35,7 +35,7 @@
   <!-- MONOID（最重要LP） -->
   <url>
     <loc>https://nex-link.jp/monoid.html</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <priority>0.9</priority>
   </url>
 
@@ -56,34 +56,34 @@
   <!-- CONCEPT -->
   <url>
     <loc>https://nex-link.jp/concept.html</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <priority>0.7</priority>
   </url>
 
   <!-- POLICY -->
   <url>
     <loc>https://nex-link.jp/policy.html</loc>
-    <lastmod>2025-11-27</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <priority>0.5</priority>
   </url>
 
   <!-- TERMS -->
   <url>
     <loc>https://nex-link.jp/terms.html</loc>
-    <lastmod>2025-12-04</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <priority>0.5</priority>
   </url>
   <!-- RECRUIT -->
   <url>
     <loc>https://nex-link.jp/recruit.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <priority>0.5</priority>
   </url>
 
   <!-- CONTACT -->
   <url>
     <loc>https://nex-link.jp/contact.html</loc>
-    <lastmod>2026-09-11</lastmod>
+    <lastmod>2026-11-07</lastmod>
     <priority>0.8</priority>
   </url>
 
