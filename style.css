@@ -28,6 +28,7 @@ a{color:inherit;text-decoration:none}
 .ph{position:absolute;left:0;top:0;right:0;bottom:0;background-size:cover;background-position:center;animation:zoom 26s ease-in-out infinite alternate;}
 .ph-main{background-image:url(img/photo-factory-line.jpg)}
 .ph-co{background-image:url(img/photo-office.jpg)}
+.ph-ab{background-image:url(img/photo-office-hero.jpg);background-position:center 45%}
 .ph-qu{background-image:url(img/photo-garment.jpg)}
 .ph-bu{background-image:url(img/photo-sourcing.jpg)}
 .ph-sw{background-image:url(img/photo-sewing.jpg)}
