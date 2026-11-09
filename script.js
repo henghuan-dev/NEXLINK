@@ -275,6 +275,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 iframe.loading = 'lazy';
                 iframe.allowFullscreen = true;
                 mapContainer.appendChild(iframe);
+                // 座標指定の埋め込みには「マップで開く」が出ないため、リンクを自前で設置
+                const mapLink = document.createElement('a');
+                mapLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('麹町秋山ビルディング');
+                mapLink.target = '_blank';
+                mapLink.rel = 'noopener';
+                mapLink.textContent = 'Googleマップで開く ↗';
+                mapLink.style.cssText = 'display:inline-block;margin-top:12px;font-size:13px;letter-spacing:.06em;color:#16548A;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px;';
+                mapContainer.parentNode.appendChild(mapLink);
             }
 
             // GA4キーイベント：電話番号タップ
