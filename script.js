@@ -267,7 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // 会社概要：Googleマップ
             const mapContainer = document.getElementById('company-map-embed');
             if (mapContainer) {
-                const address = '麹町秋山ビルディング';
+                // 麹町秋山ビルディング（Googleマップで確認した座標。ピンが立つ）
+                const address = '35.6843458,139.7336171';
                 const iframe = document.createElement('iframe');
                 iframe.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(address) + '&hl=ja&z=17&ie=UTF8&iwloc=B&output=embed';
                 iframe.title = '株式会社NEXLINK 所在地の地図';
