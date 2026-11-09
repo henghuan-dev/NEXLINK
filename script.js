@@ -267,9 +267,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // 会社概要：Googleマップ
             const mapContainer = document.getElementById('company-map-embed');
             if (mapContainer) {
-                const address = '東京都千代田区麹町五丁目3番4号 麹町秋山ビルディング 8F';
+                const address = '麹町秋山ビルディング';
                 const iframe = document.createElement('iframe');
-                iframe.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(address) + '&t=&z=16&ie=UTF8&iwloc=B&output=embed';
+                iframe.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(address) + '&hl=ja&z=17&ie=UTF8&iwloc=B&output=embed';
                 iframe.title = '株式会社NEXLINK 所在地の地図';
                 iframe.loading = 'lazy';
                 iframe.allowFullscreen = true;
